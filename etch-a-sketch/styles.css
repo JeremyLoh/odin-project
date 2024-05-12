@@ -1,0 +1,49 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+
+#edit-grid-btn {
+  margin: 1rem;
+  padding: 1em;
+  font-size: 2rem;
+}
+
+.square {
+  /* https://stackoverflow.com/questions/29307971/css-grid-of-squares-with-flexbox */
+  aspect-ratio: 1 / 1;
+  border-top: 1mm solid black;
+  border-left: 1mm solid black;
+  border-bottom: 1mm solid black;
+  /* https://stackoverflow.com/questions/29546550/flexbox-4-items-per-row */
+  /* flex grow, flex shrink, flex basis */
+  flex: 1 0 calc(100%/16);
+  transition: background-color 200ms ease-in-out;
+}
+
+/* Removed as style will be added using javascript */
+/* https://stackoverflow.com/questions/46811502/prevent-double-borders-around-side-by-side-elements */
+/* Remove top border for each row after first row (duplicate 1mm top border) */
+/* .square:nth-child(n + 17) {
+  border-top: none;
+} */
+/* Add missing right border on last column, of each row */
+/* .square:nth-child(16n) {
+  border-right: 1mm solid black;
+} */
+
+.square-hover {
+  background-color: skyblue;
+}

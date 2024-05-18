@@ -1,0 +1,92 @@
+*, *::before, *:after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: monospace, Helvetica, Arial;
+  font-weight: bold;
+  line-height: 1.5;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+button {
+  border: none;
+}
+
+#calculator {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  background-color: rgb(28, 28, 28);
+  max-width: 500px;
+  border-radius: 1rem;
+}
+
+#symbols {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 1rem;
+  column-gap: 1rem;
+}
+
+.cell {
+  /* Account for column gap of 1rem, for 4 items in a row */
+  flex: 1 0 calc((100% - 3rem)/4);
+  aspect-ratio: 1/1;
+  border-radius: 100%;
+}
+
+/* https://css-tricks.com/ids-cannot-start-with-a-number/ */
+[id="0"] {
+  flex-basis: calc((100% - 3rem)/4 * 2);
+  border-radius: 4em;
+}
+
+.cell, [id="0"] {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(80, 80, 80);
+  color: white;
+  transition: filter 100ms ease-in-out;
+  font-size: 2rem;
+}
+
+.cell:hover, [id="0"]:hover {
+  filter: brightness(85%);
+}
+
+.operator, .negate, .divide-by-hundred, #equals {
+  color: white;
+  background: rgb(255, 149, 0);
+}
+
+#display {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  width: 100%;
+  min-height: 5rem;
+  padding: 0 1rem;
+  margin: 0 auto 1rem;
+  font-size: 2rem;
+  background-color: rgb(212, 212, 210);
+  border: 1mm solid black;
+}
+
+.disabled {
+  filter: brightness(55%);
+  pointer-events:none;
+}

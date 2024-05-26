@@ -1,0 +1,191 @@
+@font-face {
+  font-family: "norse-bold";
+  font-weight: bold;
+  src: url("./assets/fonts/Norse-Bold.otf") format("opentype");
+}
+
+:root {
+  --input-border-color: #E5E5EB;
+  --create-account-btn-color: #596D48;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+main {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  font-family: monospace, Helvetica, sans-serif, system-ui;
+}
+
+#project-background {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("./assets/images/background.avif");
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-width: 300px;
+  max-width: calc(100vw / 3);
+}
+
+#project-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: calc(100vh / 3 - 150px);
+  height: 150px;
+  padding: 1rem;
+  width: 100%;
+  color: white;
+  font-family: "norse-bold", monospace, Helvetica, sans-serif, system-ui;
+  font-size: calc(5rem + 2vh);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+#project-title img {
+  width: clamp(50px, 100%, 100px);
+  height: auto;
+}
+
+#background-photo-credit,
+#background-photo-credit a {
+  margin-top: auto;
+  color: white;
+  margin-bottom: 1rem;
+}
+
+#project-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  background-color: whitesmoke;
+  width: 100%;
+}
+
+#project-info form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  padding: 1rem 2rem;
+  margin: 1rem 0;
+  background-color: white;
+  box-shadow: 0px 5px 5px 0px rgba(0, 0, 0, 0.3);
+}
+
+#project-info form h2 {
+  width: 100%;
+}
+
+#disclaimer {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: calc(100vh/3);
+  padding: 2rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+#disclaimer p {
+  max-width: 70ch;
+}
+
+#form-title {
+  padding: 1rem 0;
+}
+
+.form-input-container {
+  display: flex;
+  flex-direction: column;
+  flex: 1 0 calc(50%);
+  padding: 1rem 1rem 1rem 0;
+}
+
+input {
+  font-size: 1.1rem;
+  padding: 5px;
+  width: 80%;
+  border: 0.6mm solid var(--input-border-color);
+}
+
+/*
+Prevent form input from being "invalid" during first load of page
+https://stackoverflow.com/questions/27021801/inputinvalid-css-rule-is-applied-on-page-load
+https://web.dev/articles/user-valid-and-user-invalid-pseudo-classes
+*/
+input:user-invalid {
+  border: 1mm solid red;
+}
+
+input:focus {
+  border: 1mm solid rgb(5, 144, 190);
+  outline: none;
+  box-shadow: 0px 5px 5px rgba(5, 144, 190, 0.4);
+}
+
+#create-account-btn {
+  width: 40%;
+  padding: 1rem;
+  margin-left: 2rem;
+  margin-top: 1rem;
+  border-radius: 1rem;
+  border: none;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background-color: var(--create-account-btn-color);
+  color: white;
+  transition: filter 100ms ease-in;
+}
+
+#create-account-btn:hover {
+  filter: brightness(70%);
+}
+
+.existing-account-text {
+  padding: 2rem;
+}
+
+#existing-login {
+  color: var(--create-account-btn-color);
+  font-weight: bold;
+}
+
+#existing-login:hover {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* To make media query work, we need to put them after all of our css */
+/* https://stackoverflow.com/questions/30706407/css-max-width-for-media-query-not-working */
+@media (max-width: 500px) {
+  main {
+    display: flex;
+    flex-direction: column;
+  }
+
+  #project-background {
+    width: 100%;
+    min-width: none;
+    max-width: none;
+  }
+
+  #project-title {
+    margin: 1rem 0;
+    font-size: 4rem;
+  }
+
+  #project-info {
+    height: 100%;
+  }
+
+  #disclaimer {
+    justify-content: center;
+    height: fit-content;
+  }
+}

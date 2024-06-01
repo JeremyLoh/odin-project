@@ -10,6 +10,7 @@ https://www.theodinproject.com/lessons/node-path-intermediate-html-and-css-admin
 # References / Resources used
 
 - Avatar Placeholder - https://avatar-placeholder.iran.liara.run/
+- Uploading single repository with multiple subfolders for Github Pages - https://github.com/orgs/community/discussions/58276
 
 # Step 1: Setup and planning
 1) Setup git repository

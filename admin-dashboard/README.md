@@ -7,6 +7,10 @@ Try to lean on CSS Grid for majority of the layout work
 
 https://www.theodinproject.com/lessons/node-path-intermediate-html-and-css-admin-dashboard
 
+# References / Resources used
+
+- Avatar Placeholder - https://avatar-placeholder.iran.liara.run/
+
 # Step 1: Setup and planning
 1) Setup git repository
 2) Setup HTML and CSS files with dummy content, to make sure that everything is linked correctly

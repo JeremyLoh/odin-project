@@ -233,3 +233,14 @@ svg {
   border-radius: 8px;
   gap: 1rem;
 }
+
+.trending-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.trending-item:hover {
+  opacity: 0.8;
+}

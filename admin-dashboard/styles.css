@@ -180,6 +180,7 @@ svg {
   background-color: white;
   padding: 1rem;
   border-radius: 8px;
+  border-left: 2mm solid var(--secondary-color);
 }
 
 .your-projects .card-title {
@@ -216,6 +217,10 @@ svg {
   font-size: 0.9rem;
 }
 
+.announcements > div:hover {
+  background-color: var(--main-bg-color);
+}
+
 .announcements > div:last-child {
   border-bottom: none;
 }
@@ -242,5 +247,5 @@ svg {
 }
 
 .trending-item:hover {
-  opacity: 0.8;
+  background-color: var(--main-bg-color);
 }

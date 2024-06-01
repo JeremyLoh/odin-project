@@ -40,6 +40,10 @@ svg {
   border-radius: 50%;
 }
 
+.small {
+  font-size: 0.9rem;
+}
+
 #sidebar {
   grid-area: sidebar;
   background-color: var(--primary-color);
@@ -119,6 +123,18 @@ svg {
   align-items: center;
   column-gap: 1rem;
   margin-left: 1rem;
+}
+
+.search-action-container a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.search-profile-greeting-container {
+  display: flex;
+  gap: 1rem;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 
 #main-content {

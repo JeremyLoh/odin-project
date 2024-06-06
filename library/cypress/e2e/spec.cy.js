@@ -3,16 +3,31 @@ describe('homepage', () => {
     cy.visit('./index.html')
   })
 
-  it('visits and clicks on create new book dialog button', () => {
+  it('should open form when click on create new book dialog button', () => {
     cy.get('form').should('not.be.visible')
     cy.contains('Create a New Book').click()
     cy.get('form').should('be.visible')
+  })
+
+  it('should close form when close button on form is clicked', () => {
+    cy.get('form').should('not.be.visible')
+    cy.contains('Create a New Book').click()
+    cy.get('form').should('be.visible')
+    cy.get('.close-dialog-btn').click()
+    cy.get('form').should('not.be.visible')
   })
 
   context('open form', () => {
     beforeEach(() => {
       cy.contains('Create a New Book').click()
     })
+
+    function enterValidBookInForm() {
+      cy.get('input[id="title"]').type('Title One')
+      cy.get('input[id="author"]').type('Author One')
+      cy.get('input[id="pages"]').type('123')
+      cy.get('input[id="no"]').click()
+    }
 
     it('should allow only number input in form for pages input', () => {
       cy.get('input[id="pages"]').type('b 12a')
@@ -36,6 +51,12 @@ describe('homepage', () => {
       cy.get('input[id="no"]').click()
       cy.get('input[id="no"]').should('be.checked')
       cy.get('input[id="yes"]').should('not.be.checked')
+    })
+
+    it('should submit form and close form', () => {
+      enterValidBookInForm()
+      cy.get('button[type="submit"]').click()
+      cy.get('form').should('not.be.visible')
     })
   })
 })

@@ -11,8 +11,10 @@ function Book(title, author, pages, read) {
 }
 
 function addBookToLibrary(book) {
-  // TODO validation, before adding it to myLibrary list
-  console.log(book)
+  if (book.title.trim() === "" || book.author.trim() === "") {
+    return
+  }
+  myLibrary.push(book)
 }
 
 function setup() {
@@ -25,9 +27,12 @@ function setup() {
   showDialogButton.addEventListener("click", () => {
     dialog.showModal()
   })
-  closeDialogButton.addEventListener("click", () => {
-    dialog.close()
-  })
+  closeDialogButton.addEventListener("click", closeForm)
+}
+
+function closeForm() {
+  const dialog = document.querySelector("#dialog")
+  dialog.close()
 }
 
 function handleFormSubmit(event, form) {
@@ -39,6 +44,7 @@ function handleFormSubmit(event, form) {
   const read = formData.get("read")
   const book = new Book(title, author, pages, read)
   addBookToLibrary(book)
+  closeForm()
 }
 
 setup()

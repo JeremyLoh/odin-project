@@ -58,5 +58,11 @@ describe('homepage', () => {
       cy.get('button[type="submit"]').click()
       cy.get('form').should('not.be.visible')
     })
+
+    it('should submit form and create a new book', () => {
+      enterValidBookInForm()
+      cy.get('button[type="submit"]').click()
+      cy.get(".book-card").should('be.visible')
+    })
   })
 })

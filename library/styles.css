@@ -2,3 +2,29 @@
   box-sizing: border-box;
 }
 
+body {
+  margin: 1rem;
+}
+
+#book-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+}
+
+.book-card {
+  display: flex;
+  flex-direction: column;
+  background-color: #bae6fd;
+  padding: 1rem;
+  border-radius: 8px;
+  border: 1mm solid #7dd3fc;
+}
+
+.book-card .title {
+  font-size: 1.2rem;
+}
+
+.book-card .pages, .book-card .read {
+  align-self: flex-end;
+  font-weight: bold;
+}

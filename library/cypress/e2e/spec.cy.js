@@ -86,5 +86,16 @@ describe('homepage', () => {
       cy.get('input[id="author"]').should('have.value', '')
       cy.get('input[id="pages"]').should('have.value', '')
     })
+
+    it('should create two books', () => {
+      enterValidBookInForm()
+      cy.get('button[type="submit"]').click()
+      cy.get('.book-card').should('have.length', 1)
+
+      openCreateBookDialog()
+      enterValidBookInForm()
+      cy.get('button[type="submit"]').click()
+      cy.get('.book-card').should('have.length', 2)
+    })
   })
 })

@@ -19,8 +19,12 @@ describe('homepage', () => {
 
   context('open form', () => {
     beforeEach(() => {
-      cy.contains('Create a New Book').click()
+      openCreateBookDialog()
     })
+
+    function openCreateBookDialog() {
+      cy.contains('Create a New Book').click()
+    }
 
     function enterValidBookInForm() {
       cy.get('input[id="title"]').type('Title One')
@@ -63,6 +67,24 @@ describe('homepage', () => {
       enterValidBookInForm()
       cy.get('button[type="submit"]').click()
       cy.get(".book-card").should('be.visible')
+    })
+
+    it('should clear form after submit', () => {
+      enterValidBookInForm()
+      cy.get('button[type="submit"]').click()
+      openCreateBookDialog()
+      cy.get('input[id="title"]').should('have.value', '')
+      cy.get('input[id="author"]').should('have.value', '')
+      cy.get('input[id="pages"]').should('have.value', '')
+    })
+
+    it('should clear form when closed', () => {
+      enterValidBookInForm()
+      cy.get('.close-dialog-btn').click()
+      openCreateBookDialog()
+      cy.get('input[id="title"]').should('have.value', '')
+      cy.get('input[id="author"]').should('have.value', '')
+      cy.get('input[id="pages"]').should('have.value', '')
     })
   })
 })

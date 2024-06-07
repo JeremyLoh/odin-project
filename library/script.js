@@ -20,12 +20,13 @@ function setup() {
   showDialogButton.addEventListener("click", () => {
     dialog.showModal()
   })
-  closeDialogButton.addEventListener("click", closeForm)
+  closeDialogButton.addEventListener("click", () => closeForm(form))
 }
 
-function closeForm() {
+function closeForm(form) {
   const dialog = document.querySelector("#dialog")
   dialog.close()
+  form.reset()
 }
 
 function handleFormSubmit(event, form) {
@@ -37,7 +38,7 @@ function handleFormSubmit(event, form) {
   const read = formData.get("read")
   const book = new Book(title, author, pages, read)
   addBookToLibrary(book)
-  closeForm()
+  closeForm(form)
 }
 
 function addBookToLibrary(book) {

@@ -51,14 +51,14 @@ function addBookToLibrary(book) {
 
 function renderLibraryBooks(books) {
   document.querySelectorAll(".book-card").forEach((e) => e.remove())
-  books.forEach((book) => {
-    const node = createBookElement(book)
+  books.forEach((book, index) => {
+    const node = createBookElement(book, index)
     const container = document.querySelector("#book-container")
     container.appendChild(node)
   })
 }
 
-function createBookElement(book) {
+function createBookElement(book, index) {
   const title = document.createElement("p")
   title.classList.add("title")
   title.textContent = book.title
@@ -71,13 +71,22 @@ function createBookElement(book) {
   const isRead = document.createElement("p")
   isRead.classList.add("read")
   isRead.textContent = book.read ? "Read" : "Not Read"
+  const deleteButton = document.createElement("button")
+  deleteButton.classList.add("delete")
+  deleteButton.textContent = "Remove"
   
   const bookElement = document.createElement("div")
+  bookElement.dataset.libraryIndex = index
   bookElement.classList.add("book-card")
   bookElement.appendChild(title)
   bookElement.appendChild(author)
   bookElement.appendChild(pages)
   bookElement.appendChild(isRead)
+  deleteButton.addEventListener("click", () => {
+    myLibrary.splice(index, 1)
+    bookElement.remove()
+  })
+  bookElement.appendChild(deleteButton)
   return bookElement
 }
 

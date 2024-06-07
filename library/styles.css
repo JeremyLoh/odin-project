@@ -17,7 +17,6 @@ body {
   background-color: #bae6fd;
   padding: 1rem;
   border-radius: 8px;
-  border: 1mm solid #7dd3fc;
 }
 
 .book-card .title {
@@ -27,4 +26,30 @@ body {
 .book-card .pages, .book-card .read {
   align-self: flex-end;
   font-weight: bold;
+}
+
+.book-card button.delete {
+  align-self: flex-end;
+  padding: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  color: white;
+  background-color: #dc2626;
+  border: none;
+}
+
+.book-card button.delete:hover {
+  background-color: #b91c1c;
+}
+
+.show-dialog-btn {
+  padding: 1rem;
+  margin: 1rem 0;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+}
+
+.show-dialog-btn:hover {
+   filter: brightness(0.9);
 }

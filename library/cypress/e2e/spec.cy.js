@@ -87,15 +87,37 @@ describe('homepage', () => {
       cy.get('input[id="pages"]').should('have.value', '')
     })
 
-    it('should create two books', () => {
-      enterValidBookInForm()
-      cy.get('button[type="submit"]').click()
-      cy.get('.book-card').should('have.length', 1)
+    context('create book(s)', () => {
+      it('should create two books', () => {
+        enterValidBookInForm()
+        cy.get('button[type="submit"]').click()
+        cy.get('.book-card').should('have.length', 1)
+  
+        openCreateBookDialog()
+        enterValidBookInForm()
+        cy.get('button[type="submit"]').click()
+        cy.get('.book-card').should('have.length', 2)
+      })
 
-      openCreateBookDialog()
-      enterValidBookInForm()
-      cy.get('button[type="submit"]').click()
-      cy.get('.book-card').should('have.length', 2)
+      it('should display delete button on created book', () => {
+        enterValidBookInForm()
+        cy.get('button[type="submit"]').click()
+        cy.get('.book-card').should('have.length', 1)
+        cy.get('.book-card button.delete').should('have.text', 'Remove')
+      })
+
+      it('should remove single book using delete button', () => {
+        enterValidBookInForm()
+        cy.get('button[type="submit"]').click()
+        cy.get('.book-card').should('have.length', 1)
+        cy.get('.book-card button.delete').click()
+        cy.get('.book-card').should('have.length', 0)
+
+        openCreateBookDialog()
+        enterValidBookInForm()
+        cy.get('button[type="submit"]').click()
+        cy.get('.book-card').should('have.length', 1)
+      })
     })
   })
 })

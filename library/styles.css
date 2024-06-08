@@ -4,12 +4,22 @@
 
 body {
   margin: 1rem;
+  line-height: 1.5;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
+  width: 70ch;
+  max-width: 100%;
 }
 
 #book-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, min(60ch, 100%));
   gap: 1rem;
+  width: 100%;
 }
 
 .book-card {
@@ -56,14 +66,27 @@ body {
   filter: brightness(0.9);
 }
 
-.show-dialog-btn {
+.show-dialog-btn, .close-dialog-btn, #new-book-btn {
   padding: 1rem;
   margin: 1rem 0;
   font-weight: bold;
   border-radius: 8px;
   border: none;
+  color: white;
 }
 
-.show-dialog-btn:hover {
+.show-dialog-btn:hover, .close-dialog-btn:hover, #new-book-btn:hover {
    filter: brightness(0.9);
+}
+
+.show-dialog-btn {
+  background-color: #57534e;
+}
+
+.close-dialog-btn {
+  background-color: #dc2626;
+}
+
+#new-book-btn {
+  background-color: #16a34a;
 }

@@ -1,15 +1,45 @@
+@font-face {
+  font-family: "love-letter";
+  src: url("./fonts/love-letter-tw.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
+}
+
+:root {
+  line-height: 1.5;
+  font-family: "love-letter", Helvetica, sans-serif, system-ui;
+}
+
+button {
+  font-family: inherit;
 }
 
 body {
   margin: 1rem;
 }
 
+dialog {
+  border-radius: 8px;
+  box-shadow: 0 20px 28px -5px #444;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.3rem;
+  width: 70ch;
+  max-width: 100%;
+}
+
 #book-container {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  grid-template-columns: repeat(auto-fit, min(60ch, 100%));
   gap: 1rem;
+  width: 100%;
 }
 
 .book-card {
@@ -27,13 +57,11 @@ body {
 
 .book-card .pages, .book-card .read {
   align-self: flex-end;
-  font-weight: bold;
 }
 
 .book-card button.delete {
   align-self: flex-end;
   padding: 1rem;
-  font-weight: bold;
   border-radius: 8px;
   color: white;
   background-color: #dc2626;
@@ -47,7 +75,6 @@ body {
 .book-card button.changeReadStatus {
   align-self: flex-end;
   padding: 1rem;
-  font-weight: bold;
   border-radius: 8px;
   border: none;
 }
@@ -56,14 +83,26 @@ body {
   filter: brightness(0.9);
 }
 
-.show-dialog-btn {
+.show-dialog-btn, .close-dialog-btn, #new-book-btn {
   padding: 1rem;
   margin: 1rem 0;
-  font-weight: bold;
   border-radius: 8px;
   border: none;
+  color: white;
 }
 
-.show-dialog-btn:hover {
+.show-dialog-btn:hover, .close-dialog-btn:hover, #new-book-btn:hover {
    filter: brightness(0.9);
+}
+
+.show-dialog-btn {
+  background-color: #57534e;
+}
+
+.close-dialog-btn {
+  background-color: #dc2626;
+}
+
+#new-book-btn {
+  background-color: #16a34a;
 }

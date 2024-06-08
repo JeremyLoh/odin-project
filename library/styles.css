@@ -9,6 +9,7 @@ body {
 #book-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 1rem;
 }
 
 .book-card {
@@ -16,6 +17,7 @@ body {
   flex-direction: column;
   background-color: #bae6fd;
   padding: 1rem;
+  row-gap: 0.5rem;
   border-radius: 8px;
 }
 
@@ -40,6 +42,18 @@ body {
 
 .book-card button.delete:hover {
   background-color: #b91c1c;
+}
+
+.book-card button.changeReadStatus {
+  align-self: flex-end;
+  padding: 1rem;
+  font-weight: bold;
+  border-radius: 8px;
+  border: none;
+}
+
+.book-card button.changeReadStatus:hover {
+  filter: brightness(0.9);
 }
 
 .show-dialog-btn {

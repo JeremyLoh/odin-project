@@ -70,7 +70,11 @@ function createBookElement(book, index) {
   pages.textContent = book.pages + " pages"
   const isRead = document.createElement("p")
   isRead.classList.add("read")
-  isRead.textContent = book.read ? "Read" : "Not Read"
+  isRead.textContent = book.read === "true" ? "Read" : "Not Read"
+
+  const changeReadStatusButton = document.createElement("button")
+  changeReadStatusButton.classList.add("changeReadStatus")
+  changeReadStatusButton.textContent = "Toggle Read Status"
   const deleteButton = document.createElement("button")
   deleteButton.classList.add("delete")
   deleteButton.textContent = "Remove"
@@ -87,6 +91,14 @@ function createBookElement(book, index) {
     bookElement.remove()
   })
   bookElement.appendChild(deleteButton)
+  changeReadStatusButton.addEventListener("click", () => {
+    myLibrary[index] = {
+      ...book,
+      "read": book.read === "true" ? "false" : "true"
+    }
+    renderLibraryBooks(myLibrary)
+  })
+  bookElement.appendChild(changeReadStatusButton)
   return bookElement
 }
 

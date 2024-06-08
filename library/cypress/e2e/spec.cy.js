@@ -26,7 +26,7 @@ describe('homepage', () => {
       cy.contains('Create a New Book').click()
     }
 
-    function enterValidBookInForm() {
+    function enterValidUnreadBookInForm() {
       cy.get('input[id="title"]').type('Title One')
       cy.get('input[id="author"]').type('Author One')
       cy.get('input[id="pages"]').type('123')
@@ -58,19 +58,19 @@ describe('homepage', () => {
     })
 
     it('should submit form and close form', () => {
-      enterValidBookInForm()
+      enterValidUnreadBookInForm()
       cy.get('button[type="submit"]').click()
       cy.get('form').should('not.be.visible')
     })
 
     it('should submit form and create a new book', () => {
-      enterValidBookInForm()
+      enterValidUnreadBookInForm()
       cy.get('button[type="submit"]').click()
       cy.get(".book-card").should('be.visible')
     })
 
     it('should clear form after submit', () => {
-      enterValidBookInForm()
+      enterValidUnreadBookInForm()
       cy.get('button[type="submit"]').click()
       openCreateBookDialog()
       cy.get('input[id="title"]').should('have.value', '')
@@ -79,7 +79,7 @@ describe('homepage', () => {
     })
 
     it('should clear form when closed', () => {
-      enterValidBookInForm()
+      enterValidUnreadBookInForm()
       cy.get('.close-dialog-btn').click()
       openCreateBookDialog()
       cy.get('input[id="title"]').should('have.value', '')
@@ -89,34 +89,43 @@ describe('homepage', () => {
 
     context('create book(s)', () => {
       it('should create two books', () => {
-        enterValidBookInForm()
+        enterValidUnreadBookInForm()
         cy.get('button[type="submit"]').click()
         cy.get('.book-card').should('have.length', 1)
   
         openCreateBookDialog()
-        enterValidBookInForm()
+        enterValidUnreadBookInForm()
         cy.get('button[type="submit"]').click()
         cy.get('.book-card').should('have.length', 2)
       })
 
       it('should display delete button on created book', () => {
-        enterValidBookInForm()
+        enterValidUnreadBookInForm()
         cy.get('button[type="submit"]').click()
         cy.get('.book-card').should('have.length', 1)
         cy.get('.book-card button.delete').should('have.text', 'Remove')
       })
 
       it('should remove single book using delete button', () => {
-        enterValidBookInForm()
+        enterValidUnreadBookInForm()
         cy.get('button[type="submit"]').click()
         cy.get('.book-card').should('have.length', 1)
         cy.get('.book-card button.delete').click()
         cy.get('.book-card').should('have.length', 0)
 
         openCreateBookDialog()
-        enterValidBookInForm()
+        enterValidUnreadBookInForm()
         cy.get('button[type="submit"]').click()
         cy.get('.book-card').should('have.length', 1)
+      })
+
+      it('should change read status of created book', () => {
+        enterValidUnreadBookInForm()
+        cy.get('button[type="submit"]').click()
+        cy.get('.book-card').should('have.length', 1)
+        cy.get('.book-card .read').should('have.text', 'Not Read')
+        cy.get('.book-card button.changeReadStatus').click()
+        cy.get('.book-card .read').should('have.text', 'Read')
       })
     })
   })

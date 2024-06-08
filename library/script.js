@@ -8,6 +8,9 @@ function Book(title, author, pages, read) {
   this.info = function() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${read ? 'read' : 'not read yet'}`
   }
+  this.toggleReadStatus = function() {
+    this.read = this.read === "true" ? "false" : "true"
+  }
 }
 
 function setup() {
@@ -92,10 +95,7 @@ function createBookElement(book, index) {
   })
   bookElement.appendChild(deleteButton)
   changeReadStatusButton.addEventListener("click", () => {
-    myLibrary[index] = {
-      ...book,
-      "read": book.read === "true" ? "false" : "true"
-    }
+    myLibrary[index].toggleReadStatus()
     renderLibraryBooks(myLibrary)
   })
   bookElement.appendChild(changeReadStatusButton)

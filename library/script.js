@@ -89,16 +89,16 @@ function createBookElement(book, index) {
   bookElement.appendChild(author)
   bookElement.appendChild(pages)
   bookElement.appendChild(isRead)
-  deleteButton.addEventListener("click", () => {
-    myLibrary.splice(index, 1)
-    bookElement.remove()
-  })
-  bookElement.appendChild(deleteButton)
   changeReadStatusButton.addEventListener("click", () => {
     myLibrary[index].toggleReadStatus()
     renderLibraryBooks(myLibrary)
   })
   bookElement.appendChild(changeReadStatusButton)
+  deleteButton.addEventListener("click", () => {
+    myLibrary.splice(index, 1)
+    bookElement.remove()
+  })
+  bookElement.appendChild(deleteButton)
   return bookElement
 }
 

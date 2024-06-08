@@ -1,10 +1,25 @@
+@font-face {
+  font-family: "love-letter";
+  src: url("./fonts/love-letter-tw.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
+:root {
+  line-height: 1.5;
+  font-family: "love-letter", Helvetica, sans-serif, system-ui;
+}
+
+button {
+  font-family: inherit;
+}
+
 body {
   margin: 1rem;
-  line-height: 1.5;
 }
 
 dialog {
@@ -42,13 +57,11 @@ form {
 
 .book-card .pages, .book-card .read {
   align-self: flex-end;
-  font-weight: bold;
 }
 
 .book-card button.delete {
   align-self: flex-end;
   padding: 1rem;
-  font-weight: bold;
   border-radius: 8px;
   color: white;
   background-color: #dc2626;
@@ -62,7 +75,6 @@ form {
 .book-card button.changeReadStatus {
   align-self: flex-end;
   padding: 1rem;
-  font-weight: bold;
   border-radius: 8px;
   border: none;
 }
@@ -74,7 +86,6 @@ form {
 .show-dialog-btn, .close-dialog-btn, #new-book-btn {
   padding: 1rem;
   margin: 1rem 0;
-  font-weight: bold;
   border-radius: 8px;
   border: none;
   color: white;

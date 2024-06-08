@@ -7,6 +7,11 @@ body {
   line-height: 1.5;
 }
 
+dialog {
+  border-radius: 8px;
+  box-shadow: 0 20px 28px -5px #444;
+}
+
 form {
   display: flex;
   flex-direction: column;

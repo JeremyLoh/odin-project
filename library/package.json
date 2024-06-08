@@ -1,0 +1,23 @@
+{
+  "name": "library",
+  "version": "1.0.0",
+  "description": "https://www.theodinproject.com/lessons/node-path-javascript-library",
+  "main": "script.js",
+  "scripts": {
+    "cy:open": "cypress open",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JeremyLoh/odin-project.git"
+  },
+  "author": "JeremyLoh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/JeremyLoh/odin-project/issues"
+  },
+  "homepage": "https://github.com/JeremyLoh/odin-project#readme",
+  "devDependencies": {
+    "cypress": "13.11.0"
+  }
+}

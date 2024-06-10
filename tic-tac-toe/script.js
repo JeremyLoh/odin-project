@@ -18,7 +18,8 @@ const GameBoard = (function(rows, columns) {
   const updateCellLabel = (row, column, label) => {
     board[row][column].setLabel(label)
   }
-  return { getBoard, updateCellLabel }
+  const isFreeCell = (row, column) => board[row][column].getLabel() === "-"
+  return { getBoard, updateCellLabel, isFreeCell }
 })(3, 3)
 
 const GameView = (function() {
@@ -70,8 +71,12 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
     const player = getCurrentPlayer()
     const row = getUserInput("Select a cell (row): ", "Please enter a valid number (1, 2, 3)") - 1
     const column = getUserInput("Select a cell (column): ", "Please enter a valid number (1, 2, 3)") - 1
-    GameBoard.updateCellLabel(row, column, player.label)
-    getNextPlayer()
+    if (GameBoard.isFreeCell(row, column)) {
+      GameBoard.updateCellLabel(row, column, player.label)
+      getNextPlayer()
+    } else {
+      alert("That cell is occupied! Please choose a free cell")
+    }
   }
   const getBoardView = () => GameView.getBoardDisplay(board)
   return { getCurrentPlayer, getNextPlayer, playRound, getBoardView }

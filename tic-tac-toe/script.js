@@ -57,10 +57,19 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
     currentPlayer = (currentPlayer + 1) % players.length
     return players[currentPlayer]
   }
+  const getUserInput = (promptInfo, errorInfo) => {
+    while (true) {
+      const value = parseInt(prompt(promptInfo))
+      if (Number.isInteger(value) && value >= 1 && value <= 3) {
+        return value
+      }
+      alert(errorInfo)
+    }
+  }
   const playRound = () => {
     const player = getCurrentPlayer()
-    const row = parseInt(prompt("Select a cell (row): "))
-    const column = parseInt(prompt("Select a cell (column): "))
+    const row = getUserInput("Select a cell (row): ", "Please enter a valid number (1, 2, 3)") - 1
+    const column = getUserInput("Select a cell (column): ", "Please enter a valid number (1, 2, 3)") - 1
     GameBoard.updateCellLabel(row, column, player.label)
     getNextPlayer()
   }

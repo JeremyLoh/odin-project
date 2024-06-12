@@ -19,7 +19,18 @@ const GameBoard = (function(rows, columns) {
     board[row][column].setLabel(label)
   }
   const isFreeCell = (row, column) => board[row][column].getLabel() === "-"
-  return { getBoard, updateCellLabel, isFreeCell }
+  const transpose = (board) => {
+    // board[0] to iterate over the columns https://stackoverflow.com/a/46805290
+    return board[0].map((_, columnIndex) => board.map((row) => row[columnIndex]))
+  }
+  const isWinState = (label) => {
+    const isRowWinState = board.some((row) => row.every(v => v.getLabel() === label))
+    const isColumnWinState = transpose(board).some((column) => column.every(v => v.getLabel() === label))
+    const isDiagonalWinState = [0, 1, 2].every((i) => board[i][i].getLabel() === label) || [0, 1, 2].every((r) => board[r][2-r].getLabel() === label)
+    return isRowWinState || isColumnWinState || isDiagonalWinState
+  }
+  const isTieState = () => board.every((row) => row.every((cell) => cell.getLabel() !== "-"))
+  return { getBoard, updateCellLabel, isFreeCell, isWinState, isTieState }
 })(3, 3)
 
 const GameView = (function() {
@@ -67,23 +78,46 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
       alert(errorInfo)
     }
   }
+  const getBoardView = () => GameView.getBoardDisplay(board)
   const playRound = () => {
     const player = getCurrentPlayer()
+    if (isGameOver()) {
+      return
+    }
     const row = getUserInput("Select a cell (row): ", "Please enter a valid number (1, 2, 3)") - 1
     const column = getUserInput("Select a cell (column): ", "Please enter a valid number (1, 2, 3)") - 1
     if (GameBoard.isFreeCell(row, column)) {
       GameBoard.updateCellLabel(row, column, player.label)
-      getNextPlayer()
     } else {
       alert("That cell is occupied! Please choose a free cell")
+      return
+    }
+    if (isGameOver()) {
+      return
+    }
+    getNextPlayer()
+  }
+  const getWinner = () => {
+    const currentPlayer = getCurrentPlayer()
+    if (GameBoard.isWinState(currentPlayer.label)) {
+      return currentPlayer.name
+    }
+    if (GameBoard.isTieState()) {
+      return "Tie"
     }
   }
-  const getBoardView = () => GameView.getBoardDisplay(board)
-  return { getCurrentPlayer, getNextPlayer, playRound, getBoardView }
+  const isGameOver = () => {
+    return GameBoard.isWinState(getCurrentPlayer().label) || GameBoard.isTieState()
+  }
+  // TODO have way to reset game
+  return { getCurrentPlayer, getBoardView, playRound, getWinner, isGameOver }
 })()
 
-// TEST
-GameController.playRound()
-console.log(GameController.getBoardView())
-GameController.playRound()
-console.log(GameController.getBoardView())
+
+function testGame() {
+  while (!GameController.isGameOver()) {
+    GameController.playRound()
+    console.log(GameController.getBoardView())
+  }
+  console.log(`The winner is Player ${GameController.getWinner()}`)
+}

@@ -30,7 +30,8 @@ const GameBoard = (function(rows, columns) {
     return isRowWinState || isColumnWinState || isDiagonalWinState
   }
   const isTieState = () => board.every((row) => row.every((cell) => cell.getLabel() !== "-"))
-  return { getBoard, updateCellLabel, isFreeCell, isWinState, isTieState }
+  const reset = () => board.forEach((row) => row.forEach((cell) => cell.setLabel("-")))
+  return { getBoard, updateCellLabel, isFreeCell, isWinState, isTieState, reset }
 })(3, 3)
 
 const GameView = (function() {
@@ -109,8 +110,11 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
   const isGameOver = () => {
     return GameBoard.isWinState(getCurrentPlayer().label) || GameBoard.isTieState()
   }
-  // TODO have way to reset game
-  return { getCurrentPlayer, getBoardView, playRound, getWinner, isGameOver }
+  const resetGame = () => {
+    GameBoard.reset()
+    currentPlayer = 0
+  }
+  return { getCurrentPlayer, getBoardView, playRound, getWinner, isGameOver, resetGame }
 })()
 
 
@@ -120,4 +124,5 @@ function testGame() {
     console.log(GameController.getBoardView())
   }
   console.log(`The winner is Player ${GameController.getWinner()}`)
+  GameController.resetGame()
 }

@@ -35,7 +35,15 @@ const GameBoard = (function(rows, columns) {
 })(3, 3)
 
 const GameView = (function() {
-  const getBoardDisplay = (board) => {
+  const renderBoard = (board) => {
+    board.forEach((row, rowIndex) => {
+      row.forEach((cell, columnIndex) => {
+        const element = document.querySelector(`.cell[data-row="${rowIndex + 1}"][data-column="${columnIndex + 1}"]`)
+        element.textContent = cell.getLabel()
+      })
+    })
+  }
+  const log = (board) => {
     let text = ""
     board.forEach((row, index) => {
       const [first, second, third] = row
@@ -49,7 +57,7 @@ const GameView = (function() {
     })
     return text
   }
-  return { getBoardDisplay }
+  return { renderBoard, log }
 })()
 
 const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
@@ -79,7 +87,7 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
       alert(errorInfo)
     }
   }
-  const getBoardView = () => GameView.getBoardDisplay(board)
+  const renderBoard = () => GameView.renderBoard(board)
   const playRound = () => {
     const player = getCurrentPlayer()
     if (isGameOver()) {
@@ -114,14 +122,15 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
     GameBoard.reset()
     currentPlayer = 0
   }
-  return { getCurrentPlayer, getBoardView, playRound, getWinner, isGameOver, resetGame }
+  return { getCurrentPlayer, renderBoard, playRound, getWinner, isGameOver, resetGame }
 })()
 
 
 function testGame() {
   while (!GameController.isGameOver()) {
+    // TODO convert the user input to clicking on html element. prompt will prevent refresh until end of game
     GameController.playRound()
-    console.log(GameController.getBoardView())
+    GameController.renderBoard()
   }
   console.log(`The winner is Player ${GameController.getWinner()}`)
   GameController.resetGame()

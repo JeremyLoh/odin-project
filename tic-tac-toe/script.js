@@ -43,6 +43,15 @@ const GameView = (function() {
     const {row, column} = event.target.dataset
     GameController.playRound(parseInt(row), parseInt(column))
     renderBoard(GameController.getBoard())
+    if (GameController.isGameOver()) {
+      const result = GameController.getGameResult()
+      updateGameResult(result)
+    }
+  }
+  const updateGameResult = (gameResult) => {
+    const element = document.querySelector("#game-result-text")
+    element.textContent = `Game Result: ${gameResult}`
+    element.classList.toggle("show")
   }
   const renderBoard = (board) => {
     board.forEach((row, rowIndex) => {
@@ -85,15 +94,14 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
       return
     }
     if (isGameOver()) {
-      console.log(`The winner is Player ${getWinner()}`)
       return
     }
     getNextPlayer()
   }
-  const getWinner = () => {
+  const getGameResult = () => {
     const currentPlayer = getCurrentPlayer()
     if (GameBoard.isWinState(currentPlayer.label)) {
-      return currentPlayer.name
+      return `Player ${currentPlayer.name} Wins`
     }
     if (GameBoard.isTieState()) {
       return "Tie"
@@ -107,5 +115,5 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
     currentPlayer = 0
   }
   const getBoard = () => board
-  return { getCurrentPlayer, playRound, getWinner, isGameOver, resetGame, getBoard }
+  return { getCurrentPlayer, playRound, getGameResult, isGameOver, resetGame, getBoard }
 })()

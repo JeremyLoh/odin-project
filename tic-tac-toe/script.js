@@ -48,6 +48,9 @@ const GameView = (function() {
     clickBoardHandler(event)
   }))
   const clickBoardHandler = (event) => {
+    if (GameController.isGameOver()) {
+      return
+    }
     const {row, column} = event.target.dataset
     GameController.playRound(parseInt(row), parseInt(column))
     renderBoard(GameController.getBoard())

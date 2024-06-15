@@ -56,6 +56,22 @@ const BookView = (function() {
     })
   }
   function createBookElement(book, index) {
+    const bookElement = document.createElement("div")
+    bookElement.dataset.libraryIndex = index
+    bookElement.classList.add("book-card")
+    const {
+      title,
+      author,
+      pages,
+      isRead,
+      changeReadStatusButton,
+      deleteButton
+    } = createSubElements(book, index, bookElement)
+    bookElement.append(title, author, pages, isRead, changeReadStatusButton)
+    bookElement.appendChild(deleteButton)
+    return bookElement
+  }
+  function createSubElements(book, index, bookElement) {
     const title = document.createElement("p")
     title.classList.add("title")
     title.textContent = book.title
@@ -68,23 +84,13 @@ const BookView = (function() {
     const isRead = document.createElement("p")
     isRead.classList.add("read")
     isRead.textContent = book.read === "true" ? "Read" : "Not Read"
-    
     const changeReadStatusButton = document.createElement("button")
     changeReadStatusButton.classList.add("changeReadStatus")
     changeReadStatusButton.textContent = "Toggle Read Status"
     changeReadStatusButton.addEventListener("click", () => {
       Library.toggleBookReadAtIndex(index)
-      BookView.renderBooks(Library.getBooks())
+      renderBooks(Library.getBooks())
     })
-    
-    const bookElement = document.createElement("div")
-    bookElement.dataset.libraryIndex = index
-    bookElement.classList.add("book-card")
-    bookElement.appendChild(title)
-    bookElement.appendChild(author)
-    bookElement.appendChild(pages)
-    bookElement.appendChild(isRead)
-    bookElement.appendChild(changeReadStatusButton)
     const deleteButton = document.createElement("button")
     deleteButton.classList.add("delete")
     deleteButton.textContent = "Remove"
@@ -92,8 +98,7 @@ const BookView = (function() {
       Library.removeAtIndex(index)
       bookElement.remove()
     })
-    bookElement.appendChild(deleteButton)
-    return bookElement
+    return {title, author, pages, isRead, changeReadStatusButton, deleteButton}
   }
   return { setup, closeForm, renderBooks }
 })()

@@ -10,7 +10,7 @@ const GameBoard = (function(rows, columns) {
   for (let r = 0; r < rows; r++) {
     const row = []
     for (let c = 0; c < columns; c++) {
-      row.push(new Cell("-"))
+      row.push(new Cell(""))
     }
     board.push(row)
   }
@@ -18,7 +18,7 @@ const GameBoard = (function(rows, columns) {
   const updateCellLabel = (row, column, label) => {
     board[row][column].setLabel(label)
   }
-  const isFreeCell = (row, column) => board[row][column].getLabel() === "-"
+  const isFreeCell = (row, column) => board[row][column].getLabel() === ""
   const transpose = (board) => {
     // board[0] to iterate over the columns https://stackoverflow.com/a/46805290
     return board[0].map((_, columnIndex) => board.map((row) => row[columnIndex]))
@@ -29,16 +29,25 @@ const GameBoard = (function(rows, columns) {
     const isDiagonalWinState = [0, 1, 2].every((i) => board[i][i].getLabel() === label) || [0, 1, 2].every((r) => board[r][2-r].getLabel() === label)
     return isRowWinState || isColumnWinState || isDiagonalWinState
   }
-  const isTieState = () => board.every((row) => row.every((cell) => cell.getLabel() !== "-"))
-  const reset = () => board.forEach((row) => row.forEach((cell) => cell.setLabel("-")))
+  const isTieState = () => board.every((row) => row.every((cell) => cell.getLabel() !== ""))
+  const reset = () => board.forEach((row) => row.forEach((cell) => cell.setLabel("")))
   return { getBoard, updateCellLabel, isFreeCell, isWinState, isTieState, reset }
 })(3, 3)
 
 const GameView = (function() {
+  const cells = document.querySelectorAll(".cell")
+  cells.forEach((cell) => cell.addEventListener("click", (event) => {
+    clickBoardHandler(event)
+  }))
+  const clickBoardHandler = (event) => {
+    const {row, column} = event.target.dataset
+    GameController.playRound(parseInt(row), parseInt(column))
+    renderBoard(GameController.getBoard())
+  }
   const renderBoard = (board) => {
     board.forEach((row, rowIndex) => {
       row.forEach((cell, columnIndex) => {
-        const element = document.querySelector(`.cell[data-row="${rowIndex + 1}"][data-column="${columnIndex + 1}"]`)
+        const element = document.querySelector(`.cell[data-row="${rowIndex}"][data-column="${columnIndex}"]`)
         element.textContent = cell.getLabel()
       })
     })
@@ -78,23 +87,11 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
     currentPlayer = (currentPlayer + 1) % players.length
     return players[currentPlayer]
   }
-  const getUserInput = (promptInfo, errorInfo) => {
-    while (true) {
-      const value = parseInt(prompt(promptInfo))
-      if (Number.isInteger(value) && value >= 1 && value <= 3) {
-        return value
-      }
-      alert(errorInfo)
-    }
-  }
-  const renderBoard = () => GameView.renderBoard(board)
-  const playRound = () => {
+  const playRound = (row, column) => {
     const player = getCurrentPlayer()
     if (isGameOver()) {
       return
     }
-    const row = getUserInput("Select a cell (row): ", "Please enter a valid number (1, 2, 3)") - 1
-    const column = getUserInput("Select a cell (column): ", "Please enter a valid number (1, 2, 3)") - 1
     if (GameBoard.isFreeCell(row, column)) {
       GameBoard.updateCellLabel(row, column, player.label)
     } else {
@@ -122,7 +119,8 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
     GameBoard.reset()
     currentPlayer = 0
   }
-  return { getCurrentPlayer, renderBoard, playRound, getWinner, isGameOver, resetGame }
+  const getBoard = () => board
+  return { getCurrentPlayer, playRound, getWinner, isGameOver, resetGame, getBoard }
 })()
 
 
@@ -130,7 +128,7 @@ function testGame() {
   while (!GameController.isGameOver()) {
     // TODO convert the user input to clicking on html element. prompt will prevent refresh until end of game
     GameController.playRound()
-    GameController.renderBoard()
+    GameView.renderBoard()
   }
   console.log(`The winner is Player ${GameController.getWinner()}`)
   GameController.resetGame()

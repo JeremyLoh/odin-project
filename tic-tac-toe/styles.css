@@ -24,6 +24,11 @@ main {
   width: 100%;
   border: 1mm solid black;
   font-size: 2rem;
+  background-color: white;
+}
+
+.cell:hover {
+  filter: brightness(0.9);
 }
 
 .cell:nth-child(n) {

@@ -52,21 +52,7 @@ const GameView = (function() {
       })
     })
   }
-  const log = (board) => {
-    let text = ""
-    board.forEach((row, index) => {
-      const [first, second, third] = row
-      text += "|‾‾‾‾‾|‾‾‾‾‾|‾‾‾‾‾|\n"
-      text += `|  ${first.getLabel()}  |  ${second.getLabel()}  |  ${third.getLabel()}  |\n`
-      if (index != 2) {
-        text += "|     |     |     |\n"
-      } else {
-        text += "|_____|_____|_____|\n"
-      }
-    })
-    return text
-  }
-  return { renderBoard, log }
+  return { renderBoard }
 })()
 
 const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
@@ -99,6 +85,7 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
       return
     }
     if (isGameOver()) {
+      console.log(`The winner is Player ${getWinner()}`)
       return
     }
     getNextPlayer()
@@ -122,14 +109,3 @@ const GameController = (function(playerOneName = "One", playerTwoName = "Two") {
   const getBoard = () => board
   return { getCurrentPlayer, playRound, getWinner, isGameOver, resetGame, getBoard }
 })()
-
-
-function testGame() {
-  while (!GameController.isGameOver()) {
-    // TODO convert the user input to clicking on html element. prompt will prevent refresh until end of game
-    GameController.playRound()
-    GameView.renderBoard()
-  }
-  console.log(`The winner is Player ${GameController.getWinner()}`)
-  GameController.resetGame()
-}

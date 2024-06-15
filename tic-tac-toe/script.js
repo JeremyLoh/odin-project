@@ -26,7 +26,8 @@ const GameBoard = (function(rows, columns) {
   const isWinState = (label) => {
     const isRowWinState = board.some((row) => row.every(v => v.getLabel() === label))
     const isColumnWinState = transpose(board).some((column) => column.every(v => v.getLabel() === label))
-    const isDiagonalWinState = [0, 1, 2].every((i) => board[i][i].getLabel() === label) || [0, 1, 2].every((r) => board[r][2-r].getLabel() === label)
+    const isDiagonalWinState = [0, 1, 2].every((i) => board[i][i].getLabel() === label) ||
+      [0, 1, 2].every((r) => board[r][2-r].getLabel() === label)
     return isRowWinState || isColumnWinState || isDiagonalWinState
   }
   const isTieState = () => board.every((row) => row.every((cell) => cell.getLabel() !== ""))
@@ -35,6 +36,13 @@ const GameBoard = (function(rows, columns) {
 })(3, 3)
 
 const GameView = (function() {
+  const restartButton = document.querySelector("button#restart-game-btn")
+  restartButton.addEventListener("click", (event) => {
+    GameController.resetGame()
+    updateGameResultText("")
+    renderBoard(GameController.getBoard())
+  })
+
   const cells = document.querySelectorAll(".cell")
   cells.forEach((cell) => cell.addEventListener("click", (event) => {
     clickBoardHandler(event)
@@ -45,12 +53,12 @@ const GameView = (function() {
     renderBoard(GameController.getBoard())
     if (GameController.isGameOver()) {
       const result = GameController.getGameResult()
-      updateGameResult(result)
+      updateGameResultText(`Game Result: ${result}`)
     }
   }
-  const updateGameResult = (gameResult) => {
+  const updateGameResultText = (gameResult) => {
     const element = document.querySelector("#game-result-text")
-    element.textContent = `Game Result: ${gameResult}`
+    element.textContent = gameResult
     element.classList.toggle("show")
   }
   const renderBoard = (board) => {

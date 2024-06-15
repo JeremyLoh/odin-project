@@ -2,6 +2,13 @@
   box-sizing: border-box;
 }
 
+:root {
+  --board-bg-color: #44403c;
+  --board-grid-line-color: #a8a29e;
+  --board-text-color: #fafaf9;
+  font-family: monospace, Helvetica, system-ui;
+}
+
 main {
   width: 100%;
   min-height: 100vh;
@@ -30,8 +37,9 @@ main {
 }
 
 #game-result-text {
-  font-size: 1.4rem;
-  height: 1.4rem;
+  font-size: calc(1rem + 0.2vw);
+  height: calc(1rem + 0.2vw);
+  font-weight: bold;
 }
 
 #game-result-text.show {
@@ -54,9 +62,10 @@ main {
   align-items: center;
   aspect-ratio: 1;
   width: 100%;
-  border: 1mm solid black;
-  font-size: 2rem;
-  background-color: white;
+  border: 1mm solid var(--board-grid-line-color);
+  background-color: var(--board-bg-color);
+  color: var(--board-text-color);
+  font-size: calc(1.5rem + 8vw);
 }
 
 .cell:hover {
@@ -69,9 +78,9 @@ main {
 }
 
 .cell:nth-child(3n) {
-  border-right: 1mm solid black;
+  border-right: 1mm solid var(--board-grid-line-color);
 }
 
 .cell:nth-child(n + 7) {
-  border-bottom: 1mm solid black;
+  border-bottom: 1mm solid var(--board-grid-line-color);
 }

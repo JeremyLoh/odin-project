@@ -1,14 +1,33 @@
-const myLibrary = []
+class Library {
+  static books = []
+  static addBook(book) {
+    if (book.title.trim() === "" || book.author.trim() === "") {
+      return
+    }
+    Library.books.push(book)
+  }
+  static getBooks() {
+    return Library.books
+  }
+  static removeAtIndex(index) {
+    Library.books.splice(index, 1)
+  }
+  static toggleBookReadAtIndex(index) {
+    Library.books[index].toggleReadStatus()
+  }
+}
 
-function Book(title, author, pages, read) {
-  this.title = title
-  this.author = author
-  this.pages = pages
-  this.read = read
-  this.info = function() {
+class Book {
+  constructor(title, author, pages, read) {
+    this.title = title
+    this.author = author
+    this.pages = pages
+    this.read = read
+  }
+  info() {
     return `${this.title} by ${this.author}, ${this.pages} pages, ${read ? 'read' : 'not read yet'}`
   }
-  this.toggleReadStatus = function() {
+  toggleReadStatus() {
     this.read = this.read === "true" ? "false" : "true"
   }
 }
@@ -40,16 +59,9 @@ function handleFormSubmit(event, form) {
   const pages = formData.get("pages")
   const read = formData.get("read")
   const book = new Book(title, author, pages, read)
-  addBookToLibrary(book)
+  Library.addBook(book)
+  renderLibraryBooks(Library.getBooks())
   closeForm(form)
-}
-
-function addBookToLibrary(book) {
-  if (book.title.trim() === "" || book.author.trim() === "") {
-    return
-  }
-  myLibrary.push(book)
-  renderLibraryBooks(myLibrary)
 }
 
 function renderLibraryBooks(books) {
@@ -90,12 +102,12 @@ function createBookElement(book, index) {
   bookElement.appendChild(pages)
   bookElement.appendChild(isRead)
   changeReadStatusButton.addEventListener("click", () => {
-    myLibrary[index].toggleReadStatus()
-    renderLibraryBooks(myLibrary)
+    Library.toggleBookReadAtIndex(index)
+    renderLibraryBooks(Library.getBooks())
   })
   bookElement.appendChild(changeReadStatusButton)
   deleteButton.addEventListener("click", () => {
-    myLibrary.splice(index, 1)
+    Library.removeAtIndex(index)
     bookElement.remove()
   })
   bookElement.appendChild(deleteButton)

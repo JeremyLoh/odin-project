@@ -15,9 +15,27 @@ main {
   margin: 1rem;
 }
 
+#restart-game-btn {
+  padding: 1rem;
+  font-weight: bold;
+  background-color: #dc2626;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0px 6px 8px -5px #444;
+}
+
+#restart-game-btn:hover {
+  filter: brightness(0.9);
+}
+
+#game-result-text {
+  font-size: 1.4rem;
+  height: 1.4rem;
+}
+
 #game-result-text.show {
   display: block;
-  font-size: 1.4rem;
   font-weight: bold;
 }
 

@@ -1,0 +1,13 @@
+{
+  "name": "restaurant",
+  "version": "1.0.0",
+  "description": "Continue practicing DOM manipulation by dynamically rendering a restaurant homepage. By the end, we are going to be using JavaScript alone to generate the entire contents of the website",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jeremy Loh",
+  "license": "ISC"
+}

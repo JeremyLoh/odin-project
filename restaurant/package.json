@@ -9,5 +9,9 @@
   },
   "keywords": [],
   "author": "Jeremy Loh",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "webpack": "5.92.0",
+    "webpack-cli": "5.1.4"
+  }
 }

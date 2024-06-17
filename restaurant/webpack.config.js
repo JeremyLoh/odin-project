@@ -8,6 +8,14 @@ module.exports = {
     path: path.resolve(__dirname, "dist"),
     filename: "index_bundle.js",
   },
+  module: {
+    rules: [
+      {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: "asset/resource",
+      },
+    ],
+  },
   plugins: [
     new HtmlWebpackPlugin({
       title: "Restaurant",

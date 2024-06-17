@@ -5,7 +5,8 @@ export function setup(contentContainer) {
   contentContainer.append(setupHero(),
     setupLocation(),
     setupHours(),
-    setupMenu()
+    setupMenu(),
+    setupTestimonial(),
   )
 }
 
@@ -55,6 +56,30 @@ function setupMenu() {
   others.classList.add("bold")
   const othersList = createListElement(["Hojicha Latte", "Matcha Latte", "Lemonade"])
   card.append(cardTitle, coffee, coffeeList, others, othersList)
+  return card
+}
+
+function setupTestimonial() {
+  const card = createCardElement()
+  const cardTitle = createCardTitleElement("Testimonial")
+  const testimonial = document.createElement("div")
+  testimonial.classList.add("testimonial")
+  
+  const testimonialTitle = document.createElement("p")
+  testimonialTitle.classList.add("testimonial-title")
+  testimonialTitle.textContent = "Want the best coffee? Get it here!"
+  
+  const testimonialDescription = document.createElement("p")
+  testimonialDescription.classList.add("testimonial-description")
+  testimonialDescription.textContent = "Jeremy's Coffee House has been on my radar for a while. " +
+    "I was impressed with the quality of coffee I received!"
+  
+  const testimonialName = document.createElement("p")
+  testimonialName.classList.add("testimonial-name")
+  testimonialName.textContent = "@abc"
+  
+  testimonial.append(testimonialTitle, testimonialDescription, testimonialName)
+  card.append(cardTitle, testimonial)
   return card
 }
 

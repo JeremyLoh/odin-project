@@ -45,3 +45,7 @@ We can make a ".gitignore" file in the root of the project, and by writing file 
             Now each time you need to update your project's live preview, you can do `npm run <your script name>` in the project's terminal
             e.g. Short tutorial video on [npm scripts](https://www.youtube.com/watch?v=REdzp64dijs)
     2) Recall that the **source branch** for GitHub Pages is set in your repository's settings
+
+# References
+
+- Loading Images with Webpack - https://webpack.js.org/guides/asset-management/#loading-images

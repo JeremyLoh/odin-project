@@ -2,7 +2,126 @@
   box-sizing: border-box;
 }
 
+:root {
+  --content-bg-color: #e7e5e4;
+  --nav-btn-color: #e7e5e4;
+  --header-bg-color: #57534e;
+  --footer-bg-color: #57534e;
+  font-family: monospace, sans-serif, system-ui;
+  line-height: 1.5;
+}
+
+button {
+  font-family: inherit;
+}
+
 body {
   margin: 0;
   padding: 0;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+header {
+  display: flex;
+  justify-content: center;
+  background-color: var(--header-bg-color);
+}
+
+nav {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 8px;
+}
+
+nav button {
+  padding: 1rem;
+  background-color: var(--nav-btn-color);
+  border: none;
+  border-radius: 8px 8px 0 0;
+  font-size: 1.1rem;
+}
+
+nav button:hover {
+  filter: brightness(0.8);
+}
+
+#content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+#hero, .card, nav {
+  width: min(80ch, 80%);
+}
+
+#hero {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-end;
+  padding: 0 calc(1rem + 1vw);
+  background-color: var(--content-bg-color);
+}
+
+#hero .coffee-cup-img {
+  align-self: center;
+  aspect-ratio: 1/1;
+  height: calc(200px + 2vw);
+  width: auto;
+}
+
+.card {
+  background-color: var(--content-bg-color);
+  padding: 0 calc(1rem + 1vw);
+}
+
+.card:hover {
+  transform: scale(1.01) perspective(0px);
+  box-shadow: 0px 0px 3px #444;
+}
+
+.card-title {
+  font-weight: bold;
+  text-align: center;
+}
+
+.card ul {
+  padding-left: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-start;
+}
+
+.card li {
+  list-style-type: none;
+}
+
+.testimonial-title {
+  font-weight: bold;
+}
+
+.testimonial-name::before {
+  content: "— "
+}
+
+footer {
+  display: flex;
+  font-size: calc(0.8rem + 0.1vw);
+  justify-content: space-around;
+  background-color: var(--footer-bg-color);
+  color: white;
+}
+
+footer a {
+  color: white;
 }

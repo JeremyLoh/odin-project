@@ -1,7 +1,9 @@
-import HeroImg from "./assets/images/hero.jpeg"
-import BackgroundImg from "./assets/images/background.jpeg"
+import coffeeCupImg from "./assets/images/coffee-cup.png"
+import backgroundImg from "./assets/images/background.jpeg"
 
 export function setup(contentContainer) {
+  contentContainer.style.backgroundImage = `url(${backgroundImg})`
+  contentContainer.style.backgroundSize = "contain"
   contentContainer.append(setupHero(),
     setupLocation(),
     setupHours(),
@@ -13,16 +15,14 @@ export function setup(contentContainer) {
 function setupHero() {
   const container = document.createElement("div")
   container.id = "hero"
-  container.style.backgroundImage = `url(${BackgroundImg})`
-  container.style.backgroundSize = "contain"
   const header = document.createElement("h1")
   header.textContent = "Jeremy's Coffee House"
   const h2 = document.createElement("h2")
   h2.textContent = "Look at what you made me brew!"
-  const heroImg = new Image(500, 500)
-  heroImg.src = HeroImg
-  heroImg.classList.add("hero-img")
-  container.append(header, h2, heroImg)
+  const coffeeCup = new Image(100, 100)
+  coffeeCup.src = coffeeCupImg
+  coffeeCup.classList.add("coffee-cup-img")
+  container.append(header, h2, coffeeCup)
   return container
 }
 
@@ -31,6 +31,7 @@ function setupLocation() {
   const cardTitle = createCardTitleElement("Location")
   const location = document.createElement("p")
   location.textContent = "123 Coffee Street, Singapore 123456"
+  location.classList.add("text-center")
   card.append(cardTitle, location)
   return card
 }
@@ -38,7 +39,7 @@ function setupLocation() {
 function setupHours() {
   const card = createCardElement()
   const cardTitle = createCardTitleElement("Hours")
-  const ul = createListElement(["Monday to Friday: 7am - 5pm", "Saturday: 8am - 6pm", "Sunday: 8am - 4pm"])
+  const ul = createListElement(["Monday to Friday", "7am — 5pm", "Saturday", "8am — 6pm", "Sunday", "8am — 4pm"])
   card.append(cardTitle, ul)
   return card
 }
@@ -48,12 +49,12 @@ function setupMenu() {
   const cardTitle = createCardTitleElement("Menu")
   const coffee = document.createElement("p")
   coffee.textContent = "Coffee"
-  coffee.classList.add("bold")
+  coffee.classList.add("bold", "text-center")
   const coffeeList = createListElement(["Espresso", "Caffe Latte", "Americano", "Macchiato", "Cappuccino"])
   
   const others = document.createElement("p")
   others.textContent = "Others"
-  others.classList.add("bold")
+  others.classList.add("bold", "text-center")
   const othersList = createListElement(["Hojicha Latte", "Matcha Latte", "Lemonade"])
   card.append(cardTitle, coffee, coffeeList, others, othersList)
   return card

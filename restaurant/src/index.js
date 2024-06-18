@@ -16,8 +16,6 @@ function setup() {
 
 function setupNavigation() {
   const navButtons = document.querySelectorAll("header nav button")
-  console.log(navButtons)
-  console.log(navButtons[1].textContent)
   navButtons.forEach((element) => {
     element.addEventListener("click", () => {
       clearTabContent()

@@ -1,5 +1,5 @@
 import "./style.css"
-import { setup } from "./page"
+import { setup } from "./pages/home"
 
 const contentContainer = document.querySelector("#content")
 setup(contentContainer)

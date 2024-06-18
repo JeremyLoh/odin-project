@@ -1,5 +1,5 @@
-import coffeeCupImg from "./assets/images/coffee-cup.png"
-import backgroundImg from "./assets/images/background.jpeg"
+import coffeeCupImg from "../assets/images/coffee-cup.png"
+import backgroundImg from "../assets/images/background.jpeg"
 
 export function setup(contentContainer) {
   contentContainer.style.backgroundImage = `url(${backgroundImg})`

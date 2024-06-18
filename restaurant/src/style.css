@@ -52,10 +52,14 @@ nav button:hover {
   filter: brightness(0.8);
 }
 
-.home-container {
+#content {
+  min-height: 100vh;
+}
+
+.home-container, .menu-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 }
 

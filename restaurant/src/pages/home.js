@@ -1,4 +1,5 @@
 import coffeeCupImg from "../assets/images/coffee-cup.png"
+import { createCardElement, createCardTitleElement, createListElement } from "../ui/element"
 
 export function getHomeSetupElement() {
   const container = document.createElement("div")
@@ -7,7 +8,6 @@ export function getHomeSetupElement() {
     setupHero(),
     setupLocation(),
     setupHours(),
-    setupMenu(),
     setupTestimonial(),
   )
   return container
@@ -45,22 +45,6 @@ function setupHours() {
   return card
 }
 
-function setupMenu() {
-  const card = createCardElement()
-  const cardTitle = createCardTitleElement("Menu")
-  const coffee = document.createElement("p")
-  coffee.textContent = "Coffee"
-  coffee.classList.add("bold", "text-center")
-  const coffeeList = createListElement(["Espresso", "Caffe Latte", "Americano", "Macchiato", "Cappuccino"])
-  
-  const others = document.createElement("p")
-  others.textContent = "Others"
-  others.classList.add("bold", "text-center")
-  const othersList = createListElement(["Hojicha Latte", "Matcha Latte", "Lemonade"])
-  card.append(cardTitle, coffee, coffeeList, others, othersList)
-  return card
-}
-
 function setupTestimonial() {
   const card = createCardElement()
   const cardTitle = createCardTitleElement("Testimonial")
@@ -83,28 +67,4 @@ function setupTestimonial() {
   testimonial.append(testimonialTitle, testimonialDescription, testimonialName)
   card.append(cardTitle, testimonial)
   return card
-}
-
-function createCardElement() {
-  const card = document.createElement("div")
-  card.classList.add("card")
-  return card
-}
-
-function createCardTitleElement(text) {
-  const cardTitle = document.createElement("p")
-  cardTitle.classList.add("card-title")
-  cardTitle.textContent = text
-  return cardTitle
-}
-
-function createListElement(items) {
-  const ul = document.createElement("ul")
-  const itemElements = items.map(text => {
-    const li = document.createElement("li")
-    li.append(document.createTextNode(text))
-    return li
-  })
-  ul.append(...itemElements)
-  return ul
 }

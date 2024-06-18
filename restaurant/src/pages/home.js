@@ -1,15 +1,16 @@
 import coffeeCupImg from "../assets/images/coffee-cup.png"
-import backgroundImg from "../assets/images/background.jpeg"
 
-export function setup(contentContainer) {
-  contentContainer.style.backgroundImage = `url(${backgroundImg})`
-  contentContainer.style.backgroundSize = "contain"
-  contentContainer.append(setupHero(),
+export function getHomeSetupElement() {
+  const container = document.createElement("div")
+  container.classList.add("home-container")
+  container.append(
+    setupHero(),
     setupLocation(),
     setupHours(),
     setupMenu(),
     setupTestimonial(),
   )
+  return container
 }
 
 function setupHero() {

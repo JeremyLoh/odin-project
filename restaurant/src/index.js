@@ -1,5 +1,10 @@
 import "./style.css"
-import { setup } from "./pages/home"
+import backgroundImg from "./assets/images/background.jpeg"
+import { getHomeSetupElement } from "./pages/home"
 
 const contentContainer = document.querySelector("#content")
-setup(contentContainer)
+contentContainer.style.backgroundImage = `url(${backgroundImg})`
+contentContainer.style.backgroundSize = "contain"
+
+const home = getHomeSetupElement()
+contentContainer.append(home)

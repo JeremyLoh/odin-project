@@ -2,13 +2,14 @@ import "./style.css"
 import backgroundImg from "./assets/images/background.jpeg"
 import { getHomeSetupElement } from "./pages/home"
 import { getMenuSetupElement } from "./pages/menu"
+import { getAboutSetupElement } from "./pages/about"
 
 function setup() {
   setupNavigation()
 
   const contentContainer = document.querySelector("#content")
   contentContainer.style.backgroundImage = `url(${backgroundImg})`
-  contentContainer.style.backgroundSize = "contain"
+  contentContainer.style.backgroundSize = "60%"
   const home = getHomeSetupElement()
 
   contentContainer.append(home)
@@ -38,7 +39,7 @@ function addTabContent(tabName) {
       contentContainer.append(getMenuSetupElement())
       break
     case "about":
-      // TODO
+      contentContainer.append(getAboutSetupElement())
       break
     default:
       break

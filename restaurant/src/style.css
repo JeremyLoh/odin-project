@@ -56,7 +56,7 @@ nav button:hover {
   min-height: 100vh;
 }
 
-.home-container, .menu-container {
+.home-container, .menu-container, .about-container {
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -83,17 +83,17 @@ nav button:hover {
   width: auto;
 }
 
+.coffee-cup-img {
+  aspect-ratio: 1/1;
+}
+
 .card {
   background-color: var(--content-bg-color);
   padding: 0 calc(1rem + 1vw);
 }
 
-.card:hover {
-  transform: scale(1.01) perspective(0px);
-  box-shadow: 0px 0px 3px #444;
-}
-
 .card-title {
+  font-size: 1.8rem;
   font-weight: bold;
   text-align: center;
 }
@@ -116,6 +116,35 @@ nav button:hover {
 
 .testimonial-name::before {
   content: "— "
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 0;
+}
+
+.contact-form input, .contact-form textarea {
+  border: none;
+  padding: 0.5rem;
+  font-size: 1rem;
+}
+
+.contact-form textarea {
+  resize: vertical;
+}
+
+.contact-form button {
+  padding: 1rem;
+  font-weight: bold;
+  background-color: #854d0e;
+  border: none;
+  color: white;
+}
+
+.contact-form button:hover {
+  background-color: #713f12;
 }
 
 footer {

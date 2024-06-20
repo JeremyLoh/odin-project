@@ -23,6 +23,7 @@ function setupNavigation() {
       addTabContent(element.textContent)
     })
   })
+  setActiveTabIndicator("home")
 }
 
 function clearTabContent() {
@@ -33,17 +34,27 @@ function addTabContent(tabName) {
   const contentContainer = document.querySelector("#content")
   switch (tabName.toLowerCase()) {
     case "home":
+      setActiveTabIndicator("home")
       contentContainer.append(getHomeSetupElement())
       break
     case "menu":
+      setActiveTabIndicator("menu")
       contentContainer.append(getMenuSetupElement())
       break
     case "about":
+      setActiveTabIndicator("about")
       contentContainer.append(getAboutSetupElement())
       break
     default:
       break
   }
+}
+
+function setActiveTabIndicator(tabName) {
+  const tabs = document.querySelectorAll("header nav button")
+  Array.from(tabs).forEach((tab) => tab.classList.remove("active"))
+  const [currentTab] = Array.from(tabs).filter((tab) => tab.textContent.toLowerCase() === tabName.toLowerCase())
+  currentTab.classList.add("active")
 }
 
 setup()

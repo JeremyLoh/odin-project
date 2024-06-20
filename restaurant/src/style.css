@@ -52,6 +52,11 @@ nav button:hover {
   filter: brightness(0.8);
 }
 
+nav button.active {
+  filter: brightness(0.9);
+  font-weight: bold;
+}
+
 #content {
   min-height: 100vh;
 }

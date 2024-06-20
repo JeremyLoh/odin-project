@@ -6,6 +6,14 @@ https://www.theodinproject.com/lessons/node-path-javascript-restaurant-page
 
 **Note: DOM elements should be created using JavaScript but styling can be done in a separate CSS file**
 
+# Screenshots of completed project
+![Restaurant Homepage](./restaurant-home.jpeg)
+![Restaurant Menu](./restaurant-menu.jpeg)
+![Restaurant About](./restaurant-about.jpeg)
+
+# Building project with webpack
+Run command `npm run build:watch` and open the `dist/index.html` file in the browser
+
 ```
 .gitignore
 

@@ -11,9 +11,18 @@ https://www.theodinproject.com/lessons/node-path-javascript-restaurant-page
 ![Restaurant Menu](./restaurant-menu.jpeg)
 ![Restaurant About](./restaurant-about.jpeg)
 
+# References
+
+- Loading Images with Webpack - https://webpack.js.org/guides/asset-management/#loading-images
+- Coffee Cup Image from Freepik - https://www.freepik.com/free-vector/realistic-cup-black-brewed-coffee-saucer-vector-illustration_23128948.htm#fromView=search&page=1&position=24&uuid=a53baf14-a032-4d83-8393-b071da427e28 
+- Background Image from Freepik - https://www.freepik.com/free-vector/hand-drawn-coffee-bean-drawing-pattern_52805492.htm#fromView=image_search_similar&page=1&position=39&uuid=fc6d9f2b-eb49-4ff8-8ad7-e0db43535e16
+  
+
 # Building project with webpack
 Run command `npm run build:watch` and open the `dist/index.html` file in the browser
 
+
+## .gitignore file
 ```
 .gitignore
 
@@ -53,7 +62,3 @@ We can make a ".gitignore" file in the root of the project, and by writing file 
             Now each time you need to update your project's live preview, you can do `npm run <your script name>` in the project's terminal
             e.g. Short tutorial video on [npm scripts](https://www.youtube.com/watch?v=REdzp64dijs)
     2) Recall that the **source branch** for GitHub Pages is set in your repository's settings
-
-# References
-
-- Loading Images with Webpack - https://webpack.js.org/guides/asset-management/#loading-images

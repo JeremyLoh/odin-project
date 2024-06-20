@@ -87,6 +87,13 @@ nav button:hover {
   aspect-ratio: 1/1;
 }
 
+.menu-coffee-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1mm dotted brown;
+}
+
 .card {
   background-color: var(--content-bg-color);
   padding: 0 calc(1rem + 1vw);

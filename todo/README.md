@@ -6,6 +6,8 @@ https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 
 # References
 - PubSub Design Pattern in JS - https://www.youtube.com/watch?v=aynSM8llOBs
+- Webpack HtmlWebpackPlugin - https://webpack.js.org/plugins/html-webpack-plugin/
+- Webpack Asset Management - https://webpack.js.org/guides/asset-management/
 
 # Assignment
 1) Your ‘todos’ are going to be objects that you’ll want to dynamically create, which means either using factories or constructors/classes to generate them.

@@ -27,3 +27,9 @@ export class Todo {
     return this._notes
   }
 }
+
+export const PriorityLevel = Object.freeze({
+  LOW:    Symbol("Low"),
+  MEDIUM: Symbol("Medium"),
+  HIGH:   Symbol("High")
+})

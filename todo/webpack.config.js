@@ -8,7 +8,6 @@ module.exports = {
     filename: "bundle.js",
     path: path.resolve(__dirname, "dist"),
   },
-  plugins: [new HtmlWebpackPlugin()],
   module: {
     rules: [
       {
@@ -16,5 +15,10 @@ module.exports = {
         use: ["style-loader", "css-loader"],
       },
     ],
-  }
+  },
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: "src/index.html",
+    })
+  ],
 }

@@ -1,3 +1,65 @@
 *, *::before, *::after {
   box-sizing: border-box;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  padding: 1rem;
+}
+
+button {
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  border: 1mm solid black;
+  padding: 1rem;
+}
+
+.create-todo-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: min(70ch, 100%);
+  padding: 1rem 0;
+}
+
+.create-todo-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.create-todo-form fieldset {
+  width: 100%;
+  padding: 1rem;
+}
+
+.create-todo-form fieldset div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0.5rem 0;
+}
+
+.create-todo-form input[type=text], .create-todo-form textarea {
+  flex: 1;
+  padding: 0.4rem;
+}

@@ -1,3 +1,5 @@
+const { formatDistanceToNowStrict, format } = require("date-fns")
+
 export function renderProjects(projects) {
   const main = document.querySelector("main")
   const grid = document.createElement("div")
@@ -14,10 +16,10 @@ function createProjectCard(project) {
   titleElement.textContent = project.title
 
   const totalTodosElement = document.createElement("p")
-  totalTodosElement.textContent = project.totalTodos
+  totalTodosElement.textContent = `${project.totalTodos} todos`
 
   const createdAtElement = document.createElement("p")
-  createdAtElement.textContent = project.createdAt
+  createdAtElement.textContent = `${format(project.createdAt, "d MMMM yyyy")}, ${formatDistanceToNowStrict(project.createdAt)} ago`
 
   card.append(titleElement, totalTodosElement, createdAtElement)
   return card

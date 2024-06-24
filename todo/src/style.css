@@ -7,6 +7,10 @@
   padding: 0;
 }
 
+:root {
+  --submit-btn-bg-color: #16a34a;
+}
+
 body {
   padding: 1rem;
 }
@@ -31,12 +35,29 @@ button {
   padding: 1rem;
 }
 
+dialog[open].form-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 1rem auto;
+  width: min(70ch, 100%);
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+dialog[open] .dialog-close-btn {
+  align-self: flex-end;
+  border-radius: 25%;
+  font-size: 1.1rem;
+}
+
 .create-todo-form {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
   gap: 1rem;
-  width: min(70ch, 100%);
+  width: 100%;
   padding: 1rem 0;
 }
 
@@ -59,7 +80,26 @@ button {
   margin: 0.5rem 0;
 }
 
-.create-todo-form input[type=text], .create-todo-form textarea {
+.create-todo-form input[type=text],
+.create-todo-form textarea,
+.create-todo-form input[type=date] {
   flex: 1;
   padding: 0.4rem;
+}
+
+.create-todo-form button[type=submit] {
+  background-color: var(--submit-btn-bg-color);
+  color: white;
+  border: none;
+  padding: 1rem;
+}
+
+.create-todo-form button[type=submit]:hover {
+  filter: brightness(0.9);
+}
+
+.todo-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
 }

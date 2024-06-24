@@ -4,17 +4,9 @@ import { TodoEvent, TodoPubsub } from "../todo-pubsub"
 const { format } = require("date-fns") 
 
 export function displayCreateForm(projectTitle) {
-    // TODO create the form in a modal instead of adding directly on page
-  const containerSelector = `${projectTitle}-form-container`
-  let container = document.querySelector(containerSelector)
-  if (container == null) {
-    const main = document.querySelector("main")
-    container = document.createElement("div")
-    container.classList.add(containerSelector)
-    main.append(container)
-  } else {
-    container.innerHTML = ""
-  }
+  const dialog = createDialogElement()
+  const main = document.querySelector("main")
+  main.append(dialog)
 
   const form = document.createElement("form")
   form.classList.add("create-todo-form")
@@ -44,9 +36,24 @@ export function displayCreateForm(projectTitle) {
     const notes = formData.get("Note")
     const todo = new Todo(title, description, dueDate, priority, notes)
     TodoPubsub.publish(TodoEvent.ADD, {projectTitle, todo})
+    dialog.close()
+    dialog.remove()
   })
   
-  container.append(form)
+  dialog.append(form)
+  dialog.showModal()
+}
+
+function createDialogElement() {
+  const dialog = document.createElement("dialog")
+  dialog.classList.add("form-container")
+  const dialogCloseButton = document.createElement("button")
+  dialogCloseButton.classList.add("dialog-close-btn")
+  dialogCloseButton.setAttribute("autofocus", "")
+  dialogCloseButton.textContent = "X"
+  dialogCloseButton.addEventListener("click", (event) => dialog.close())
+  dialog.append(dialogCloseButton)
+  return dialog
 }
 
 function createInputElement(inputName) {
@@ -114,6 +121,7 @@ function createNotesElement() {
   return container
 }
 
-function setRequiredInput(...inputs) {
-  inputs.forEach((input) => input.setAttribute("required", ""))
+function setRequiredInput(...containers) {
+  containers.map((c) => c.querySelector("input"))
+    .forEach((input) => input.required = true)
 }

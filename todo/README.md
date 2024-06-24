@@ -8,6 +8,21 @@ https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 - PubSub Design Pattern in JS - https://www.youtube.com/watch?v=aynSM8llOBs
 - Webpack HtmlWebpackPlugin - https://webpack.js.org/plugins/html-webpack-plugin/
 - Webpack Asset Management - https://webpack.js.org/guides/asset-management/
+- Dialog not closing properly due to stylesheet
+https://stackoverflow.com/a/72161395
+```
+For folks having their dialog not disappear when .close() is called, check your stylesheet.
+
+If you have something like this:
+
+dialog { display: flex; ... }
+The dialog "won't close" because the style declaration is selecting dialog regardless of its open status, and applying a non-none display value.
+
+Instead, use the dialog[open] selector:
+
+dialog[open] { display: flex; ... }
+This happens because the user agent stylesheet contains dialog:not([open]) { display: none; } and when you apply some other display value in your app's stylesheet it gets overridden.
+```
 
 # Assignment
 1) Your ‘todos’ are going to be objects that you’ll want to dynamically create, which means either using factories or constructors/classes to generate them.

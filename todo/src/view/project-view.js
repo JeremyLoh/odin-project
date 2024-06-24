@@ -1,10 +1,14 @@
 const { formatDistanceToNowStrict, format } = require("date-fns")
 
-export function renderProjects(projects) {
+export function renderProjects(projects, handleCardClick) {
   const main = document.querySelector("main")
   const grid = document.createElement("div")
   grid.classList.add("project-grid")
-  projects.forEach((project) => grid.append(createProjectCard(project)))
+  projects.forEach((project) => {
+    const card = createProjectCard(project)
+    card.addEventListener("click", (event) => handleCardClick(project))
+    grid.append(card)
+  })
   main.append(grid)
 }
 

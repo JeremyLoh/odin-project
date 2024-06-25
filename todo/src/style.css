@@ -137,6 +137,10 @@ dialog[open] .dialog-close-btn {
   text-align: right;
 }
 
+.todo-notes {
+  resize: vertical;
+}
+
 .expand-button {
   padding: 1rem;
 }

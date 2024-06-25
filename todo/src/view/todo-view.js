@@ -40,6 +40,8 @@ function createTodoElement(todo) {
   notesElement.textContent = `Notes: ${todo.notes}`
   notesElement.classList.add("todo-notes")
   notesElement.classList.add("collapsed")
+  notesElement.setAttribute("readonly", "")
+  notesElement.setAttribute("rows", "8")
 
   const expandElement = document.createElement("button")
   expandElement.textContent = "Expand"

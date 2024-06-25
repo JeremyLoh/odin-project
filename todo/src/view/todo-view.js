@@ -1,3 +1,5 @@
+import { format, formatDistanceToNow, isBefore } from "date-fns"
+
 export function renderTodos(todos) {
   // TODO
   // 2) View all todos in each project (probably just the title and due date... perhaps changing color for different priorities)
@@ -18,10 +20,7 @@ function createTodoElement(todo) {
 
   const titleElement = createTitleElement(todo)
 
-  // TODO format the due date
-  const dueDateElement = document.createElement("p")
-  dueDateElement.textContent = `Due Date: ${todo.dueDate}`
-  dueDateElement.classList.add("todo-due-date")
+  const dueDateElement = createDueDateElement(todo)
 
   const priorityElement = document.createElement("p")
   priorityElement.textContent = `${todo.priority} priority`
@@ -33,7 +32,6 @@ function createTodoElement(todo) {
   const expandElement = document.createElement("button")
   expandElement.textContent = "Expand"
   expandElement.classList.add("expand-button")
-
   function handleExpandClick() {
     getCollapsableElements(card).forEach((element) => 
       element.classList.contains("collapsed")
@@ -63,6 +61,15 @@ function createTitleElement(todo) {
   titleElement.textContent = todo.title
   titleElement.classList.add("todo-title")
   return titleElement
+}
+
+function createDueDateElement(todo) {
+  const dueDateElement = document.createElement("p")
+  dueDateElement.textContent = isBefore(todo.dueDate, new Date())
+    ? `${formatDistanceToNow(todo.dueDate)} past due date (${format(todo.dueDate, "d LLL yyyy")})`  
+    : `due in ${formatDistanceToNow(todo.dueDate)} (${format(todo.dueDate, "d LLL yyyy")})`
+  dueDateElement.classList.add("todo-due-date")
+  return dueDateElement
 }
 
 function createDescriptionElement(todo) {

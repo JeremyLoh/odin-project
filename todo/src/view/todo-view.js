@@ -16,9 +16,7 @@ function createTodoElement(todo) {
   card.classList.add("todo-card")
   card.classList.add(`${todo.priority.toLowerCase()}-priority`)
 
-  const titleElement = document.createElement("h4")
-  titleElement.textContent = todo.title
-  titleElement.classList.add("todo-title")
+  const titleElement = createTitleElement(todo)
 
   // TODO format the due date
   const dueDateElement = document.createElement("p")
@@ -29,27 +27,17 @@ function createTodoElement(todo) {
   priorityElement.textContent = `${todo.priority} priority`
   priorityElement.classList.add("todo-priority")
 
-  const descriptionElement = document.createElement("p")
-  descriptionElement.textContent = todo.description.length === 0
-    ? `Description: Not Available`
-    : `Description: ${todo.description}`
-  descriptionElement.classList.add("todo-description")
-  descriptionElement.classList.add("collapsed")
-
-  const notesElement = document.createElement("textarea")
-  notesElement.textContent = `Notes: ${todo.notes}`
-  notesElement.classList.add("todo-notes")
-  notesElement.classList.add("collapsed")
-  notesElement.setAttribute("readonly", "")
-  notesElement.setAttribute("rows", "8")
+  const descriptionElement = createDescriptionElement(todo)
+  const notesElement = createNotesElement(todo)
 
   const expandElement = document.createElement("button")
   expandElement.textContent = "Expand"
   expandElement.classList.add("expand-button")
-  expandElement.addEventListener("click", (event) => {
+
+  function handleExpandClick() {
     getCollapsableElements(card).forEach((element) => 
       element.classList.contains("collapsed")
-        ? element.classList.remove("collapsed") 
+        ? element.classList.remove("collapsed")
         : element.classList.add("collapsed")
     )
     if (expandElement.textContent === "Expand") {
@@ -57,7 +45,8 @@ function createTodoElement(todo) {
     } else {
       expandElement.textContent = "Expand"
     }
-  })
+  }
+  expandElement.addEventListener("click", handleExpandClick)
   card.append(titleElement, dueDateElement, priorityElement, descriptionElement, notesElement, expandElement)
   return card
 }
@@ -67,4 +56,31 @@ function getCollapsableElements(card) {
     card.querySelector(".todo-description"),
     card.querySelector(".todo-notes"),
   ]
+}
+
+function createTitleElement(todo) {
+  const titleElement = document.createElement("h4")
+  titleElement.textContent = todo.title
+  titleElement.classList.add("todo-title")
+  return titleElement
+}
+
+function createDescriptionElement(todo) {
+  const descriptionElement = document.createElement("p")
+  descriptionElement.textContent = todo.description.length === 0
+    ? `Description: Not Available`
+    : `Description: ${todo.description}`
+  descriptionElement.classList.add("todo-description")
+  descriptionElement.classList.add("collapsed")
+  return descriptionElement
+}
+
+function createNotesElement(todo) {
+  const notesElement = document.createElement("textarea")
+  notesElement.textContent = `Notes: ${todo.notes}`
+  notesElement.classList.add("todo-notes")
+  notesElement.classList.add("collapsed")
+  notesElement.setAttribute("readonly", "")
+  notesElement.setAttribute("rows", "8")
+  return notesElement
 }

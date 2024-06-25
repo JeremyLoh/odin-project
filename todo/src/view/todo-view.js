@@ -14,6 +14,7 @@ export function renderTodos(todos) {
 function createTodoElement(todo) {
   const card = document.createElement("div")
   card.classList.add("todo-card")
+  card.classList.add(`${todo.priority.toLowerCase()}-priority`)
 
   const titleElement = document.createElement("h4")
   titleElement.textContent = todo.title
@@ -35,7 +36,6 @@ function createTodoElement(todo) {
   descriptionElement.classList.add("todo-description")
   descriptionElement.classList.add("collapsed")
 
-  // TODO make notes textarea view only and style it 
   const notesElement = document.createElement("textarea")
   notesElement.textContent = `Notes: ${todo.notes}`
   notesElement.classList.add("todo-notes")

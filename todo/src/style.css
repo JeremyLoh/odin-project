@@ -9,9 +9,11 @@
 
 :root {
   --submit-btn-bg-color: #16a34a;
-  --todo-container-bg-color: #a8a29e;
   --todo-card-bg-color: #7dd3fc;
   --todo-card-text-color: #222;
+  --todo-low-priority-color: #22c55e;
+  --todo-medium-priority-color: #facc15;
+  --todo-high-priority-color: #ef4444;
 }
 
 body {
@@ -105,9 +107,7 @@ dialog[open] .dialog-close-btn {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
-  padding: 1rem;
   margin: 1rem 0;
-  background-color: var(--todo-container-bg-color);
 }
 
 .todo-card {
@@ -139,6 +139,19 @@ dialog[open] .dialog-close-btn {
 
 .todo-notes {
   resize: vertical;
+  padding: 1rem;
+}
+
+.todo-card.low-priority {
+  border-bottom: 2mm solid var(--todo-low-priority-color);
+}
+
+.todo-card.medium-priority {
+  border-bottom: 2mm solid var(--todo-medium-priority-color);
+}
+
+.todo-card.high-priority {
+  border-bottom: 2mm solid var(--todo-high-priority-color);
 }
 
 .expand-button {

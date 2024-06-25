@@ -19,32 +19,11 @@ function createTodoElement(todo) {
   card.classList.add(`${todo.priority.toLowerCase()}-priority`)
 
   const titleElement = createTitleElement(todo)
-
   const dueDateElement = createDueDateElement(todo)
-
-  const priorityElement = document.createElement("p")
-  priorityElement.textContent = `${todo.priority} priority`
-  priorityElement.classList.add("todo-priority")
-
+  const priorityElement = createPriorityElement(todo)
   const descriptionElement = createDescriptionElement(todo)
   const notesElement = createNotesElement(todo)
-
-  const expandElement = document.createElement("button")
-  expandElement.textContent = "Expand"
-  expandElement.classList.add("expand-button")
-  function handleExpandClick() {
-    getCollapsableElements(card).forEach((element) => 
-      element.classList.contains("collapsed")
-        ? element.classList.remove("collapsed")
-        : element.classList.add("collapsed")
-    )
-    if (expandElement.textContent === "Expand") {
-      expandElement.textContent = "Collapse"
-    } else {
-      expandElement.textContent = "Expand"
-    }
-  }
-  expandElement.addEventListener("click", handleExpandClick)
+  const expandElement = createExpandElement(card)
   card.append(titleElement, dueDateElement, priorityElement, descriptionElement, notesElement, expandElement)
   return card
 }
@@ -72,6 +51,13 @@ function createDueDateElement(todo) {
   return dueDateElement
 }
 
+function createPriorityElement(todo) {
+  const priorityElement = document.createElement("p")
+  priorityElement.textContent = `${todo.priority} priority`
+  priorityElement.classList.add("todo-priority")
+  return priorityElement
+}
+
 function createDescriptionElement(todo) {
   const descriptionElement = document.createElement("p")
   descriptionElement.textContent = todo.description.length === 0
@@ -90,4 +76,25 @@ function createNotesElement(todo) {
   notesElement.setAttribute("readonly", "")
   notesElement.setAttribute("rows", "8")
   return notesElement
+}
+
+function createExpandElement(card) {
+  function handleExpandClick() {
+    getCollapsableElements(card).forEach((element) => 
+      element.classList.contains("collapsed")
+        ? element.classList.remove("collapsed")
+        : element.classList.add("collapsed")
+    )
+    if (expandElement.textContent === "Expand") {
+      expandElement.textContent = "Collapse"
+    } else {
+      expandElement.textContent = "Expand"
+    }
+  }
+
+  const expandElement = document.createElement("button")
+  expandElement.textContent = "Expand"
+  expandElement.classList.add("expand-button")
+  expandElement.addEventListener("click", handleExpandClick)
+  return expandElement
 }

@@ -9,6 +9,9 @@
 
 :root {
   --submit-btn-bg-color: #16a34a;
+  --todo-container-bg-color: #a8a29e;
+  --todo-card-bg-color: #7dd3fc;
+  --todo-card-text-color: #222;
 }
 
 body {
@@ -102,4 +105,38 @@ dialog[open] .dialog-close-btn {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
+  padding: 1rem;
+  margin: 1rem 0;
+  background-color: var(--todo-container-bg-color);
+}
+
+.todo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  width: min(70ch, 100%);
+  min-height: 250px;
+  background-color: var(--todo-card-bg-color);
+  color: var(--todo-card-text-color);
+}
+
+.todo-title, .todo-due-date, .todo-description, .todo-notes {
+  overflow-wrap: break-word;
+  width: 100%;
+  max-width: 100%;
+}
+
+.todo-card .collapsed {
+  display: none;
+}
+
+.todo-due-date {
+  text-align: right;
+}
+
+.expand-button {
+  padding: 1rem;
 }

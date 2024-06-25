@@ -64,6 +64,7 @@ function createInputElement(inputName) {
   label.textContent = inputName
   const input = document.createElement("input")
   input.setAttribute("type", "text")
+  input.setAttribute("id", inputName)
   input.setAttribute("name", inputName)
   inputContainer.append(label, input)
   return inputContainer
@@ -76,6 +77,7 @@ function createDateElement(inputName) {
   label.textContent = inputName
   const input = document.createElement("input")
   input.setAttribute("type", "date")
+  input.setAttribute("id", inputName)
   input.setAttribute("name", inputName)
   input.setAttribute("value", format(new Date(), "yyyy-MM-dd"))
   inputContainer.append(label, input)
@@ -115,6 +117,7 @@ function createNotesElement() {
   label.setAttribute("for", "Note")
   label.textContent = "Note: "
   const textarea = document.createElement("textarea")
+  textarea.setAttribute("id", "Note")
   textarea.setAttribute("name", "Note")
   textarea.setAttribute("rows", "5")
   container.append(label, textarea)

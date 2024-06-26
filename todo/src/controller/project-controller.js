@@ -1,4 +1,5 @@
 import { Project } from "../model/project"
+import { PriorityLevel, Todo } from "../model/todo"
 import { TodoEvent, TodoPubsub } from "../todo-pubsub"
 import { renderProjects } from "../view/project-view"
 import { displayCreateForm } from "../view/todo-form"
@@ -25,8 +26,10 @@ export const ProjectController = (function() {
   }
 
   function createProject(title) {
+    // TODO handle duplicate project creation with same title (hash the title with timestamp)
     const project = new Project(title, [])
     projects[title] = project
+    return project
   }
   function renderAllProjects() {
     renderProjects(Object.values(projects), handleProjectCardClick)
@@ -37,5 +40,14 @@ export const ProjectController = (function() {
     }
     displayCreateForm(projectTitle)
   }
-  return { createProject, renderAllProjects, renderCreateTodoForm }
+  function setupDemoProject(projectTitle) {
+    const project = createProject(projectTitle)
+    const title = "First Low Priority Todo"
+    const description = ""
+    const dueDate = new Date("2024-02-14")
+    const priority = PriorityLevel.LOW.description
+    const notes = "My First Todo Note"
+    project.addTodo(new Todo(title, description, dueDate, priority, notes))
+  }
+  return { createProject, setupDemoProject, renderAllProjects, renderCreateTodoForm }
 })()

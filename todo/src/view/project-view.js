@@ -15,6 +15,7 @@ export function renderProjects(projects, handleCardClick) {
 function createProjectCard(project) {
   const card = document.createElement("div")
   card.classList.add("project-card")
+  card.setAttribute("data-cy", project.title)
 
   const titleElement = document.createElement("h3")
   titleElement.textContent = project.title

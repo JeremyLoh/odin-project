@@ -8,22 +8,57 @@
 }
 
 :root {
+  --nav-bg-color: #7dd3fc;
   --submit-btn-bg-color: #16a34a;
-  --todo-card-bg-color: #7dd3fc;
-  --todo-card-text-color: #222;
+  --project-card-bg-color: #fafaf9;
+  --todo-card-bg-color: #fef9c3;
+  --todo-card-text-color: black;
   --todo-low-priority-color: #22c55e;
   --todo-medium-priority-color: #facc15;
   --todo-high-priority-color: #ef4444;
 }
 
 body {
-  padding: 1rem;
+  min-height: 100vh;
 }
 
 button {
   padding: 0.5rem;
   border-radius: 8px;
   font-weight: bold;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-image: linear-gradient(to right, var(--nav-bg-color), #64c1f6, #4eaeef, #409ae7, #3b86dd);
+}
+
+.app-title {
+  border-bottom: 2mm dotted var(--todo-card-bg-color);
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+nav .create-project-btn,
+nav .view-projects-btn {
+  border: none;
+  height: 100%;
+  padding: 0.6rem 1rem;
+}
+
+nav .create-project-btn:hover,
+nav .view-projects-btn:hover {
+  filter: brightness(0.9);
+}
+
+main {
+  padding: 1rem;
 }
 
 .project-grid {
@@ -36,7 +71,8 @@ button {
 .project-card {
   display: flex;
   flex-direction: column;
-  border: 1mm solid black;
+  background-color: var(--project-card-bg-color);
+  box-shadow: 0px 4px 8px 2px #777;
   padding: 1rem;
 }
 

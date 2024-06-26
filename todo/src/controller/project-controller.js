@@ -2,7 +2,7 @@ import { Project } from "../model/project"
 import { PriorityLevel, Todo } from "../model/todo"
 import { TodoEvent, TodoPubsub } from "../todo-pubsub"
 import { renderProjects } from "../view/project-view"
-import { displayCreateForm } from "../view/todo-form"
+import { displayCreateTodoForm } from "../view/todo-form"
 import { renderTodos } from "../view/todo-view"
 
 // Manage project creation and todo added to a project
@@ -38,7 +38,7 @@ export const ProjectController = (function() {
     if (!projects.hasOwnProperty(projectTitle)) {
       return
     }
-    displayCreateForm(projectTitle)
+    displayCreateTodoForm(projectTitle)
   }
   function setupDemoProject(projectTitle) {
     const project = createProject(projectTitle)

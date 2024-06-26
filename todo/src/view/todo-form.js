@@ -1,10 +1,11 @@
 import { PriorityLevel, Todo } from "../model/todo"
 import { TodoEvent, TodoPubsub } from "../todo-pubsub"
+import { createDialog } from "./dialog"
 
 const { format } = require("date-fns") 
 
-export function displayCreateForm(projectTitle) {
-  const dialog = createDialogElement()
+export function displayCreateTodoForm(projectTitle) {
+  const dialog = createDialog()
   const main = document.querySelector("main")
   main.append(dialog)
 
@@ -42,18 +43,6 @@ export function displayCreateForm(projectTitle) {
   
   dialog.append(form)
   dialog.showModal()
-}
-
-function createDialogElement() {
-  const dialog = document.createElement("dialog")
-  dialog.classList.add("form-container")
-  const dialogCloseButton = document.createElement("button")
-  dialogCloseButton.classList.add("dialog-close-btn")
-  dialogCloseButton.setAttribute("autofocus", "")
-  dialogCloseButton.textContent = "X"
-  dialogCloseButton.addEventListener("click", (event) => dialog.close())
-  dialog.append(dialogCloseButton)
-  return dialog
 }
 
 function createInputElement(inputName) {

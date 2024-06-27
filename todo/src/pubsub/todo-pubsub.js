@@ -1,12 +1,12 @@
 export const TodoPubsub = (function() {
   // stores the key value mapping: event name => list of subscribers' callback functions
   const events = {}
-  function publish(event, value) {
+  function publish(event, data) {
     // to loop through available callback functions for the subscribers for the event
     if (!events.hasOwnProperty(event) || !Array.isArray(events[event])) {
       return
     }
-    events[event].forEach((callback) => callback(value))
+    events[event].forEach((callback) => callback(data))
   }
   function subscribe(event, fn) {
     // subscribe to an event, with a callback function that should be executed when event happens

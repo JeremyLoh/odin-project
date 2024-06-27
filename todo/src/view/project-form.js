@@ -1,3 +1,4 @@
+import { ProjectEvent, ProjectPubSub } from "../pubsub/project-pubsub"
 import { createDialog } from "./dialog"
 
 export function displayCreateProjectForm() {
@@ -8,12 +9,24 @@ export function displayCreateProjectForm() {
   const form = document.createElement("form")
   form.classList.add("create-project-form")
   form.setAttribute("data-cy", "create-project-form")
+  
   const formTitleElement = document.createElement("h2")
   formTitleElement.textContent = "Create New Project"
+  
   const nameContainer = createInputElement("Name")
+  nameContainer.setAttribute("data-cy", "name-input-project-form")
+  
   const submitButton = createSubmitButton()
+  submitButton.setAttribute("data-cy", "submit-btn-project-form")
 
-  // TODO add form event listener for submit, destroy dialog
+  form.addEventListener("submit", (event) => {
+    event.preventDefault()
+    const formData = new FormData(form)
+    const name = formData.get("Name")
+    ProjectPubSub.publish(ProjectEvent.ADD, {name})
+    dialog.close()
+    dialog.remove()
+  })
   form.append(formTitleElement, nameContainer, submitButton)
   dialog.append(form)
   dialog.showModal()

@@ -38,4 +38,27 @@ describe("homepage", () => {
       cy.get(".todo-card .todo-notes").should("not.be.visible").contains("My First Todo Note")
     })
   })
+
+  context("create new project", () => {
+    it("should display new project form when 'Create Project' button is clicked", () => {
+      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
+        .click()
+      cy.get("[data-cy='create-project-form']").should("be.visible")
+      cy.get("[data-cy='name-input-project-form']").type("testProjectName")
+      cy.get("[data-cy='submit-btn-project-form']").should("be.visible").and("be.enabled")
+    })
+
+    it("should create new project when create project form is submitted", () => {
+      const projectName = "testProjectName"
+      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
+        .click()
+      cy.get("[data-cy='create-project-form']").should("be.visible")
+      cy.get("[data-cy='name-input-project-form']").type(projectName)
+      cy.get("[data-cy='submit-btn-project-form']").click()
+      
+      cy.get("[data-cy='create-project-form']").should("not.exist")
+      // should navigate to view all projects screen and display new project
+      cy.get(`.project-card[data-cy='${projectName}']`).should("be.visible")
+    })
+  })
 })

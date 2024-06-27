@@ -1,6 +1,10 @@
 const { formatDistanceToNowStrict, format } = require("date-fns")
 
 export function renderProjects(projects, handleCardClick) {
+  const isProjectGridDisplayed = document.querySelector(".project-grid") != null
+  if (isProjectGridDisplayed) {
+    document.querySelector(".project-grid").remove()
+  }
   const main = document.querySelector("main")
   const grid = document.createElement("div")
   grid.classList.add("project-grid")

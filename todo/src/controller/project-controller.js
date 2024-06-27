@@ -1,6 +1,7 @@
 import { Project } from "../model/project"
 import { PriorityLevel, Todo } from "../model/todo"
-import { TodoEvent, TodoPubsub } from "../todo-pubsub"
+import { ProjectEvent, ProjectPubSub } from "../pubsub/project-pubsub"
+import { TodoEvent, TodoPubsub } from "../pubsub/todo-pubsub"
 import { renderProjects } from "../view/project-view"
 import { displayCreateTodoForm } from "../view/todo-form"
 import { renderTodos } from "../view/todo-view"
@@ -10,9 +11,10 @@ export const ProjectController = (function() {
   const projects = {}
   // TODO In ProjectController, should subscribe to the TodoEvent.UPDATE on any todo update, to trigger rerender
   TodoPubsub.subscribe(TodoEvent.ADD, handleAddTodo)
+  ProjectPubSub.subscribe(ProjectEvent.ADD, handleAddProject)
 
-  function handleAddTodo(value) {
-    const {todo, projectTitle} = value
+  function handleAddTodo(data) {
+    const {todo, projectTitle} = data
     if (!projects.hasOwnProperty(projectTitle)) {
       return
     }
@@ -20,9 +22,17 @@ export const ProjectController = (function() {
     project.addTodo(todo)
     renderTodos(project.todos)
   }
+  function handleAddProject(data) {
+    const {name} = data
+    createProject(name)
+    renderAllProjects()
+  }
   function handleProjectCardClick(project) {
     const todos = project.todos
     renderTodos(todos)
+    // TODO only render project card that was clicked, filter out remaining projects
+    // TODO render only single project, no need to add click handler of project card
+    // renderProject(projects[project])
   }
 
   function createProject(title) {

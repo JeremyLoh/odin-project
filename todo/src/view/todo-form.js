@@ -1,5 +1,5 @@
 import { PriorityLevel, Todo } from "../model/todo"
-import { TodoEvent, TodoPubsub } from "../todo-pubsub"
+import { TodoEvent, TodoPubsub } from "../pubsub/todo-pubsub"
 import { createDialog } from "./dialog"
 
 const { format } = require("date-fns") 

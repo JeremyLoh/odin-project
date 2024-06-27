@@ -2,7 +2,7 @@ import { Project } from "../model/project"
 import { PriorityLevel, Todo } from "../model/todo"
 import { ProjectEvent, ProjectPubSub } from "../pubsub/project-pubsub"
 import { TodoEvent, TodoPubsub } from "../pubsub/todo-pubsub"
-import { renderProjects } from "../view/project-view"
+import { renderCurrentProject, renderProjects } from "../view/project-view"
 import { displayCreateTodoForm } from "../view/todo-form"
 import { renderTodos } from "../view/todo-view"
 
@@ -29,10 +29,8 @@ export const ProjectController = (function() {
   }
   function handleProjectCardClick(project) {
     const todos = project.todos
+    renderCurrentProject(project)
     renderTodos(todos)
-    // TODO only render project card that was clicked, filter out remaining projects
-    // TODO render only single project, no need to add click handler of project card
-    // renderProject(projects[project])
   }
 
   function createProject(title) {

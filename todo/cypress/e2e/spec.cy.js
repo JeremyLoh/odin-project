@@ -125,7 +125,7 @@ describe("homepage", () => {
         cy.get(".project-grid").find(".project-card").should("have.length", 1)
           .contains("Demo")
           .parent()
-          .contains("1 todos")
+          .contains("1 todo")
         
         // click on "View projects" button should display all two projects
         cy.get("button[data-cy='view-projects-button']").should("be.visible").and("be.enabled")
@@ -183,9 +183,9 @@ describe("homepage", () => {
         const projectName = "new project 2"
         createNewProject(projectName)
         getProjectCard(projectName).click()
-        cy.get(".project-card").contains("0 todos")
+        cy.get(".project-card").contains("0 todo")
         createNewTodo(newTodoTitle)
-        cy.get(".project-card").contains("1 todos")
+        cy.get(".project-card").contains("1 todo")
       })
 
       it("should increase project card todo count from zero to two", () => {
@@ -193,7 +193,7 @@ describe("homepage", () => {
         const projectName = "new project 2"
         createNewProject(projectName)
         getProjectCard(projectName).click()
-        cy.get(".project-card").contains("0 todos")
+        cy.get(".project-card").contains("0 todo")
         createNewTodo(newTodoTitle)
         createNewTodo(newTodoTitle)
         cy.get(".project-card").contains("2 todos")

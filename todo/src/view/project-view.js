@@ -39,7 +39,9 @@ function createProjectCard(project) {
   titleElement.textContent = project.title
 
   const totalTodosElement = document.createElement("p")
-  totalTodosElement.textContent = `${project.totalTodos} todos`
+  totalTodosElement.textContent = project.totalTodos > 1 
+    ? `${project.totalTodos} todos`
+    : `${project.totalTodos} todo`
 
   const createdAtElement = document.createElement("p")
   createdAtElement.textContent = `${format(project.createdAt, "d MMMM yyyy")}, ${formatDistanceToNowStrict(project.createdAt)} ago`

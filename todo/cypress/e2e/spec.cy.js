@@ -62,17 +62,34 @@ describe("homepage", () => {
     })
 
     it("should prevent project creation with project name that already exists", () => {
+      const projectName = "testProjectName"
       const expectedAlertMessage = "Did not create project as project name already exists"
-
       const alertStub = cy.stub()
       cy.on("window:alert", alertStub)
 
-      const projectName = "testProjectName"
       cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
         .click()
       cy.get("[data-cy='create-project-form']").should("be.visible")
       cy.get("[data-cy='name-input-project-form']").type(projectName)
       cy.get("[data-cy='submit-btn-project-form']").click()
+
+      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
+        .click()
+      cy.get("[data-cy='create-project-form']").should("be.visible")
+      cy.get("[data-cy='name-input-project-form']").type(projectName)
+      cy.get("[data-cy='submit-btn-project-form']")
+        .click()
+        .then(() => {
+          expect(alertStub).to.be.calledOnce
+          expect(alertStub.getCall(0)).to.be.calledWith(expectedAlertMessage)
+        })
+    })
+
+    it("should prevent project creation with name consisting of whitespace", () => {
+      const projectName = "     "
+      const expectedAlertMessage = "Please provide a project name"
+      const alertStub = cy.stub()
+      cy.on("window:alert", alertStub)
 
       cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
         .click()

@@ -1,4 +1,5 @@
 import { ProjectEvent, ProjectPubSub } from "../pubsub/project-pubsub"
+import { displayErrorAlert } from "./alert"
 import { createDialog } from "./dialog"
 
 export function displayCreateProjectForm() {
@@ -23,6 +24,9 @@ export function displayCreateProjectForm() {
     event.preventDefault()
     const formData = new FormData(form)
     const name = formData.get("Name")
+    if (name.trim() === "") {
+      displayErrorAlert("Please provide a project name")
+    }
     ProjectPubSub.publish(ProjectEvent.ADD, {name})
     dialog.close()
     dialog.remove()

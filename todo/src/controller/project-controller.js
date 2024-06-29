@@ -12,6 +12,7 @@ export const ProjectController = (function() {
   const projects = {}
   // TODO In ProjectController, should subscribe to the TodoEvent.UPDATE on any todo update, to trigger rerender
   TodoPubsub.subscribe(TodoEvent.ADD, handleAddTodo)
+  TodoPubsub.subscribe(TodoEvent.DELETE, handleDeleteTodo)
   ProjectPubSub.subscribe(ProjectEvent.ADD, handleAddProject)
 
   function handleAddTodo(data) {
@@ -21,6 +22,13 @@ export const ProjectController = (function() {
     }
     const project = projects[projectTitle]
     project.addTodo(todo)
+    renderCurrentProject(project)
+    renderTodos(project.todos, projectTitle)
+  }
+  function handleDeleteTodo(data) {
+    const {todo, projectTitle} = data
+    const project = projects[projectTitle]
+    project.deleteTodo(todo)
     renderCurrentProject(project)
     renderTodos(project.todos, projectTitle)
   }

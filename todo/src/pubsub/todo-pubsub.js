@@ -10,7 +10,7 @@ export const TodoPubsub = (function() {
   }
   function subscribe(event, fn) {
     // subscribe to an event, with a callback function that should be executed when event happens
-    if (event.length === 0 || fn == undefined) {
+    if (event == undefined || fn == undefined) {
       return
     }
     events[event] = events[event] || []

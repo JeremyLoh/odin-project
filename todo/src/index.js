@@ -14,7 +14,6 @@ ProjectController.renderAllProjects()
 Checklist
     2) View all todos in each project (probably just the title and due date... perhaps changing color for different priorities)
     3) Expand a single todo to see/edit its details
-    4) Delete a todo
 
 On click of each project card, render available todos
 - If no todos, display a message of no todo, and a create todo button to display create todo

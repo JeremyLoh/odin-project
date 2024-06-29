@@ -9,6 +9,16 @@ export class Project {
     this._todos.push(todo)
   }
 
+  deleteTodo(todo) {
+    this._todos = this._todos.filter((t) => {
+      // filter out todos that are same as the one to delete (will remove all duplicates)
+      return !(
+        t.title === todo.title && t.description === todo.description && t.dueDate === todo.dueDate &&
+        t.priority == todo.priority && t.notes === todo.notes
+      )
+    })
+  }
+
   get todos() {
     return this._todos
   }

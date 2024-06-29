@@ -149,7 +149,7 @@ describe("homepage", () => {
         cy.get("[data-cy='new-todo-submit-button']").click()
       }
 
-      it.only("should display no todo available message on project card click", () => {
+      it("should display no todo available message on project card click", () => {
         const projectName = "new project 2"
         createNewProject(projectName)
         getProjectCard(projectName).click()
@@ -204,6 +204,18 @@ describe("homepage", () => {
         createNewTodo(newTodoTitle)
         createNewTodo(newTodoTitle)
         cy.get(".project-card").contains("2 todos")
+      })
+
+      it("should delete todo when delete button on todo card is clicked", () => {
+        const newTodoTitle = "new todo title"
+        const projectName = "new project 2"
+        createNewProject(projectName)
+        getProjectCard(projectName).click()
+        createNewTodo(newTodoTitle)
+        cy.get(".project-card").contains("1 todo")
+
+        cy.get(".todo-card").find(".delete-todo-button").click()
+        cy.get(".project-card").contains("0 todo")
       })
     })
   })

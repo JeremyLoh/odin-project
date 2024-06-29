@@ -1,10 +1,9 @@
 import { format, formatDistanceToNow, isBefore } from "date-fns"
 import { displayCreateTodoForm } from "./todo-form"
+import { TodoEvent, TodoPubsub } from "../pubsub/todo-pubsub"
 
 export function renderTodos(todos, projectTitle) {
-  // TODO
-  // 3) Expand a single todo to see/edit its details
-  // 4) Delete a todo
+  // TODO 3) Expand a single todo to see/edit its details
   const main = document.querySelector("main")
   const container = document.querySelector(".todo-container") || document.createElement("div")
   container.classList.add("todo-container")
@@ -14,13 +13,22 @@ export function renderTodos(todos, projectTitle) {
   todoContainer.classList.add("todo-card-container")
 
   const createNewTodoButton = createNewTodoButtonElement(projectTitle)
-  todos.length > 0
-    ? todos.forEach((todo) => todoContainer.append(createTodoElement(todo)))
-    : todoContainer.append(createNoTodoElement())
+  if (todos.length > 0) {
+    todos.forEach((todo) => {
+      const element = createTodoElement(todo, () => handleTodoDelete(todo, projectTitle))
+      todoContainer.append(element)
+    })
+  } else {
+    todoContainer.append(createNoTodoElement())
+  }
   
   container.append(createNewTodoButton)
   container.append(todoContainer)
   main.append(container)
+}
+
+function handleTodoDelete(todo, projectTitle) {
+  TodoPubsub.publish(TodoEvent.DELETE, {projectTitle, todo})
 }
 
 function createNewTodoButtonElement(projectTitle) {
@@ -34,7 +42,7 @@ function createNewTodoButtonElement(projectTitle) {
   return button
 }
 
-function createTodoElement(todo) {
+function createTodoElement(todo, handleTodoDelete) {
   const card = document.createElement("div")
   card.classList.add("todo-card")
   card.classList.add(`${todo.priority.toLowerCase()}-priority`)
@@ -44,8 +52,10 @@ function createTodoElement(todo) {
   const priorityElement = createPriorityElement(todo)
   const descriptionElement = createDescriptionElement(todo)
   const notesElement = createNotesElement(todo)
+  const deleteElement = createDeleteElement(handleTodoDelete)
   const expandElement = createExpandElement(card)
-  card.append(titleElement, dueDateElement, priorityElement, descriptionElement, notesElement, expandElement)
+  card.append(titleElement, dueDateElement, priorityElement, descriptionElement, notesElement,
+    deleteElement, expandElement)
   return card
 }
 
@@ -105,6 +115,17 @@ function createNotesElement(todo) {
   notesElement.setAttribute("readonly", "")
   notesElement.setAttribute("rows", "8")
   return notesElement
+}
+
+function createDeleteElement(handleTodoDelete) {
+  const deleteElement = document.createElement("button")
+  deleteElement.textContent = "Delete"
+  deleteElement.classList.add("delete-todo-button")
+  deleteElement.addEventListener("click", () => {
+    handleTodoDelete()
+    deleteElement.closest(".todo-card").remove()
+  })
+  return deleteElement
 }
 
 function createExpandElement(card) {

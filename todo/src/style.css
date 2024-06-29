@@ -16,7 +16,7 @@
   --todo-low-priority-color: #22c55e;
   --todo-medium-priority-color: #facc15;
   --todo-high-priority-color: #ef4444;
-  --form-close-btn-color: #ef4444;
+  --danger-btn-color: #ef4444;
 }
 
 body {
@@ -91,7 +91,7 @@ dialog[open] .dialog-close-btn {
   aspect-ratio: 1 / 1;
   border-radius: 50%;
   border: none;
-  background-color: var(--form-close-btn-color);
+  background-color: var(--danger-btn-color);
   color: white;
 }
 
@@ -233,6 +233,23 @@ dialog[open] .dialog-close-btn {
   border-bottom: 2mm solid var(--todo-high-priority-color);
 }
 
-.expand-button {
+.expand-button,
+.delete-todo-button {
   padding: 1rem;
+  border: none;
+  width: 20%;
+}
+
+.expand-button {
+  background-color: var(--nav-bg-color);
+}
+
+.delete-todo-button {
+  background-color: var(--danger-btn-color);
+  color: white;
+}
+
+.expand-button:hover,
+.delete-todo-button:hover {
+  filter: brightness(0.9);
 }

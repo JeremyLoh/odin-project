@@ -9,7 +9,7 @@ export const ProjectPubSub = (function() {
   }
   function subscribe(event, fn) {
     // subscribe to event, store the callback function given
-    if (fn == undefined) {
+    if (event == undefined || fn == undefined) {
       return
     }
     events[event] = events[event] || []

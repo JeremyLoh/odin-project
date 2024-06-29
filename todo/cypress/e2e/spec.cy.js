@@ -143,6 +143,11 @@ describe("homepage", () => {
         enterProjectDetails(title)
         getProjectSubmitButton().click()
       }
+      function createNewTodo(title) {
+        cy.get("button[data-cy='create-new-todo']").click()
+        cy.get("[data-cy='new-todo-title']").type(title)
+        cy.get("[data-cy='new-todo-submit-button']").click()
+      }
 
       it("should display create new todo button", () => {
         const projectName = "new project 2"
@@ -166,13 +171,32 @@ describe("homepage", () => {
         getProjectCard(projectName).click()
         cy.get("todo-card-container").should("not.exist")
 
-        cy.get("button[data-cy='create-new-todo']").click()
-        cy.get("[data-cy='new-todo-title']").type(newTodoTitle)
-        cy.get("[data-cy='new-todo-submit-button']").click()
+        createNewTodo(newTodoTitle)
         cy.get(".todo-card-container")
           .find(".todo-card")
           .should("have.length", 1)
           .and("contain.text", newTodoTitle)
+      })
+      
+      it("should increase project card todo count from zero to one", () => {
+        const newTodoTitle = "new todo title"
+        const projectName = "new project 2"
+        createNewProject(projectName)
+        getProjectCard(projectName).click()
+        cy.get(".project-card").contains("0 todos")
+        createNewTodo(newTodoTitle)
+        cy.get(".project-card").contains("1 todos")
+      })
+
+      it("should increase project card todo count from zero to two", () => {
+        const newTodoTitle = "new todo title"
+        const projectName = "new project 2"
+        createNewProject(projectName)
+        getProjectCard(projectName).click()
+        cy.get(".project-card").contains("0 todos")
+        createNewTodo(newTodoTitle)
+        createNewTodo(newTodoTitle)
+        cy.get(".project-card").contains("2 todos")
       })
     })
   })

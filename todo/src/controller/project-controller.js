@@ -21,6 +21,7 @@ export const ProjectController = (function() {
     }
     const project = projects[projectTitle]
     project.addTodo(todo)
+    renderCurrentProject(project)
     renderTodos(project.todos, projectTitle)
   }
   function handleAddProject(data) {

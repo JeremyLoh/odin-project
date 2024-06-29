@@ -39,7 +39,6 @@ export const ProjectController = (function() {
   }
 
   function createProject(title) {
-    // TODO handle duplicate project creation with same title (hash the title with timestamp)
     const project = new Project(title, [])
     projects[title] = project
     return project

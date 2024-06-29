@@ -7,5 +7,18 @@ export const NavView = (function() {
       displayCreateProjectForm()
     })
   }
-  return { setupCreateProjectButton }
+  function setupViewProjectsButton(handleRenderAllProjects) {
+    const viewProjectsButton = document.querySelector(".view-projects-btn")
+    viewProjectsButton.addEventListener("click", () => {
+      removeTodoContainer()
+      handleRenderAllProjects()
+    })
+  }
+  function removeTodoContainer() {
+    const todoContainer = document.querySelector(".todo-container")
+    if (todoContainer) {
+      todoContainer.remove()
+    }
+  }
+  return { setupCreateProjectButton, setupViewProjectsButton }
 })()

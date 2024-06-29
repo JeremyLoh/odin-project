@@ -40,19 +40,21 @@ describe("homepage", () => {
   })
 
   context("create new project", () => {
-    it("should display new project form when 'Create Project' button is clicked", () => {
+    function clickCreateProjectButton() {
       cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
         .click()
       cy.get("[data-cy='create-project-form']").should("be.visible")
+    }
+
+    it("should display new project form when 'Create Project' button is clicked", () => {
+      clickCreateProjectButton()
       cy.get("[data-cy='name-input-project-form']").type("testProjectName")
       cy.get("[data-cy='submit-btn-project-form']").should("be.visible").and("be.enabled")
     })
 
     it("should create new project when create project form is submitted", () => {
       const projectName = "testProjectName"
-      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
-        .click()
-      cy.get("[data-cy='create-project-form']").should("be.visible")
+      clickCreateProjectButton()
       cy.get("[data-cy='name-input-project-form']").type(projectName)
       cy.get("[data-cy='submit-btn-project-form']").click()
       
@@ -67,15 +69,11 @@ describe("homepage", () => {
       const alertStub = cy.stub()
       cy.on("window:alert", alertStub)
 
-      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
-        .click()
-      cy.get("[data-cy='create-project-form']").should("be.visible")
+      clickCreateProjectButton()
       cy.get("[data-cy='name-input-project-form']").type(projectName)
       cy.get("[data-cy='submit-btn-project-form']").click()
 
-      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
-        .click()
-      cy.get("[data-cy='create-project-form']").should("be.visible")
+      clickCreateProjectButton()
       cy.get("[data-cy='name-input-project-form']").type(projectName)
       cy.get("[data-cy='submit-btn-project-form']")
         .click()
@@ -91,9 +89,7 @@ describe("homepage", () => {
       const alertStub = cy.stub()
       cy.on("window:alert", alertStub)
 
-      cy.get("[data-cy='create-project-button']").should("be.visible").and("be.enabled")
-        .click()
-      cy.get("[data-cy='create-project-form']").should("be.visible")
+      clickCreateProjectButton()
       cy.get("[data-cy='name-input-project-form']").type(projectName)
       cy.get("[data-cy='submit-btn-project-form']")
         .click()
@@ -101,6 +97,33 @@ describe("homepage", () => {
           expect(alertStub).to.be.calledOnce
           expect(alertStub.getCall(0)).to.be.calledWith(expectedAlertMessage)
         })
+    })
+
+    it("should navigate to view all projects when 'View projects' nav button is clicked", () => {
+      const projectName = "test second project"
+      
+      // create second project
+      cy.get(".project-grid").find(".project-card").should("have.length", 1)
+      clickCreateProjectButton()
+      cy.get("[data-cy='name-input-project-form']").type(projectName)
+      cy.get("[data-cy='submit-btn-project-form']")
+        .click()
+      cy.get(".project-grid").find(".project-card").should("have.length", 2)
+      
+      // click demo project to display only demo project
+      cy.get(".project-card[data-cy='Demo']").click()
+      cy.get(".project-grid").find(".project-card").should("have.length", 1)
+        .contains("Demo")
+        .parent()
+        .contains("1 todos")
+      
+      // click on "View projects" button should display all two projects
+      cy.get("button[data-cy='view-projects-button']").should("be.visible").and("be.enabled")
+        .click()
+      cy.get(".project-grid").find(".project-card").should("have.length", 2)
+      // todo card should not be shown
+      cy.get(".todo-container").should("not.exist")
+      cy.get(".todo-card").should("not.exist")
     })
   })
 })

@@ -169,6 +169,14 @@ dialog[open] .dialog-close-btn {
   margin: 1rem 0;
 }
 
+.no-todo-message {
+  padding: 1rem 0.5rem;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-left: 2mm solid var(--nav-bg-color);
+}
+
 .create-new-todo-btn {
   width: fit-content;
   padding: 1rem 2rem;

@@ -1,7 +1,7 @@
 const { formatDistanceToNowStrict, format } = require("date-fns")
 
 export function renderProjects(projects, handleCardClick) {
-  removeExistingProjectGrid()
+  removeExistingProjectContents()
   const main = document.querySelector("main")
   const grid = document.createElement("div")
   grid.classList.add("project-grid")
@@ -14,7 +14,7 @@ export function renderProjects(projects, handleCardClick) {
 }
 
 export function renderCurrentProject(project) {
-  removeExistingProjectGrid()
+  removeExistingProjectContents()
   const main = document.querySelector("main")
   const grid = document.createElement("div")
   grid.classList.add("project-grid")
@@ -23,10 +23,14 @@ export function renderCurrentProject(project) {
   main.append(grid)
 }
 
-function removeExistingProjectGrid() {
+function removeExistingProjectContents() {
   const isProjectGridDisplayed = document.querySelector(".project-grid") != null
   if (isProjectGridDisplayed) {
     document.querySelector(".project-grid").remove()
+  }
+  const isTodoContainerDisplayed = document.querySelector(".todo-container") != null
+  if (isTodoContainerDisplayed) {
+    document.querySelector(".todo-container").remove()
   }
 }
 

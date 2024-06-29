@@ -149,6 +149,13 @@ describe("homepage", () => {
         cy.get("[data-cy='new-todo-submit-button']").click()
       }
 
+      it.only("should display no todo available message on project card click", () => {
+        const projectName = "new project 2"
+        createNewProject(projectName)
+        getProjectCard(projectName).click()
+        cy.get("[data-cy='no-todo-message']").should("be.visible")
+      })
+
       it("should display create new todo button", () => {
         const projectName = "new project 2"
         createNewProject(projectName)

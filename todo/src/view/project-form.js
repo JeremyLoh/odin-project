@@ -26,6 +26,7 @@ export function displayCreateProjectForm() {
     const name = formData.get("Name")
     if (name.trim() === "") {
       displayErrorAlert("Please provide a project name")
+      return
     }
     ProjectPubSub.publish(ProjectEvent.ADD, {name})
     dialog.close()

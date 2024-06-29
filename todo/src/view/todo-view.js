@@ -14,7 +14,9 @@ export function renderTodos(todos, projectTitle) {
   todoContainer.classList.add("todo-card-container")
 
   const createNewTodoButton = createNewTodoButtonElement(projectTitle)
-  todos.forEach((todo) => todoContainer.append(createTodoElement(todo)))
+  todos.length > 0
+    ? todos.forEach((todo) => todoContainer.append(createTodoElement(todo)))
+    : todoContainer.append(createNoTodoElement())
   
   container.append(createNewTodoButton)
   container.append(todoContainer)
@@ -45,6 +47,14 @@ function createTodoElement(todo) {
   const expandElement = createExpandElement(card)
   card.append(titleElement, dueDateElement, priorityElement, descriptionElement, notesElement, expandElement)
   return card
+}
+
+function createNoTodoElement() {
+  const element = document.createElement("p")
+  element.textContent = "No todo available"
+  element.classList.add("no-todo-message")
+  element.setAttribute("data-cy", "no-todo-message")
+  return element
 }
 
 function getCollapsableElements(card) {

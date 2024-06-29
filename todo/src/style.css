@@ -146,10 +146,28 @@ dialog[open] .dialog-close-btn {
 }
 
 .todo-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.todo-card-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
   gap: 1rem;
   margin: 1rem 0;
+}
+
+.create-new-todo-btn {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border: none;
+  background-color: var(--submit-btn-bg-color);
+  color: white;
+}
+
+.create-new-todo-btn:hover {
+  filter: brightness(0.9);
 }
 
 .todo-card {

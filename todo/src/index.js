@@ -12,7 +12,6 @@ ProjectController.renderAllProjects()
 // TODO - Pending items
 /*
 Checklist
-    1) View all projects
     2) View all todos in each project (probably just the title and due date... perhaps changing color for different priorities)
     3) Expand a single todo to see/edit its details
     4) Delete a todo

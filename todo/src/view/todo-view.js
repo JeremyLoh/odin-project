@@ -2,15 +2,33 @@ import { format, formatDistanceToNow, isBefore } from "date-fns"
 
 export function renderTodos(todos) {
   // TODO
-  // 2) View all todos in each project (probably just the title and due date... perhaps changing color for different priorities)
   // 3) Expand a single todo to see/edit its details
   // 4) Delete a todo
   const main = document.querySelector("main")
   const container = document.querySelector(".todo-container") || document.createElement("div")
   container.classList.add("todo-container")
   container.innerHTML = ""
-  todos.forEach((todo) => container.append(createTodoElement(todo)))
+
+  const todoContainer = document.querySelector(".todo-card-container") || document.createElement("div")
+  todoContainer.classList.add("todo-card-container")
+
+  const createNewTodoButton = createNewTodoButtonElement()
+  todos.forEach((todo) => todoContainer.append(createTodoElement(todo)))
+  
+  container.append(createNewTodoButton)
+  container.append(todoContainer)
   main.append(container)
+}
+
+function createNewTodoButtonElement() {
+  const button = document.createElement("button")
+  button.classList.add("create-new-todo-btn")
+  button.textContent = "Create New Todo"
+  button.setAttribute("data-cy", "create-new-todo")
+  button.addEventListener("click", () => {
+    // TODO display create new todo form
+  })
+  return button
 }
 
 function createTodoElement(todo) {

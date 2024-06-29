@@ -150,6 +150,14 @@ describe("homepage", () => {
         getProjectCard(projectName).click()
         cy.get("button[data-cy='create-new-todo']").should("be.visible")
       })
+
+      it("should display create new todo form on click of create new todo button", () => {
+        const projectName = "new project 2"
+        createNewProject(projectName)
+        getProjectCard(projectName).click()
+        cy.get("button[data-cy='create-new-todo']").click()
+        cy.get("form[data-cy='create-new-todo-form']").should("be.visible")
+      })
     })
   })
 })

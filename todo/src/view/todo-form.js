@@ -11,6 +11,7 @@ export function displayCreateTodoForm(projectTitle) {
 
   const form = document.createElement("form")
   form.classList.add("create-todo-form")
+  form.setAttribute("data-cy", "create-new-todo-form")
   const formTitleElement = document.createElement("h2")
   formTitleElement.textContent = `${projectTitle}: What todo?`
 

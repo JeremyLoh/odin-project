@@ -1,6 +1,7 @@
 import { format, formatDistanceToNow, isBefore } from "date-fns"
+import { displayCreateTodoForm } from "./todo-form"
 
-export function renderTodos(todos) {
+export function renderTodos(todos, projectTitle) {
   // TODO
   // 3) Expand a single todo to see/edit its details
   // 4) Delete a todo
@@ -12,7 +13,7 @@ export function renderTodos(todos) {
   const todoContainer = document.querySelector(".todo-card-container") || document.createElement("div")
   todoContainer.classList.add("todo-card-container")
 
-  const createNewTodoButton = createNewTodoButtonElement()
+  const createNewTodoButton = createNewTodoButtonElement(projectTitle)
   todos.forEach((todo) => todoContainer.append(createTodoElement(todo)))
   
   container.append(createNewTodoButton)
@@ -20,13 +21,13 @@ export function renderTodos(todos) {
   main.append(container)
 }
 
-function createNewTodoButtonElement() {
+function createNewTodoButtonElement(projectTitle) {
   const button = document.createElement("button")
   button.classList.add("create-new-todo-btn")
   button.textContent = "Create New Todo"
   button.setAttribute("data-cy", "create-new-todo")
   button.addEventListener("click", () => {
-    // TODO display create new todo form
+    displayCreateTodoForm(projectTitle)
   })
   return button
 }

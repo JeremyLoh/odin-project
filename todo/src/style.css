@@ -16,6 +16,7 @@
   --todo-low-priority-color: #22c55e;
   --todo-medium-priority-color: #facc15;
   --todo-high-priority-color: #ef4444;
+  --form-close-btn-color: #ef4444;
 }
 
 body {
@@ -76,21 +77,31 @@ main {
   padding: 1rem;
 }
 
-dialog[open].form-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 1rem auto;
+dialog[open] {
   width: min(70ch, 100%);
   padding: 1rem;
+  margin: auto;
   border-radius: 8px;
+  border: none;
+  border-left: 2mm solid var(--nav-bg-color);
 }
 
 dialog[open] .dialog-close-btn {
   align-self: flex-end;
-  border-radius: 25%;
-  font-size: 1.1rem;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--form-close-btn-color);
+  color: white;
+}
+
+.dialog-close-btn:hover {
+  filter: brightness(0.9);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .create-project-form,

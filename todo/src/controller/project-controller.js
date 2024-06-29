@@ -21,7 +21,7 @@ export const ProjectController = (function() {
     }
     const project = projects[projectTitle]
     project.addTodo(todo)
-    renderTodos(project.todos)
+    renderTodos(project.todos, projectTitle)
   }
   function handleAddProject(data) {
     const {name} = data
@@ -35,7 +35,7 @@ export const ProjectController = (function() {
   function handleProjectCardClick(project) {
     const todos = project.todos
     renderCurrentProject(project)
-    renderTodos(todos)
+    renderTodos(todos, project.title)
   }
 
   function createProject(title) {

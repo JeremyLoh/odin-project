@@ -2,6 +2,7 @@ import { Project } from "../model/project"
 import { PriorityLevel, Todo } from "../model/todo"
 import { ProjectEvent, ProjectPubSub } from "../pubsub/project-pubsub"
 import { TodoEvent, TodoPubsub } from "../pubsub/todo-pubsub"
+import { displayErrorAlert } from "../view/alert"
 import { renderCurrentProject, renderProjects } from "../view/project-view"
 import { displayCreateTodoForm } from "../view/todo-form"
 import { renderTodos } from "../view/todo-view"
@@ -24,6 +25,10 @@ export const ProjectController = (function() {
   }
   function handleAddProject(data) {
     const {name} = data
+    if (isExistingProjectName(name)) {
+      displayErrorAlert("Did not create project as project name already exists")
+      return
+    }
     createProject(name)
     renderAllProjects()
   }
@@ -38,6 +43,9 @@ export const ProjectController = (function() {
     const project = new Project(title, [])
     projects[title] = project
     return project
+  }
+  function isExistingProjectName(title) {
+    return title in projects
   }
   function renderAllProjects() {
     renderProjects(Object.values(projects), handleProjectCardClick)

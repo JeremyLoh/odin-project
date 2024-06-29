@@ -16,6 +16,8 @@ export function displayCreateTodoForm(projectTitle) {
   formTitleElement.textContent = `${projectTitle}: What todo?`
 
   const titleContainer = createInputElement("Title")
+  titleContainer.querySelector("input")
+    .setAttribute("data-cy", "new-todo-title")
   const descriptionContainer = createInputElement("Description")
   const dueDateContainer = createDateElement("Due Date")
   const priorityContainer = createPriorityElement(
@@ -23,6 +25,7 @@ export function displayCreateTodoForm(projectTitle) {
   const notesContainer = createNotesElement()
   const submitButton = document.createElement("button")
   submitButton.setAttribute("type", "submit")
+  submitButton.setAttribute("data-cy", "new-todo-submit-button")
   submitButton.textContent = "Create New Todo"
   
   setRequiredInput(titleContainer)

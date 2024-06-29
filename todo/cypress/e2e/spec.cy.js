@@ -158,6 +158,22 @@ describe("homepage", () => {
         cy.get("button[data-cy='create-new-todo']").click()
         cy.get("form[data-cy='create-new-todo-form']").should("be.visible")
       })
+
+      it("should create a new todo when todo form is submitted", () => {
+        const newTodoTitle = "new todo title"
+        const projectName = "new project 2"
+        createNewProject(projectName)
+        getProjectCard(projectName).click()
+        cy.get("todo-card-container").should("not.exist")
+
+        cy.get("button[data-cy='create-new-todo']").click()
+        cy.get("[data-cy='new-todo-title']").type(newTodoTitle)
+        cy.get("[data-cy='new-todo-submit-button']").click()
+        cy.get(".todo-card-container")
+          .find(".todo-card")
+          .should("have.length", 1)
+          .and("contain.text", newTodoTitle)
+      })
     })
   })
 })

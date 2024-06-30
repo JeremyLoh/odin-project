@@ -5,7 +5,6 @@
   "description": "Todo list - Odin Project",
   "main": "src/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --config webpack.config.js",
     "build:watch": "webpack --watch --config webpack.config.js",
     "cy:open": "cypress open"

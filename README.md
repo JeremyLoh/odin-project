@@ -1,5 +1,7 @@
 # Project URLs
 
+Todo - https://github.com/JeremyLoh/odin-project/tree/main/todo
+
 Restaurant - https://github.com/JeremyLoh/odin-project/tree/main/restaurant
 
 Admin Dashboard - https://jeremyloh.github.io/odin-project/admin-dashboard/

@@ -1,0 +1,291 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --nav-bg-color: #7dd3fc;
+  --submit-btn-bg-color: #16a34a;
+  --project-card-bg-color: #fafaf9;
+  --todo-card-bg-color: #fef9c3;
+  --todo-card-text-color: black;
+  --todo-low-priority-color: #22c55e;
+  --todo-medium-priority-color: #facc15;
+  --todo-high-priority-color: #ef4444;
+  --danger-btn-color: #ef4444;
+}
+
+body {
+  min-height: 100vh;
+}
+
+button {
+  padding: 0.5rem;
+  border-radius: 8px;
+  font-weight: bold;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-image: linear-gradient(to right, var(--nav-bg-color), #64c1f6, #4eaeef, #409ae7, #3b86dd);
+}
+
+.app-title {
+  border-bottom: 2mm dotted var(--todo-card-bg-color);
+}
+
+nav {
+  display: flex;
+  gap: 1rem;
+}
+
+nav .create-project-btn,
+nav .view-projects-btn {
+  border: none;
+  height: 100%;
+  padding: 0.6rem 1rem;
+}
+
+nav .create-project-btn:hover,
+nav .view-projects-btn:hover {
+  filter: brightness(0.9);
+}
+
+main {
+  padding: 1rem;
+}
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background-color: var(--project-card-bg-color);
+  box-shadow: 0px 4px 8px 2px #777;
+  padding: 1rem;
+}
+
+dialog[open] {
+  width: min(70ch, 100%);
+  padding: 1rem;
+  margin: auto;
+  border-radius: 8px;
+  border: none;
+  border-left: 2mm solid var(--nav-bg-color);
+}
+
+dialog[open] .dialog-close-btn {
+  align-self: flex-end;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--danger-btn-color);
+  color: white;
+}
+
+.dialog-close-btn:hover {
+  filter: brightness(0.9);
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.create-project-form,
+.create-todo-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 0;
+}
+
+.create-project-form input {
+  padding: 0.4rem;
+}
+
+.create-project-form div,
+.create-todo-form div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  width: 100%;
+}
+
+.create-todo-form fieldset {
+  width: 100%;
+  padding: 1rem;
+}
+
+.create-todo-form fieldset div {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0.5rem 0;
+}
+
+.create-todo-form input[type=text],
+.create-todo-form textarea,
+.create-todo-form input[type=date] {
+  flex: 1;
+  padding: 0.4rem;
+}
+
+.create-todo-form button[type=submit] {
+  background-color: var(--submit-btn-bg-color);
+  color: white;
+  border: none;
+  padding: 1rem;
+}
+
+.create-todo-form button[type=submit]:hover {
+  filter: brightness(0.9);
+}
+
+.todo-container {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.todo-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.no-todo-message {
+  padding: 1rem 0.5rem;
+  width: fit-content;
+  font-weight: bold;
+  font-size: 1.1rem;
+  border-left: 2mm solid var(--nav-bg-color);
+}
+
+.create-new-todo-btn {
+  width: fit-content;
+  padding: 1rem 2rem;
+  border: none;
+  background-color: var(--submit-btn-bg-color);
+  color: white;
+}
+
+.create-new-todo-btn:hover {
+  filter: brightness(0.9);
+}
+
+.todo-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  width: min(70ch, 100%);
+  min-height: 250px;
+  background-color: var(--todo-card-bg-color);
+  color: var(--todo-card-text-color);
+}
+
+.todo-title, .todo-due-date, .todo-description, .todo-notes {
+  overflow-wrap: break-word;
+  width: 100%;
+  max-width: 100%;
+}
+
+.todo-card .collapsed {
+  display: none;
+}
+
+.todo-due-date {
+  text-align: right;
+}
+
+.todo-notes {
+  resize: vertical;
+  padding: 1rem;
+}
+
+.todo-card.low-priority {
+  border-bottom: 2mm solid var(--todo-low-priority-color);
+}
+
+.todo-card.medium-priority {
+  border-bottom: 2mm solid var(--todo-medium-priority-color);
+}
+
+.todo-card.high-priority {
+  border-bottom: 2mm solid var(--todo-high-priority-color);
+}
+
+.edit-todo-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+[contenteditable="true"],
+[contenteditable="true"]:focus {
+  outline: none;
+  border: none;
+  border-bottom: 1mm dotted var(--danger-btn-color);
+  padding-bottom: 0.2rem;
+}
+
+.expand-button,
+.delete-todo-button,
+.delete-project-button,
+.save-todo-button {
+  padding: 1rem;
+  border: none;
+  outline: none;
+  width: 20%;
+}
+
+.hide {
+  display: none;
+}
+
+.expand-button {
+  background-color: var(--nav-bg-color);
+}
+
+.delete-todo-button {
+  background-color: var(--danger-btn-color);
+  color: white;
+}
+
+.delete-project-button {
+  align-self: flex-end;
+  background-color: var(--danger-btn-color);
+  color: white;
+}
+
+.save-todo-button {
+  background-color: var(--submit-btn-bg-color);
+  color: white;
+}
+
+.expand-button:hover,
+.delete-todo-button:hover,
+.delete-project-button:hover,
+.save-todo-button:hover {
+  filter: brightness(0.9);
+}

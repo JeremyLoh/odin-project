@@ -1,4 +1,5 @@
 export class Todo {
+  // priority is stored as the string representation of PriorityLevel (PriorityLevel.LOW.description)
   constructor(title, description, dueDate, priority, notes) {
     this._title = title
     this._description = description

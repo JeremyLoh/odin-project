@@ -10,6 +10,8 @@ https://www.theodinproject.com/lessons/node-path-javascript-todo-list
 - Webpack Asset Management - https://webpack.js.org/guides/asset-management/
 - Dialog not closing properly due to stylesheet
 https://stackoverflow.com/a/72161395
+- localStorage JavaScript complete guide - https://blog.logrocket.com/localstorage-javascript-complete-guide/
+
 ```
 For folks having their dialog not disappear when .close() is called, check your stylesheet.
 

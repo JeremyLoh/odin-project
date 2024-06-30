@@ -9,11 +9,32 @@ import { renderTodos } from "../view/todo-view"
 
 // Manage project creation and todo added to a project
 export const ProjectController = (function() {
-  const projects = {}
+  const projects = loadStoredProjects()
+
   TodoPubsub.subscribe(TodoEvent.ADD, handleAddTodo)
   TodoPubsub.subscribe(TodoEvent.UPDATE, handleUpdateTodo)
   TodoPubsub.subscribe(TodoEvent.DELETE, handleDeleteTodo)
   ProjectPubSub.subscribe(ProjectEvent.ADD, handleAddProject)
+
+  function loadStoredProjects() {
+    const localStorageProjects = {}
+    if (!window.localStorage.getItem("projects")) {
+      return {}
+    }
+    const storedProjects = JSON.parse(window.localStorage.getItem("projects"))
+    for (const [projectTitle, projectDetails] of Object.entries(storedProjects)) {
+      const todos = projectDetails._todos.map((item) => {
+        return new Todo(item._title, item._description, new Date(item._dueDate), item._priority, item._notes)
+      })
+      const project = new Project(projectDetails._title, todos, new Date(projectDetails._createdAt))
+      localStorageProjects[projectTitle] = project
+    }
+    return localStorageProjects
+  }
+  function saveProjectsToStorage(projects) {
+    const parsedProjects = JSON.stringify(projects)
+    window.localStorage.setItem("projects", parsedProjects)
+  }
 
   function handleAddTodo(data) {
     const {todo, projectTitle} = data
@@ -24,12 +45,14 @@ export const ProjectController = (function() {
     project.addTodo(todo)
     renderCurrentProject(project, {handleDeleteProject})
     renderTodos(project.todos, projectTitle)
+    saveProjectsToStorage(projects)
   }
   function handleUpdateTodo(data) {
     const {projectTitle, existingTodo, newTodo} = data
     const project = projects[projectTitle]
     project.updateTodo(existingTodo, newTodo)
     // not required to rerender current project of todo, already edited todo in place
+    saveProjectsToStorage(projects)
   }
   function handleDeleteTodo(data) {
     const {todo, projectTitle} = data
@@ -37,6 +60,7 @@ export const ProjectController = (function() {
     project.deleteTodo(todo)
     renderCurrentProject(project, {handleDeleteProject})
     renderTodos(project.todos, projectTitle)
+    saveProjectsToStorage(projects)
   }
   function handleAddProject(data) {
     const {name} = data
@@ -46,6 +70,7 @@ export const ProjectController = (function() {
     }
     createProject(name)
     renderAllProjects()
+    saveProjectsToStorage(projects)
   }
   function handleProjectCardClick(project) {
     const todos = project.todos
@@ -62,7 +87,7 @@ export const ProjectController = (function() {
 
   function createProject(title) {
     const project = new Project(title, [])
-    projects[title] = project
+    projects[title] = project    
     return project
   }
   function isExistingProjectName(title) {

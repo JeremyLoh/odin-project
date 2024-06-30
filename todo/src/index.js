@@ -6,9 +6,3 @@ NavController.setupButtons()
 
 ProjectController.setupDemoProject("Demo")
 ProjectController.renderAllProjects()
-
-// TODO - Pending items
-/*
-Checklist
-Persistent storage based on localStorage
-*/

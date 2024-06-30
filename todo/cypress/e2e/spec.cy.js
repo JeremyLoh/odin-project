@@ -3,6 +3,7 @@
 describe("homepage", () => {
   beforeEach(() => {
     cy.visit("./dist/index.html")
+    cy.clearLocalStorage()
   })
 
   context("project", () => {
@@ -212,6 +213,71 @@ describe("homepage", () => {
         createNewTodo(newTodoTitle)
         createNewTodo(newTodoTitle)
         cy.get(".project-card").contains("2 todos")
+      })
+
+      context("localStorage", () => {
+        it("should save created project and load it on page refresh", () => {
+          const projectName = "new project 2"
+          getProjectCard(projectName).should("not.exist")
+          
+          createNewProject(projectName)
+          getProjectCard(projectName).should("exist")
+          
+          cy.reload()
+          getProjectCard(projectName).should("exist")
+        })
+
+        it("should create todo and show created todo on page refresh", () => {
+          const projectName = "new project 2"
+          const todoTitle = "new todo title"
+          getProjectCard(projectName).should("not.exist")
+          createNewProject(projectName)
+          getProjectCard(projectName).click()
+          createNewTodo(todoTitle)
+          cy.get(".project-card").contains("1 todo")
+          
+          cy.reload()
+          getProjectCard(projectName).click()
+          cy.get(".project-card").contains("1 todo")
+          cy.get(".todo-title").should("have.text", todoTitle)
+        })
+
+        it("should update todo and show updated todo on page refresh", () => {
+          const projectName = "new project 2"
+          const todoTitle = "new todo title"
+          const updatedTodoTitle = "updated todo title"
+          getProjectCard(projectName).should("not.exist")
+          createNewProject(projectName)
+          getProjectCard(projectName).click()
+          createNewTodo(todoTitle)
+          cy.get(".project-card").contains("1 todo")
+
+          cy.get(".todo-card .expand-button").click()
+          cy.get(".todo-card .todo-title").clear().type(updatedTodoTitle)
+          cy.get(".todo-card .save-todo-button").click()
+
+          cy.reload()
+          getProjectCard(projectName).click()
+          cy.get(".todo-card .todo-title").should("have.text", updatedTodoTitle)
+        })
+
+        it("should delete todo and not show deleted todo on page refresh", () => {
+          const projectName = "new project 2"
+          const todoTitle = "new todo title"
+          getProjectCard(projectName).should("not.exist")
+          createNewProject(projectName)
+          getProjectCard(projectName).click()
+          createNewTodo(todoTitle)
+          cy.get(".project-card").contains("1 todo")
+
+          cy.reload()
+          getProjectCard(projectName).click()
+          cy.get(".todo-card").find(".delete-todo-button").click()
+
+          cy.reload()
+          getProjectCard(projectName).click()
+          cy.get(".project-card").contains("0 todo")
+        })
       })
 
       context("modify todo", () => {

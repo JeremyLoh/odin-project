@@ -1,8 +1,8 @@
 export class Project {
-  constructor(title, todos) {
+  constructor(title, todos, createdAt = new Date()) {
     this._todos = todos || []
     this._title = title
-    this._createdAt = new Date()
+    this._createdAt = createdAt
   }
 
   addTodo(todo) {

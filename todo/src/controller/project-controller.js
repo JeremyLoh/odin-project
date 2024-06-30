@@ -22,14 +22,14 @@ export const ProjectController = (function() {
     }
     const project = projects[projectTitle]
     project.addTodo(todo)
-    renderCurrentProject(project)
+    renderCurrentProject(project, {handleDeleteProject})
     renderTodos(project.todos, projectTitle)
   }
   function handleDeleteTodo(data) {
     const {todo, projectTitle} = data
     const project = projects[projectTitle]
     project.deleteTodo(todo)
-    renderCurrentProject(project)
+    renderCurrentProject(project, {handleDeleteProject})
     renderTodos(project.todos, projectTitle)
   }
   function handleAddProject(data) {
@@ -43,8 +43,15 @@ export const ProjectController = (function() {
   }
   function handleProjectCardClick(project) {
     const todos = project.todos
-    renderCurrentProject(project)
+    renderCurrentProject(project, {handleDeleteProject})
     renderTodos(todos, project.title)
+  }
+  function handleDeleteProject(project) {
+    const data = {project}
+    // publish this event just in case any other component needs to know the project was deleted
+    ProjectPubSub.publish(ProjectEvent.DELETE, data)
+    delete projects[project.title]
+    renderAllProjects()
   }
 
   function createProject(title) {
@@ -56,7 +63,7 @@ export const ProjectController = (function() {
     return title in projects
   }
   function renderAllProjects() {
-    renderProjects(Object.values(projects), handleProjectCardClick)
+    renderProjects(Object.values(projects), {handleProjectCardClick, handleDeleteProject})
   }
   function renderCreateTodoForm(projectTitle) {
     if (!projects.hasOwnProperty(projectTitle)) {

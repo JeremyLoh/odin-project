@@ -20,4 +20,5 @@ export const ProjectPubSub = (function() {
 
 export const ProjectEvent = Object.freeze({
   ADD: Symbol("add"),
+  DELETE: Symbol("delete"),
 })

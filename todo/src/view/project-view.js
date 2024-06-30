@@ -1,24 +1,32 @@
 const { formatDistanceToNowStrict, format } = require("date-fns")
 
-export function renderProjects(projects, handleCardClick) {
+export function renderProjects(projects, callbacks) {
+  const {handleProjectCardClick, handleDeleteProject} = callbacks
   removeExistingProjectContents()
   const main = document.querySelector("main")
   const grid = document.createElement("div")
   grid.classList.add("project-grid")
   projects.forEach((project) => {
-    const card = createProjectCard(project)
-    card.addEventListener("click", (event) => handleCardClick(project))
+    const card = createProjectCard(project, (event) => {
+      handleDeleteProject(project)
+      event.stopPropagation()
+    })
+    card.addEventListener("click", (event) => {
+      handleProjectCardClick(project)
+      event.stopPropagation()
+    })
     grid.append(card)
   })
   main.append(grid)
 }
 
-export function renderCurrentProject(project) {
+export function renderCurrentProject(project, callbacks) {
+  const {handleDeleteProject} = callbacks
   removeExistingProjectContents()
   const main = document.querySelector("main")
   const grid = document.createElement("div")
   grid.classList.add("project-grid")
-  const card = createProjectCard(project)
+  const card = createProjectCard(project, () => handleDeleteProject(project))
   grid.append(card)
   main.append(grid)
 }
@@ -34,7 +42,7 @@ function removeExistingProjectContents() {
   }
 }
 
-function createProjectCard(project) {
+function createProjectCard(project, handleDeleteProject) {
   const card = document.createElement("div")
   card.classList.add("project-card")
   card.setAttribute("data-cy", project.title)
@@ -50,6 +58,11 @@ function createProjectCard(project) {
   const createdAtElement = document.createElement("p")
   createdAtElement.textContent = `${format(project.createdAt, "d MMMM yyyy")}, ${formatDistanceToNowStrict(project.createdAt)} ago`
 
-  card.append(titleElement, totalTodosElement, createdAtElement)
+  const deleteElement = document.createElement("button")
+  deleteElement.classList.add("delete-project-button")
+  deleteElement.textContent = "Delete"
+  deleteElement.addEventListener("click", handleDeleteProject)
+
+  card.append(titleElement, totalTodosElement, createdAtElement, deleteElement)
   return card
 }

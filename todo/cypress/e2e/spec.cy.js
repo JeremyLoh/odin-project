@@ -149,6 +149,14 @@ describe("homepage", () => {
         cy.get("[data-cy='new-todo-submit-button']").click()
       }
 
+      it("should delete project when delete button on project card is clicked", () => {
+        const projectName = "new project 2"
+        getProjectCard(projectName).should("not.exist")
+        createNewProject(projectName)
+        getProjectCard(projectName).find(".delete-project-button").click()
+        getProjectCard(projectName).should("not.exist")
+      })
+
       it("should display no todo available message on project card click", () => {
         const projectName = "new project 2"
         createNewProject(projectName)

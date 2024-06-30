@@ -72,6 +72,7 @@ main {
 .project-card {
   display: flex;
   flex-direction: column;
+  gap: 1rem;
   background-color: var(--project-card-bg-color);
   box-shadow: 0px 4px 8px 2px #777;
   padding: 1rem;
@@ -234,7 +235,8 @@ dialog[open] .dialog-close-btn {
 }
 
 .expand-button,
-.delete-todo-button {
+.delete-todo-button,
+.delete-project-button {
   padding: 1rem;
   border: none;
   width: 20%;
@@ -249,7 +251,14 @@ dialog[open] .dialog-close-btn {
   color: white;
 }
 
+.delete-project-button {
+  align-self: flex-end;
+  background-color: var(--danger-btn-color);
+  color: white;
+}
+
 .expand-button:hover,
-.delete-todo-button:hover {
+.delete-todo-button:hover,
+.delete-project-button:hover {
   filter: brightness(0.9);
 }

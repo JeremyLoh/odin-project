@@ -11,22 +11,19 @@ export function renderTodos(todos, projectTitle) {
 
   const todoContainer = document.querySelector(".todo-card-container") || document.createElement("div")
   todoContainer.classList.add("todo-card-container")
-
-  const createNewTodoButton = createNewTodoButtonElement(projectTitle)
-  if (todos.length > 0) {
-    todos.forEach((todo) => {
-      const callbacks = {
-        handleTodoDelete: () => handleTodoDelete(todo, projectTitle),
-        handleSaveTodoChanges:  (card) => handleSaveTodoChanges(card, todo, projectTitle)
-      }
-      const element = createTodoElement(todo, callbacks)
-      todoContainer.append(element)
-    })
-  } else {
+  if (todos.length === 0) {
     todoContainer.append(createNoTodoElement())
   }
-  
-  container.append(createNewTodoButton)
+  todos.forEach((todo) => {
+    const callbacks = {
+      handleTodoDelete: () => handleTodoDelete(todo, projectTitle),
+      handleSaveTodoChanges:  (card) => handleSaveTodoChanges(card, todo, projectTitle)
+    }
+    const element = createTodoElement(todo, callbacks)
+    todoContainer.append(element)
+  })
+
+  container.append(createNewTodoButtonElement(projectTitle))
   container.append(todoContainer)
   main.append(container)
 }
@@ -40,7 +37,6 @@ function handleSaveTodoChanges(card, todo, projectTitle) {
   if (newTitle === todo.title) {
     return
   }
-
   TodoPubsub.publish(TodoEvent.UPDATE, {
     projectTitle,
     existingTodo: todo,

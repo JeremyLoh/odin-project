@@ -10,8 +10,8 @@ import { renderTodos } from "../view/todo-view"
 // Manage project creation and todo added to a project
 export const ProjectController = (function() {
   const projects = {}
-  // TODO In ProjectController, should subscribe to the TodoEvent.UPDATE on any todo update, to trigger rerender
   TodoPubsub.subscribe(TodoEvent.ADD, handleAddTodo)
+  TodoPubsub.subscribe(TodoEvent.UPDATE, handleUpdateTodo)
   TodoPubsub.subscribe(TodoEvent.DELETE, handleDeleteTodo)
   ProjectPubSub.subscribe(ProjectEvent.ADD, handleAddProject)
 
@@ -24,6 +24,12 @@ export const ProjectController = (function() {
     project.addTodo(todo)
     renderCurrentProject(project, {handleDeleteProject})
     renderTodos(project.todos, projectTitle)
+  }
+  function handleUpdateTodo(data) {
+    const {projectTitle, existingTodo, newTodo} = data
+    const project = projects[projectTitle]
+    project.updateTodo(existingTodo, newTodo)
+    // not required to rerender current project of todo, already edited todo in place
   }
   function handleDeleteTodo(data) {
     const {todo, projectTitle} = data

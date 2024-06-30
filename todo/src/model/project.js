@@ -9,6 +9,20 @@ export class Project {
     this._todos.push(todo)
   }
 
+  updateTodo(existingTodo, newTodo) {
+    const index = this._todos.findIndex((todo) => 
+      todo.title === existingTodo.title &&
+      todo.description === existingTodo.description &&
+      todo.priority === existingTodo.priority &&
+      todo.notes === existingTodo.notes
+    )
+    const isNotFound = index === -1
+    if (isNotFound) {
+      return
+    }
+    this._todos[index] = newTodo
+  }
+
   deleteTodo(todo) {
     this._todos = this._todos.filter((t) => {
       // filter out todos that are same as the one to delete (will remove all duplicates)

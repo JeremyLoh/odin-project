@@ -214,16 +214,37 @@ describe("homepage", () => {
         cy.get(".project-card").contains("2 todos")
       })
 
-      it("should delete todo when delete button on todo card is clicked", () => {
-        const newTodoTitle = "new todo title"
-        const projectName = "new project 2"
-        createNewProject(projectName)
-        getProjectCard(projectName).click()
-        createNewTodo(newTodoTitle)
-        cy.get(".project-card").contains("1 todo")
+      context("modify todo", () => {
+        it("should edit existing todo title", () => {
+          const newTodoTitle = "new todo title"
+          const updatedTodoTitle = "test todo updated title"
+          const projectName = "new project 2"
+          createNewProject(projectName)
+          getProjectCard(projectName).click()
+          createNewTodo(newTodoTitle)
+          cy.get(".todo-title").should("not.have.attr", "contenteditable")
+          cy.get(".todo-card .expand-button").should("be.visible").and("be.enabled")
+            .click()
+          cy.get(".todo-title").should("have.attr", "contenteditable")
+          cy.get(".todo-title").clear().type(updatedTodoTitle)
+          cy.get(".save-todo-button").click()
+  
+          cy.get("button[data-cy='view-projects-button']").click()
+          getProjectCard(projectName).click()
+          cy.get(".todo-title").should("have.text", updatedTodoTitle)
+        })
 
-        cy.get(".todo-card").find(".delete-todo-button").click()
-        cy.get(".project-card").contains("0 todo")
+        it("should delete todo when delete button on todo card is clicked", () => {
+          const newTodoTitle = "new todo title"
+          const projectName = "new project 2"
+          createNewProject(projectName)
+          getProjectCard(projectName).click()
+          createNewTodo(newTodoTitle)
+          cy.get(".project-card").contains("1 todo")
+  
+          cy.get(".todo-card").find(".delete-todo-button").click()
+          cy.get(".project-card").contains("0 todo")
+        })
       })
     })
   })

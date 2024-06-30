@@ -234,12 +234,33 @@ dialog[open] .dialog-close-btn {
   border-bottom: 2mm solid var(--todo-high-priority-color);
 }
 
+.edit-todo-container {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  width: 100%;
+}
+
+[contenteditable="true"],
+[contenteditable="true"]:focus {
+  outline: none;
+  border: none;
+  border-bottom: 1mm dotted var(--danger-btn-color);
+  padding-bottom: 0.2rem;
+}
+
 .expand-button,
 .delete-todo-button,
-.delete-project-button {
+.delete-project-button,
+.save-todo-button {
   padding: 1rem;
   border: none;
+  outline: none;
   width: 20%;
+}
+
+.hide {
+  display: none;
 }
 
 .expand-button {
@@ -257,8 +278,14 @@ dialog[open] .dialog-close-btn {
   color: white;
 }
 
+.save-todo-button {
+  background-color: var(--submit-btn-bg-color);
+  color: white;
+}
+
 .expand-button:hover,
 .delete-todo-button:hover,
-.delete-project-button:hover {
+.delete-project-button:hover,
+.save-todo-button:hover {
   filter: brightness(0.9);
 }

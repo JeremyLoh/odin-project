@@ -4,6 +4,10 @@
   box-sizing: border-box;
 }
 
+.hidden {
+  display: none;
+}
+
 .dropdown {
   width: min(300px, 100%);
 }

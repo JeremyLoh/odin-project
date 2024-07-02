@@ -12,5 +12,8 @@ Library - https://jeremyloh.github.io/odin-project/library
 
 Tic Tac Toe - https://jeremyloh.github.io/odin-project/tic-tac-toe
 
+Dropdown menu - https://jeremyloh.github.io/odin-project/dropdown-menu
+
 # Other Learning Resources
-1) Nodeschool - https://nodeschool.io/
+
+1. Nodeschool - https://nodeschool.io/

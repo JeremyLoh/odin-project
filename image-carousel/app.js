@@ -28,8 +28,13 @@ function next() {
 }
 
 function previous() {
-  // TODO
-  console.log("previous...")
+  const currentIndex = parseInt(
+    document.querySelector("#image img").getAttribute("data-index")
+  )
+  const imageCount = images.length
+  // https://stackoverflow.com/questions/14785443/is-there-an-expression-using-modulo-to-do-backwards-wrap-around-reverse-overfl
+  const previousIndex = (currentIndex - 1 + imageCount) % imageCount
+  loadImage(previousIndex)
 }
 
 function setup() {

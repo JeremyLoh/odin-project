@@ -11,8 +11,7 @@ function loadImage(index) {
     return
   }
   const imageContainer = document.querySelector("#image")
-  imageContainer.innerHTML = ""
-  const img = document.createElement("img")
+  const img = document.querySelector("#image img")
   img.src = images[index]
   img.setAttribute("data-index", index)
   img.setAttribute("active", "")

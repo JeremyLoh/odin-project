@@ -8,6 +8,8 @@ Building image carousel from scratch using vanilla JavaScript - https://blog.log
 
 Removing image padding that is showing up - https://stackoverflow.com/questions/4760002/how-to-remove-image-padding-that-is-showing-up-unintentionally
 
+Optimize CLS - https://web.dev/articles/optimize-cls
+
 - Images are inline-blocks, we can set `display: block;` to remove the spacing
 
 ## Image references

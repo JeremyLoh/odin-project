@@ -51,12 +51,33 @@ function setNavigationCircle(currentActiveIndex, nextActiveIndex) {
   nextActiveCircle.classList.add("active")
 }
 
+function handleNavigationCircleClick(event) {
+  event.stopPropagation()
+  // handle circle click to go to that image
+  const circle = event.target
+  const index = parseInt(circle.getAttribute("data-index"))
+  const currentActiveCircle = document.querySelector(
+    "#navigation-circles .circle.active"
+  )
+  const currentActiveIndex = parseInt(
+    currentActiveCircle.getAttribute("data-index")
+  )
+  loadImage(index)
+  setNavigationCircle(currentActiveIndex, index)
+}
+
 function setup() {
   const leftArrow = document.querySelector("#left-carousel-arrow")
   const rightArrow = document.querySelector("#right-carousel-arrow")
+  const navigationCircles = [
+    ...document.querySelectorAll("#navigation-circles .circle"),
+  ]
 
   leftArrow.addEventListener("click", previous)
   rightArrow.addEventListener("click", next)
+  navigationCircles.forEach((circleElement) =>
+    circleElement.addEventListener("click", handleNavigationCircleClick)
+  )
   loadImage(0)
   setNavigationCircle(0, 0)
 }

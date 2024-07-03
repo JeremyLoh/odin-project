@@ -14,12 +14,17 @@ function loadImage(index) {
   imageContainer.innerHTML = ""
   const img = document.createElement("img")
   img.src = images[index]
+  img.setAttribute("data-index", index)
+  img.setAttribute("active", "")
   imageContainer.append(img)
 }
 
 function next() {
-  // TODO
-  console.log("next...")
+  const currentIndex = parseInt(
+    document.querySelector("#image img").getAttribute("data-index")
+  )
+  const nextIndex = (currentIndex + 1) % images.length
+  loadImage(nextIndex)
 }
 
 function previous() {

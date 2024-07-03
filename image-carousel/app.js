@@ -25,6 +25,7 @@ function next() {
   )
   const nextIndex = (currentIndex + 1) % images.length
   loadImage(nextIndex)
+  setNavigationCircle(currentIndex, nextIndex)
 }
 
 function previous() {
@@ -35,6 +36,19 @@ function previous() {
   // https://stackoverflow.com/questions/14785443/is-there-an-expression-using-modulo-to-do-backwards-wrap-around-reverse-overfl
   const previousIndex = (currentIndex - 1 + imageCount) % imageCount
   loadImage(previousIndex)
+  setNavigationCircle(currentIndex, previousIndex)
+}
+
+function setNavigationCircle(currentActiveIndex, nextActiveIndex) {
+  // nth-child index starts from one
+  const currentActiveCircle = document.querySelector(
+    `#navigation-circles .circle:nth-child(${currentActiveIndex + 1})`
+  )
+  const nextActiveCircle = document.querySelector(
+    `#navigation-circles .circle:nth-child(${nextActiveIndex + 1})`
+  )
+  currentActiveCircle.classList.remove("active")
+  nextActiveCircle.classList.add("active")
 }
 
 function setup() {
@@ -43,8 +57,8 @@ function setup() {
 
   leftArrow.addEventListener("click", previous)
   rightArrow.addEventListener("click", next)
-  // TODO setup the navigation dots click, using data attribute
   loadImage(0)
+  setNavigationCircle(0, 0)
 }
 
 setup()

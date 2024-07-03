@@ -71,3 +71,7 @@ img {
   height: auto;
   background-color: #292524;
 }
+
+.circle.active {
+  background-color: #38bdf8;
+}

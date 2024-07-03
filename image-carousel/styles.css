@@ -5,14 +5,15 @@
 }
 
 :root {
-  --nav-circle-height: 16px;
+  --nav-circle-height: calc(8px + 0.4vw);
   --nav-circle-padding: 8px;
-  --carousel-height: 90vh;
+  --carousel-height: 85vh;
 }
 
+html,
 body {
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
 img {
@@ -47,7 +48,8 @@ img {
 
 #left-carousel-arrow,
 #right-carousel-arrow {
-  font-size: 3rem;
+  font-size: calc(0.5rem + 2vw);
+  font-weight: bold;
   border: none;
   background-color: #d6d3d1;
 }
@@ -75,4 +77,11 @@ img {
 
 .circle.active {
   background-color: #38bdf8;
+}
+
+footer ol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 8%;
 }

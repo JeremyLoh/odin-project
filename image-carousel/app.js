@@ -1,6 +1,9 @@
 const images = [
+  "./images/zhaoli-jin-e4I2ktXz5cA-unsplash.jpg",
+  "./images/evgeny-lazarenko-8HknSpvc1CU-unsplash.jpg",
   "./images/joseph-corl-h4eHV9CRxUc-unsplash.jpg",
   "./images/liana-s-VT2Ygvzn49Y-unsplash.jpg",
+  "./images/yu-kato-824OwkP7sgk-unsplash.jpg",
 ]
 
 function loadImage(index) {

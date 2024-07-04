@@ -1,3 +1,4 @@
+let advanceCarouselIntervalId = null
 const images = [
   "./images/zhaoli-jin-e4I2ktXz5cA-unsplash.jpg",
   "./images/evgeny-lazarenko-8HknSpvc1CU-unsplash.jpg",
@@ -52,7 +53,6 @@ function setNavigationCircle(currentActiveIndex, nextActiveIndex) {
 
 function handleNavigationCircleClick(event) {
   event.stopPropagation()
-  // handle circle click to go to that image
   const circle = event.target
   const index = parseInt(circle.getAttribute("data-index"))
   const currentActiveCircle = document.querySelector(
@@ -63,6 +63,14 @@ function handleNavigationCircleClick(event) {
   )
   loadImage(index)
   setNavigationCircle(currentActiveIndex, index)
+
+  clearInterval(advanceCarouselIntervalId)
+  advanceCarouselIntervalId = setupCarouselSlideAdvance()
+}
+
+function setupCarouselSlideAdvance(durationInMs = 5000) {
+  const intervalId = setInterval(next, durationInMs)
+  return intervalId
 }
 
 function setup() {
@@ -79,6 +87,7 @@ function setup() {
   )
   loadImage(0)
   setNavigationCircle(0, 0)
+  advanceCarouselIntervalId = setupCarouselSlideAdvance()
 }
 
 setup()

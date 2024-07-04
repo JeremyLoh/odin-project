@@ -1,10 +1,10 @@
 let advanceCarouselIntervalId = null
 const images = [
-  "./images/zhaoli-jin-e4I2ktXz5cA-unsplash.jpg",
-  "./images/evgeny-lazarenko-8HknSpvc1CU-unsplash.jpg",
-  "./images/joseph-corl-h4eHV9CRxUc-unsplash.jpg",
-  "./images/liana-s-VT2Ygvzn49Y-unsplash.jpg",
-  "./images/yu-kato-824OwkP7sgk-unsplash.jpg",
+  "./images/zhaoli-jin-e4I2ktXz5cA-unsplash.avif",
+  "./images/evgeny-lazarenko-8HknSpvc1CU-unsplash.avif",
+  "./images/joseph-corl-h4eHV9CRxUc-unsplash.avif",
+  "./images/liana-s-VT2Ygvzn49Y-unsplash.avif",
+  "./images/yu-kato-824OwkP7sgk-unsplash.avif",
 ]
 
 function loadImage(index) {

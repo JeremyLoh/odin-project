@@ -1,0 +1,15 @@
+{
+  "name": "image-carousel",
+  "version": "1.0.0",
+  "description": "Image carousel",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Jeremy Loh",
+  "license": "ISC",
+  "dependencies": {
+    "sharp": "0.33.4"
+  }
+}

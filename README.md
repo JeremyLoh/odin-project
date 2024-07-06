@@ -1,5 +1,7 @@
 # Project URLs
 
+Image Carousel - https://jeremyloh.github.io/odin-project/image-carousel
+
 Todo - https://github.com/JeremyLoh/odin-project/tree/main/todo
 
 Restaurant - https://github.com/JeremyLoh/odin-project/tree/main/restaurant

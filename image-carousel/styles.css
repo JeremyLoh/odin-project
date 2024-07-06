@@ -1,0 +1,89 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --nav-circle-height: calc(8px + 0.4vw);
+  --nav-circle-padding: 8px;
+  --carousel-height: 85vh;
+  font-family: monospace, sans-serif, Arial;
+  line-height: 1.5;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+img {
+  /* To fix small padding present on image element, img element are by default inline-block
+  to allow nav arrow alignment */
+  display: block;
+  max-width: 100%;
+  height: 100%;
+  max-height: var(--carousel-height);
+}
+
+#carousel {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  max-height: var(--carousel-height);
+}
+
+#carousel-content {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+}
+
+#image {
+  flex: 1;
+  object-fit: contain;
+}
+
+#left-carousel-arrow,
+#right-carousel-arrow {
+  font-size: calc(0.5rem + 2vw);
+  font-weight: bold;
+  border: none;
+  background-color: #d6d3d1;
+}
+
+#left-carousel-arrow:hover,
+#right-carousel-arrow:hover {
+  filter: brightness(0.9);
+}
+
+#navigation-circles {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 0.4rem;
+  padding: var(--nav-circle-padding);
+}
+
+.circle {
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  width: var(--nav-circle-height);
+  height: auto;
+  background-color: #292524;
+}
+
+.circle.active {
+  background-color: #38bdf8;
+}
+
+footer ol {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-left: 8%;
+}

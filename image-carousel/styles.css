@@ -8,6 +8,8 @@
   --nav-circle-height: calc(8px + 0.4vw);
   --nav-circle-padding: 8px;
   --carousel-height: 85vh;
+  font-family: monospace, sans-serif, Arial;
+  line-height: 1.5;
 }
 
 html,

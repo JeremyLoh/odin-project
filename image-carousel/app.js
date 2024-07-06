@@ -1,11 +1,35 @@
 let advanceCarouselIntervalId = null
+
 const images = [
-  "./images/zhaoli-jin-e4I2ktXz5cA-unsplash.avif",
-  "./images/evgeny-lazarenko-8HknSpvc1CU-unsplash.avif",
-  "./images/joseph-corl-h4eHV9CRxUc-unsplash.avif",
-  "./images/liana-s-VT2Ygvzn49Y-unsplash.avif",
-  "./images/yu-kato-824OwkP7sgk-unsplash.avif",
+  {
+    srcset: getSrcset("./images", "zhaoli-jin-e4I2ktXz5cA-unsplash", "avif"),
+    src: "./images/zhaoli-jin-e4I2ktXz5cA-unsplash-1500w.avif",
+  },
+  {
+    srcset: getSrcset(
+      "./images",
+      "evgeny-lazarenko-8HknSpvc1CU-unsplash",
+      "avif"
+    ),
+    src: "./images/evgeny-lazarenko-8HknSpvc1CU-unsplash-1500w.avif",
+  },
+  {
+    srcset: getSrcset("./images", "joseph-corl-h4eHV9CRxUc-unsplash", "avif"),
+    src: "./images/joseph-corl-h4eHV9CRxUc-unsplash-1500w.avif",
+  },
+  {
+    srcset: getSrcset("./images", "liana-s-VT2Ygvzn49Y-unsplash", "avif"),
+    src: "./images/liana-s-VT2Ygvzn49Y-unsplash-1500w.avif",
+  },
+  {
+    srcset: getSrcset("./images", "yu-kato-824OwkP7sgk-unsplash", "avif"),
+    src: "./images/yu-kato-824OwkP7sgk-unsplash-1500w.avif",
+  },
 ]
+
+function getSrcset(imageDirectory, imageName, imageExtension) {
+  return `${imageDirectory}/${imageName}-600w.${imageExtension} 600w, ${imageDirectory}/${imageName}-1500w.${imageExtension} 1500w`
+}
 
 function loadImage(index) {
   if (index < 0 || index >= images.length) {
@@ -13,7 +37,11 @@ function loadImage(index) {
   }
   const imageContainer = document.querySelector("#image")
   const img = document.querySelector("#image img")
-  img.src = images[index]
+  const { srcset, src } = images[index]
+  img.src = src
+  img.srcset = srcset
+  img.width = "1500"
+  img.height = "1000"
   img.setAttribute("data-index", index)
   img.setAttribute("active", "")
   imageContainer.append(img)

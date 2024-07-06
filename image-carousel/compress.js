@@ -16,14 +16,27 @@ const outputFileNames = [
 ]
 const outputPath = "./images"
 
-images.forEach((image, index) => {
+function resizeJpgToAvif(image, { outputFilename, width, height }) {
   sharp(image)
-    .resize(1500, 1000)
+    .resize(width, height)
     .avif({ quality: 70, effort: 9, lossless: false })
-    .toFile(`${outputPath}/${outputFileNames[index]}.avif`, (error, info) => {
+    .toFile(`${outputPath}/${outputFilename}-${width}w.avif`, (error, info) => {
       if (error) {
         console.error(error)
       }
       console.error(info)
     })
+}
+
+images.forEach((image, index) => {
+  resizeJpgToAvif(image, {
+    outputFilename: outputFileNames[index],
+    width: 1500,
+    height: 1000,
+  })
+  resizeJpgToAvif(image, {
+    outputFilename: outputFileNames[index],
+    width: 600,
+    height: 400,
+  })
 })

@@ -5,13 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Image Carousel</title>
     <link rel="stylesheet" href="./styles.css" />
-    <link
-      rel="preload"
-      fetchpriority="high"
-      as="image"
-      href="./images/zhaoli-jin-e4I2ktXz5cA-unsplash.avif"
-      type="image/avif"
-    />
     <script src="./app.js" defer></script>
   </head>
   <body>
@@ -20,9 +13,13 @@
         <button id="left-carousel-arrow">←</button>
         <div id="image">
           <img
-            src="./images/zhaoli-jin-e4I2ktXz5cA-unsplash.avif"
             width="1500"
             height="1000"
+            src="./images/zhaoli-jin-e4I2ktXz5cA-unsplash-1500w.avif"
+            srcset="
+              ./images/zhaoli-jin-e4I2ktXz5cA-unsplash-600w.avif   600w,
+              ./images/zhaoli-jin-e4I2ktXz5cA-unsplash-1500w.avif 1500w
+            "
           />
         </div>
         <button id="right-carousel-arrow">→</button>

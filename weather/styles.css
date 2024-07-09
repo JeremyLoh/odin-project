@@ -3,3 +3,38 @@
 *::after {
   box-sizing: border-box;
 }
+
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: min(70ch, 100%);
+  gap: 0.2rem;
+}
+
+form button {
+  padding: 0.5rem;
+  margin: 1rem 0;
+}
+
+input {
+  padding: 0.2rem;
+}
+
+input:invalid {
+  border-color: #900;
+  background-color: #fdd;
+}
+
+input:invalid:focus {
+  outline: none;
+}
+
+.error {
+  width: 100%;
+  background-color: #900;
+  color: white;
+}
+
+.error.active {
+  padding: 0.2rem;
+}

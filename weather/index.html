@@ -7,5 +7,24 @@
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <h1>What's the Weather?</h1>
+    <form novalidate>
+      <label for="apiKey">Your WeatherAPI Key</label>
+      <input
+        type="text"
+        id="apiKey"
+        name="apiKey"
+        required
+        minlength="30"
+        maxlength="40"
+      />
+      <span class="error" aria-live="polite" id="apiKey-error"></span>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" required />
+      <span class="error" aria-live="polite" id="location-error"></span>
+      <button type="submit">Submit</button>
+    </form>
+  </body>
 </html>

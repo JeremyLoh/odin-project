@@ -8,6 +8,18 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+    <img
+      id="background-img"
+      width="2400"
+      height="1798"
+      srcset="
+        ./images/chuttersnap-small.jpg   640w,
+        ./images/chuttersnap-medium.jpg 1920w,
+        ./images/chuttersnap-large.jpg  2400w
+      "
+      src="./images/chuttersnap-large.jpg"
+      alt="background image"
+    />
     <h1>What's the Weather?</h1>
     <form novalidate>
       <label for="apiKey">Your WeatherAPI Key</label>
@@ -26,5 +38,16 @@
       <span class="error" aria-live="polite" id="location-error"></span>
       <button type="submit">Submit</button>
     </form>
+    <div class="weather-card">
+      <img id="weather-icon" src="#" />
+      <p id="weather-condition"></p>
+      <div class="weather-location-container">
+        <p id="weather-location"></p>
+        <p id="weather-country"></p>
+      </div>
+      <p id="weather-humidity"></p>
+      <p id="weather-temp-celsius"></p>
+      <p id="weather-last-updated-time"></p>
+    </div>
   </body>
 </html>

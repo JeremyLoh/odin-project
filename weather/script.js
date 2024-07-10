@@ -31,8 +31,9 @@ function handleSubmit(event) {
     alert("Please provide an api key / location")
     return
   }
-  console.log({ apiKey, searchLocation })
   getWeather(searchLocation, apiKey)
+    .then((data) => displayWeatherCard(data))
+    .catch((error) => alert(error))
 }
 
 async function getWeather(searchLocation, apiKey) {
@@ -43,14 +44,91 @@ async function getWeather(searchLocation, apiKey) {
     q: searchLocation,
     aqi: "yes",
   })
-  const baseUrl = new URL(
+  const url = new URL(
     "http://api.weatherapi.com/v1/current.json?" + params.toString()
   )
-  // TODO call WeatherAPI to get weather
+  const response = await fetch(url.toString()).then((response) =>
+    response.json()
+  )
+  if (response.error) {
+    const { message } = response.error
+    throw new Error(message)
+  }
+  return parseWeatherData(response)
+}
+
+class CurrentWeatherData {
+  constructor(json) {
+    this.location = {
+      name: json.location.name,
+      country: json.location.country,
+      lat: json.location.lat,
+      lon: json.location.lon,
+      localtime: json.location.localtime,
+    }
+    // e.g. icon = "//cdn.weatherapi.com/weather/64x64/night/116.png"
+    const [_, iconWidth, iconHeight] =
+      json.current.condition.icon.match(/\/(\d+)x(\d+)\//)
+    this.current = {
+      last_updated: json.current.last_updated,
+      temp_celsius: json.current.temp_c,
+      condition: json.current.condition.text,
+      humidity: json.current.humidity,
+      icon: "https:" + json.current.condition.icon,
+      iconWidth,
+      iconHeight,
+    }
+  }
+
+  getLocation() {
+    return this.location
+  }
+
+  getCurrentWeather() {
+    return this.current
+  }
 }
 
 function parseWeatherData(json) {
-  // TODO parse data of weather api and return object consisting of what app needs
+  // parse data of weather api and return object consisting of what app needs
+  const data = new CurrentWeatherData(json)
+  return {
+    ...data.getLocation(),
+    ...data.getCurrentWeather(),
+  }
+}
+
+function displayWeatherCard({
+  name,
+  country,
+  condition,
+  humidity,
+  icon,
+  iconHeight,
+  iconWidth,
+  last_updated,
+  temp_celsius,
+}) {
+  const card = document.querySelector(".weather-card")
+  card.classList.add("active")
+  const weatherConditionElement = document.getElementById("weather-condition")
+  weatherConditionElement.textContent = condition
+  const img = document.getElementById("weather-icon")
+  img.src = icon
+  img.width = iconWidth
+  img.height = iconHeight
+  const locationElement = document.getElementById("weather-location")
+  locationElement.textContent = name + " - "
+  const countryElement = document.getElementById("weather-country")
+  countryElement.textContent = country
+  const humidityElement = document.getElementById("weather-humidity")
+  humidityElement.textContent = "Humidity: " + humidity
+  const tempElement = document.getElementById("weather-temp-celsius")
+  tempElement.textContent = "Current Temp: " + temp_celsius + " °C"
+  const lastUpdatedElement = document.getElementById(
+    "weather-last-updated-time"
+  )
+  lastUpdatedElement.textContent = "Last Updated Time: " + last_updated
 }
 
 function showLocationError(element, { valueMissing, tooShort }) {

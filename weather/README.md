@@ -35,3 +35,67 @@ Weather API - https://www.weatherapi.com/
 6. Add any styling you like
 7. Optional: add a 'loading' component that displays from the time the form is submitted until the information comes back from the API. Use DevTools to test for low-end devices
 8. Push to github and share your solution
+
+# Example request to Weather API (current.json endpoint)
+
+q=singapore&aqi=yes
+
+```json
+{
+  "location": {
+    "name": "Singapore",
+    "region": "",
+    "country": "Singapore",
+    "lat": 1.29,
+    "lon": 103.86,
+    "tz_id": "Asia/Singapore",
+    "localtime_epoch": 1720534000,
+    "localtime": "2024-07-09 22:06"
+  },
+  "current": {
+    "last_updated_epoch": 1720533600,
+    "last_updated": "2024-07-09 22:00",
+    "temp_c": 28.2,
+    "temp_f": 82.8,
+    "is_day": 0,
+    "condition": {
+      "text": "Partly cloudy",
+      "icon": "//cdn.weatherapi.com/weather/64x64/night/116.png",
+      "code": 1003
+    },
+    "wind_mph": 4.3,
+    "wind_kph": 6.8,
+    "wind_degree": 140,
+    "wind_dir": "SE",
+    "pressure_mb": 1010,
+    "pressure_in": 29.83,
+    "precip_mm": 0,
+    "precip_in": 0,
+    "humidity": 74,
+    "cloud": 75,
+    "feelslike_c": 32.4,
+    "feelslike_f": 90.2,
+    "windchill_c": 27.7,
+    "windchill_f": 81.9,
+    "heatindex_c": 31.4,
+    "heatindex_f": 88.5,
+    "dewpoint_c": 23.4,
+    "dewpoint_f": 74.2,
+    "vis_km": 10,
+    "vis_miles": 6,
+    "uv": 1,
+    "gust_mph": 4.5,
+    "gust_kph": 7.3,
+    "air_quality": {
+      "co": 1428.6,
+      "no2": 32.6,
+      "o3": 0,
+      "so2": 29.1,
+      "pm2_5": 12.4,
+      "pm10": 15.4,
+      "us-epa-index": 1,
+      "gb-defra-index": 2
+    }
+  }
+}
+```

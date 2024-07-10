@@ -25,6 +25,8 @@ Later during the backend courses, you will learn ways to securely deal with thes
 
 Weather API - https://www.weatherapi.com/
 
+Background Image - [CHUTTERSNAP](https://unsplash.com/@chuttersnap?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/gray-concrete-bridge-on-body-of-water-in-aerial-photography--gS54SWrHMg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
+
 # Assignment
 
 1. Setup a blank HTML document with the appropriate links to your JavaScript and CSS files

@@ -25,6 +25,10 @@ Later during the backend courses, you will learn ways to securely deal with thes
 
 Weather API - https://www.weatherapi.com/
 
+Building a CSS Loading Spinner in 3 Minutes - Colt Steele
+
+- https://www.youtube.com/watch?v=VbAD6cifkWM
+
 Background Image - [CHUTTERSNAP](https://unsplash.com/@chuttersnap?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash) on [Unsplash](https://unsplash.com/photos/gray-concrete-bridge-on-body-of-water-in-aerial-photography--gS54SWrHMg?utm_content=creditCopyText&utm_medium=referral&utm_source=unsplash)
 
 # Assignment

@@ -31,9 +31,12 @@ function handleSubmit(event) {
     alert("Please provide an api key / location")
     return
   }
+  const spinner = document.getElementById("spinner")
+  spinner.classList.add("active")
   getWeather(searchLocation, apiKey)
     .then((data) => displayWeatherCard(data))
     .catch((error) => alert(error))
+    .finally(() => spinner.classList.remove("active"))
 }
 
 async function getWeather(searchLocation, apiKey) {

@@ -2,6 +2,8 @@
 
 Image Carousel - https://jeremyloh.github.io/odin-project/image-carousel
 
+Weather - https://jeremyloh.github.io/odin-project/weather
+
 Todo - https://github.com/JeremyLoh/odin-project/tree/main/todo
 
 Restaurant - https://github.com/JeremyLoh/odin-project/tree/main/restaurant

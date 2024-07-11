@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather</title>
+    <link rel="stylesheet" href="styles.css" />
+    <script src="script.js" defer></script>
+  </head>
+  <body>
+    <img
+      id="background-img"
+      width="2400"
+      height="1798"
+      srcset="
+        ./images/chuttersnap-small-640w.avif    640w,
+        ./images/chuttersnap-medium-1920w.avif 1920w,
+        ./images/chuttersnap-large-2400w.avif  2400w
+      "
+      src="./images/chuttersnap-large-2400w.jpg"
+      alt="background image"
+    />
+    <div class="spinner" id="spinner"></div>
+    <h1 class="title">What's the Weather?</h1>
+    <form novalidate>
+      <label for="apiKey">Your WeatherAPI Key</label>
+      <input
+        type="text"
+        id="apiKey"
+        name="apiKey"
+        required
+        minlength="30"
+        maxlength="40"
+      />
+      <span class="error" aria-live="polite" id="apiKey-error"></span>
+
+      <label for="location">Location</label>
+      <input type="text" id="location" name="location" required />
+      <span class="error" aria-live="polite" id="location-error"></span>
+      <button type="submit">Submit</button>
+    </form>
+    <div class="weather-card">
+      <img id="weather-icon" src="#" />
+      <p id="weather-condition"></p>
+      <div class="weather-location-container">
+        <p id="weather-location"></p>
+        <p id="weather-country"></p>
+      </div>
+      <p id="weather-humidity"></p>
+      <p id="weather-temp-celsius"></p>
+      <p id="weather-last-updated-time"></p>
+    </div>
+  </body>
+</html>

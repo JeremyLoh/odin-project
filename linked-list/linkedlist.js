@@ -45,7 +45,14 @@ export default class LinkedList {
   }
 
   at(index) {
-    // TODO return node at given index
+    if (this.size === 0 || index > this.size - 1 || index < 0) {
+      return null
+    }
+    let current = this.head
+    for (let i = 0; i < index; i++) {
+      current = current.next
+    }
+    return current
   }
 
   pop() {

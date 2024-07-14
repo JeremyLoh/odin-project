@@ -12,16 +12,24 @@ export default class LinkedList {
     if (this.tail) {
       this.tail.next = node
       this.tail = node
-      this.size++
     } else {
       this.head = node
       this.tail = node
-      this.size = 1
     }
+    this.size++
   }
 
   prepend(value) {
-    // TODO add new node to start of list
+    const node = new Node(value)
+    if (this.head) {
+      const temp = this.head
+      this.head = node
+      this.head.next = temp
+    } else {
+      this.head = node
+      this.tail = node
+    }
+    this.size++
   }
 
   size() {

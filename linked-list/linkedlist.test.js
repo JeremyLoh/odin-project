@@ -152,3 +152,56 @@ describe("contains()", () => {
     expect(list.contains(null)).toBe(true)
   })
 })
+
+describe("find()", () => {
+  test("null in empty list", () => {
+    const list = new LinkedList()
+    expect(list.find(null)).toBe(null)
+    list.append(null)
+    expect(list.find(null)).toBe(0)
+  })
+
+  test("one item", () => {
+    const list = new LinkedList()
+    expect(list.find("one item")).toBe(null)
+    list.append("one item")
+    expect(list.find("one item")).toBe(0)
+  })
+
+  test("two items", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append("second")
+    expect(list.find("first")).toBe(0)
+    expect(list.find("second")).toBe(1)
+  })
+
+  test("two duplicates", () => {
+    const list = new LinkedList()
+    list.append("duplicate")
+    expect(list.find("duplicate")).toBe(0)
+    list.append("duplicate")
+    expect(list.find("duplicate")).toBe(0)
+  })
+
+  test("middle item", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append("second")
+    list.append("middle")
+    list.append("last")
+    expect(list.find("middle")).toBe(2)
+  })
+
+  test("last item", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append("second")
+    list.append("third")
+    list.append("last")
+    expect(list.find("last")).toBe(3)
+    list.pop()
+    expect(list.find("third")).toBe(2)
+    expect(list.find(null)).toBe(null)
+  })
+})

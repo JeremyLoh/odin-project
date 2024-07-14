@@ -92,7 +92,18 @@ export default class LinkedList {
   }
 
   find(value) {
-    // TODO return index of the node containing value, or null if not found
+    // return index of the node containing value, or null if not found
+    if (this.size === 0) {
+      return null
+    }
+    let current = this.head
+    for (let i = 0; i < this.size && current; i++) {
+      if (current.value === value) {
+        return i
+      }
+      current = current.next
+    }
+    return null
   }
 
   toString() {

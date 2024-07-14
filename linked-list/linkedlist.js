@@ -78,7 +78,17 @@ export default class LinkedList {
   }
 
   contains(value) {
-    // TODO return true if passed in value is in list
+    if (this.size === 0) {
+      return false
+    }
+    let current = this.head
+    while (current) {
+      if (current.value === value) {
+        return true
+      }
+      current = current.next
+    }
+    return false
   }
 
   find(value) {

@@ -124,3 +124,31 @@ describe("pop()", () => {
     expect(list.pop()).toBe(null)
   })
 })
+
+describe("contains()", () => {
+  test("empty list", () => {
+    const list = new LinkedList()
+    expect(list.contains(null)).toBe(false)
+  })
+
+  test("one item", () => {
+    const list = new LinkedList()
+    expect(list.contains("first")).toBe(false)
+    list.append("first")
+    expect(list.contains("first")).toBe(true)
+    expect(list.contains(null)).toBe(false)
+  })
+
+  test("two items", () => {
+    const list = new LinkedList()
+    expect(list.contains("first")).toBe(false)
+    expect(list.contains("second")).toBe(false)
+    expect(list.contains(null)).toBe(false)
+    list.append("first")
+    list.append("second")
+    list.append(null)
+    expect(list.contains("first")).toBe(true)
+    expect(list.contains("second")).toBe(true)
+    expect(list.contains(null)).toBe(true)
+  })
+})

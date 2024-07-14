@@ -56,7 +56,25 @@ export default class LinkedList {
   }
 
   pop() {
-    // TODO remove last element from the list
+    if (this.size === 0) {
+      return null
+    }
+    if (this.size === 1) {
+      const item = this.head
+      this.head = null
+      this.tail = null
+      this.size = 0
+      return item
+    }
+    let current = this.head
+    for (let i = 0; i < this.size - 2; i++) {
+      current = current.next
+    }
+    const lastItem = this.tail
+    current.next = null
+    this.tail = current
+    this.size--
+    return lastItem
   }
 
   contains(value) {

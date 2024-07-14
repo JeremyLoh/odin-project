@@ -76,3 +76,51 @@ describe("at()", () => {
     expect(list.at(-2)).toBe(null)
   })
 })
+
+describe("pop()", () => {
+  test("empty linked list returns null", () => {
+    const list = new LinkedList()
+    expect(list.pop()).toBe(null)
+  })
+
+  test("one item linked list returns item", () => {
+    const expectedValue = "first"
+    const list = new LinkedList()
+    list.append(expectedValue)
+    expect(list.size).toBe(1)
+    const lastNode = list.pop()
+    expect(lastNode.value).toBe(expectedValue)
+    expect(list.size).toBe(0)
+  })
+
+  test("two item linked list updates tail", () => {
+    const firstExpectedValue = "first"
+    const secondExpectedValue = "second"
+    const list = new LinkedList()
+    list.append(firstExpectedValue)
+    list.append(secondExpectedValue)
+
+    expect(list.pop().value).toBe(secondExpectedValue)
+    expect(list.tail.value).toBe(firstExpectedValue)
+    expect(list.head.value).toBe(firstExpectedValue)
+
+    expect(list.pop().value).toBe(firstExpectedValue)
+    expect(list.tail).toBe(null)
+    expect(list.head).toBe(null)
+  })
+
+  test("three item linked list updates tail", () => {
+    const firstExpectedValue = "first"
+    const secondExpectedValue = "second"
+    const thirdExpectedValue = "third"
+    const list = new LinkedList()
+    list.append(firstExpectedValue)
+    list.append(secondExpectedValue)
+    list.append(thirdExpectedValue)
+
+    expect(list.pop().value).toBe(thirdExpectedValue)
+    expect(list.pop().value).toBe(secondExpectedValue)
+    expect(list.pop().value).toBe(firstExpectedValue)
+    expect(list.pop()).toBe(null)
+  })
+})

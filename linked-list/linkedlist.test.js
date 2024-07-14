@@ -205,3 +205,34 @@ describe("find()", () => {
     expect(list.find(null)).toBe(null)
   })
 })
+
+describe("toString()", () => {
+  test("empty list", () => {
+    const list = new LinkedList()
+    expect(list.toString()).toBe("null")
+  })
+
+  test("one item", () => {
+    const list = new LinkedList()
+    list.append("first")
+    expect(list.toString()).toBe("( first ) -> null")
+  })
+
+  test("two items", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append(2)
+    expect(list.toString()).toBe("( first ) -> ( 2 ) -> null")
+  })
+
+  test("has null value", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append(2)
+    list.append(null)
+    list.append("null")
+    expect(list.toString()).toBe(
+      "( first ) -> ( 2 ) -> ( null ) -> ( null ) -> null"
+    )
+  })
+})

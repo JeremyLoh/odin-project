@@ -107,7 +107,15 @@ export default class LinkedList {
   }
 
   toString() {
-    // TODO return linked list objects as strings: format of ( value ) -> ( value ) -> null
+    // format of ( value ) -> ( value ) -> null
+    let output = ""
+    let current = this.head
+    while (current) {
+      output += `( ${current.value} ) -> `
+      current = current.next
+    }
+    output += "null"
+    return output
   }
 
   insertAt(value, index) {

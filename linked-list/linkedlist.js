@@ -1,4 +1,6 @@
-class LinkedList {
+import Node from "./node.js"
+
+export default class LinkedList {
   constructor() {
     this.head = null
     this.tail = null
@@ -6,7 +8,16 @@ class LinkedList {
   }
 
   append(value) {
-    // TODO add new node to end of list
+    const node = new Node(value)
+    if (this.tail) {
+      this.tail.next = node
+      this.tail = node
+      this.size++
+    } else {
+      this.head = node
+      this.tail = node
+      this.size = 1
+    }
   }
 
   prepend(value) {

@@ -1,4 +1,4 @@
-class Node {
+export default class Node {
   constructor(value) {
     this._value = value
     this._nextNode = null

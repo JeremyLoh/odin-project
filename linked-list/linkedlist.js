@@ -25,15 +25,15 @@ export default class LinkedList {
   }
 
   size() {
-    // TODO return total number of nodes in list
+    return this.size
   }
 
   head() {
-    // TODO return first node in list
+    return this.head
   }
 
   tail() {
-    // TODO return last node in list
+    return this.tail
   }
 
   at(index) {

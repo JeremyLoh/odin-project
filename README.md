@@ -18,6 +18,8 @@ Tic Tac Toe - https://jeremyloh.github.io/odin-project/tic-tac-toe
 
 Dropdown menu - https://jeremyloh.github.io/odin-project/dropdown-menu
 
+Linked List - https://github.com/JeremyLoh/odin-project/tree/main/linked-list
+
 # Other Learning Resources
 
 1. Nodeschool - https://nodeschool.io/

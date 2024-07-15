@@ -119,7 +119,37 @@ export default class LinkedList {
   }
 
   insertAt(value, index) {
-    // TODO insert new node with provided value at given index
+    if (index < 0) {
+      return
+    }
+    const node = new Node(value)
+    if (!this.head) {
+      this.head = node
+      this.tail = node
+      this.size = 1
+      return
+    }
+    if (index === 0) {
+      node.next = this.head
+      this.head = node
+      this.size++
+      return
+    }
+    if (index >= this.size) {
+      this.tail.next = node
+      this.tail = node
+      this.size++
+      return
+    }
+    let currentIndex = 0
+    let current = this.head
+    while (current && currentIndex < index - 1) {
+      current = current.next
+      currentIndex++
+    }
+    node.next = current.next
+    current.next = node
+    this.size++
   }
 
   removeAt(index) {

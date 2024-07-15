@@ -236,3 +236,84 @@ describe("toString()", () => {
     )
   })
 })
+
+describe("insertAt()", () => {
+  test("empty list insert at index 0", () => {
+    const list = new LinkedList()
+    list.insertAt("first", 0)
+    expect(list.size).toBe(1)
+    expect(list.at(0).value).toBe("first")
+  })
+
+  test("empty list insert at greater index is valid", () => {
+    const list = new LinkedList()
+    list.insertAt("first", 1)
+    expect(list.size).toBe(1)
+    expect(list.at(0).value).toBe("first")
+  })
+
+  test("empty list insert at negative index is invalid", () => {
+    const list = new LinkedList()
+    list.insertAt("first", -1)
+    expect(list.size).toBe(0)
+  })
+
+  test("one item list, insert at first index", () => {
+    const list = new LinkedList()
+    list.insertAt("first", 0)
+    list.insertAt("second", 0)
+    expect(list.size).toBe(2)
+    expect(list.head.value).toBe("second")
+    expect(list.tail.value).toBe("first")
+
+    expect(list.at(0).value).toBe("second")
+    expect(list.at(0).next.value).toBe("first")
+
+    expect(list.at(1).value).toBe("first")
+    expect(list.at(1).next).toBe(null)
+  })
+
+  test("one item list, insert at end", () => {
+    const list = new LinkedList()
+    list.insertAt("first", 0)
+    list.insertAt("second", 1)
+    expect(list.size).toBe(2)
+    expect(list.head.value).toBe("first")
+    expect(list.tail.value).toBe("second")
+  })
+
+  test("two item list, insert at middle", () => {
+    const list = new LinkedList()
+    list.insertAt("first", 0)
+    list.insertAt("last", 1)
+    list.insertAt("middle", 1)
+    expect(list.size).toBe(3)
+    expect(list.head.value).toBe("first")
+    expect(list.head.next.value).toBe("middle")
+
+    expect(list.at(1).value).toBe("middle")
+    expect(list.at(1).next.value).toBe("last")
+
+    expect(list.tail.value).toBe("last")
+    expect(list.tail.next).toBe(null)
+  })
+
+  test("three list item, insert at middle", () => {
+    const list = new LinkedList()
+    list.insertAt("first", 0)
+    list.insertAt("second", 1)
+    list.insertAt("third", 2)
+    list.insertAt("middle", 1)
+    expect(list.size).toBe(4)
+    expect(list.head.value).toBe("first")
+    expect(list.head.next.value).toBe("middle")
+    expect(list.tail.value).toBe("third")
+    expect(list.tail.next).toBe(null)
+
+    expect(list.at(1).value).toBe("middle")
+    expect(list.at(1).next.value).toBe("second")
+
+    expect(list.at(2).value).toBe("second")
+    expect(list.at(2).next.value).toBe("third")
+  })
+})

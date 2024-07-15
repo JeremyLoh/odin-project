@@ -317,3 +317,73 @@ describe("insertAt()", () => {
     expect(list.at(2).next.value).toBe("third")
   })
 })
+
+describe("removeAt()", () => {
+  test("empty list at any index returns null", () => {
+    const list = new LinkedList()
+    expect(list.removeAt(-2)).toBe(null)
+    expect(list.removeAt(-1)).toBe(null)
+    expect(list.removeAt(0)).toBe(null)
+    expect(list.removeAt(1)).toBe(null)
+    expect(list.removeAt(2)).toBe(null)
+  })
+
+  test("one item at wrong index returns null", () => {
+    const list = new LinkedList()
+    list.append("first")
+    expect(list.removeAt(-1)).toBe(null)
+    expect(list.removeAt(1)).toBe(null)
+  })
+
+  test("one item removed at correct index 0", () => {
+    const list = new LinkedList()
+    list.append("first")
+    expect(list.removeAt(0).value).toBe("first")
+  })
+
+  test("two items, remove everything via last item index", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append("second")
+    expect(list.size).toBe(2)
+    expect(list.removeAt(1).value).toBe("second")
+    expect(list.tail.value).toBe("first")
+    expect(list.head.value).toBe("first")
+    expect(list.size).toBe(1)
+
+    expect(list.removeAt(0).value).toBe("first")
+    expect(list.head).toBe(null)
+    expect(list.tail).toBe(null)
+    expect(list.size).toBe(0)
+  })
+
+  test("three items, remove everything via first item index", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append("second")
+    list.append("third")
+    expect(list.size).toBe(3)
+    expect(list.removeAt(0).value).toBe("first")
+    expect(list.head.value).toBe("second")
+    expect(list.tail.value).toBe("third")
+
+    expect(list.removeAt(0).value).toBe("second")
+    expect(list.head.value).toBe("third")
+    expect(list.tail.value).toBe("third")
+
+    expect(list.removeAt(0).value).toBe("third")
+    expect(list.head).toBe(null)
+    expect(list.tail).toBe(null)
+  })
+
+  test("three items, remove middle item", () => {
+    const list = new LinkedList()
+    list.append("first")
+    list.append("second")
+    list.append("third")
+    expect(list.size).toBe(3)
+    expect(list.removeAt(1).value).toBe("second")
+    expect(list.head.value).toBe("first")
+    expect(list.tail.value).toBe("third")
+  })
+})

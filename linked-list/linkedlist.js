@@ -153,6 +153,39 @@ export default class LinkedList {
   }
 
   removeAt(index) {
-    // TODO remove node at given index
+    if (this.size === 0 || index < 0 || index >= this.size) {
+      return null
+    }
+    if (this.size === 1) {
+      const node = this.head
+      this.head = null
+      this.tail = null
+      this.size = 0
+      return node
+    }
+    if (index === 0) {
+      const node = this.head
+      this.head = this.head.next
+      this.size--
+      return node
+    }
+    let current = this.head
+    let currentIndex = 0
+    while (current && currentIndex < index - 1) {
+      current = current.next
+      currentIndex++
+    }
+    if (current.next === this.tail) {
+      const node = this.tail
+      this.tail = current
+      current.next = null
+      this.size--
+      return node
+    }
+    const node = current.next
+    current.next = current.next.next
+    node.next = null
+    this.size--
+    return node
   }
 }

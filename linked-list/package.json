@@ -1,0 +1,16 @@
+{
+  "name": "linked-list",
+  "version": "1.0.0",
+  "description": "https://www.theodinproject.com/lessons/javascript-linked-lists",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "Jeremy Loh",
+  "license": "ISC",
+  "devDependencies": {
+    "vitest": "2.0.2"
+  }
+}

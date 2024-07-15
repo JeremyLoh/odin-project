@@ -1,8 +1,16 @@
 export default class HashMap {
-  constructor() {}
+  constructor(bucketSize = 16, loadFactor = 0.75) {
+    this.bucketSize = bucketSize
+    this.loadFactor = loadFactor
+  }
 
   hash(key) {
-    // TODO take a key and produce a hash code
+    let hashCode = 1
+    const primeNumber = 31
+    for (let i = 0; i < key.length; i++) {
+      hashCode = hashCode * primeNumber + key.charCodeAt(i)
+    }
+    return hashCode
   }
 
   set(key, value) {

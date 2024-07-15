@@ -2,6 +2,11 @@
 
 https://www.theodinproject.com/lessons/javascript-hashmap
 
+# References
+
+- Josh Hug - CS61B 2023 - Lecture 20 - Hashing 2 https://www.youtube.com/playlist?list=PL8FaHk7qbOD637Q-6p7nn5dKz1tK6WAjJ
+- Hashing, Video 8 Good Hash Functions - Josh Hug - https://www.youtube.com/watch?v=14f8LxYREFQ
+
 ## Limitation
 
 JavaScript's dynamic nature of array allows us to insert and retrieve indexes that are outside our array size range. Example: if we create an array of size `16` to be our bucket size, nothing is stopping us from storing items at index `500`. This defeats the purpose we are trying to demonstrate, so we need to put some self restriction

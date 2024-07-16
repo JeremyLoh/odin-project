@@ -76,7 +76,11 @@ export default class HashMap {
   }
 
   clear() {
-    // TODO removes all entries in the hash map
+    // removes all entries in the hash map
+    for (let i = 0; i < this.bucketSize; i++) {
+      this.buckets[i] = null
+    }
+    this.size = 0
   }
 
   keys() {

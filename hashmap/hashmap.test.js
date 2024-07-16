@@ -54,3 +54,32 @@ describe("set(key, value)", () => {
     expect(hashmap.get("secondKey")).toBe("second value")
   })
 })
+
+describe("clear()", () => {
+  test("should clear empty hashmap", () => {
+    const hashmap = new HashMap()
+    expect(hashmap.length()).toBe(0)
+    hashmap.clear()
+    expect(hashmap.length()).toBe(0)
+  })
+
+  test("clear one key", () => {
+    const hashmap = new HashMap()
+    hashmap.set("first", "123")
+    expect(hashmap.length()).toBe(1)
+    hashmap.clear()
+    expect(hashmap.length()).toBe(0)
+    expect(hashmap.get("first")).toBe(null)
+  })
+
+  test("clear two keys", () => {
+    const hashmap = new HashMap()
+    hashmap.set("first", "123")
+    hashmap.set("second", "2")
+    expect(hashmap.length()).toBe(2)
+    hashmap.clear()
+    expect(hashmap.length()).toBe(0)
+    expect(hashmap.get("first")).toBe(null)
+    expect(hashmap.get("second")).toBe(null)
+  })
+})

@@ -7,8 +7,8 @@ export default class LinkedList {
     this.size = 0
   }
 
-  append(value) {
-    const node = new Node(value)
+  append(key, value) {
+    const node = new Node(key, value)
     if (this.tail) {
       this.tail.next = node
       this.tail = node
@@ -19,8 +19,8 @@ export default class LinkedList {
     this.size++
   }
 
-  prepend(value) {
-    const node = new Node(value)
+  prepend(key, value) {
+    const node = new Node(key, value)
     if (this.head) {
       const temp = this.head
       this.head = node
@@ -77,13 +77,13 @@ export default class LinkedList {
     return lastItem
   }
 
-  contains(value) {
+  contains(key) {
     if (this.size === 0) {
       return false
     }
     let current = this.head
     while (current) {
-      if (current.value === value) {
+      if (current.key === key) {
         return true
       }
       current = current.next
@@ -91,14 +91,14 @@ export default class LinkedList {
     return false
   }
 
-  find(value) {
-    // return index of the node containing value, or null if not found
+  find(key) {
+    // return index of the node containing key, or null if not found
     if (this.size === 0) {
       return null
     }
     let current = this.head
     for (let i = 0; i < this.size && current; i++) {
-      if (current.value === value) {
+      if (current.key === key) {
         return i
       }
       current = current.next
@@ -118,11 +118,11 @@ export default class LinkedList {
     return output
   }
 
-  insertAt(value, index) {
+  insertAt(key, value, index) {
     if (index < 0) {
       return
     }
-    const node = new Node(value)
+    const node = new Node(key, value)
     if (!this.head) {
       this.head = node
       this.tail = node

@@ -1,7 +1,12 @@
 export default class Node {
-  constructor(value) {
+  constructor(key, value) {
+    this._key = key
     this._value = value
     this._nextNode = null
+  }
+
+  get key() {
+    return this._key
   }
 
   get value() {

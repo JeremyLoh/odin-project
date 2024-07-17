@@ -71,8 +71,21 @@ export default class HashMap {
   }
 
   remove(key) {
-    // TODO if given key is in hash map, remove the entry with that key and return true
+    // if given key is in hash map, remove the entry with that key and return true
     // if key isn't in the hash map, it should return false
+    if (this.size === 0) {
+      return false
+    }
+    const index = this.hash(key) % this.bucketSize
+    if (index < 0 || index >= this.buckets.length) {
+      throw new Error("Trying to access index out of bound")
+    }
+    const linkedList = this.buckets[index]
+    if (!linkedList) {
+      return false
+    }
+    const keyIndex = linkedList.find(key)
+    return linkedList.removeAt(keyIndex) != null
   }
 
   length() {

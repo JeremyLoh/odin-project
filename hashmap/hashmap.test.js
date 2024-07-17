@@ -56,7 +56,7 @@ describe("set(key, value)", () => {
 })
 
 describe("has(key)", () => {
-  test("empty list returns false", () => {
+  test("empty hashmap returns false", () => {
     const hashmap = new HashMap()
     expect(hashmap.has("")).toBe(false)
     expect(hashmap.has("   ")).toBe(false)
@@ -76,6 +76,38 @@ describe("has(key)", () => {
     hashmap.set("second", "value")
     expect(hashmap.has("first")).toBe(true)
     expect(hashmap.has("second")).toBe(true)
+  })
+})
+
+describe("remove(key)", () => {
+  test("empty hashmap remove, returns false", () => {
+    const hashmap = new HashMap()
+    expect(hashmap.remove("keyNotPresent")).toBe(false)
+    expect(hashmap.has("keyNotPresent")).toBe(false)
+  })
+
+  test("one item hashmap remove item returns true", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    expect(hashmap.remove("firstKey")).toBe(true)
+    expect(hashmap.has("firstKey")).toBe(false)
+  })
+
+  test("multiple item hashmap remove item returns true", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    hashmap.set("secondKey", "secondValue")
+    hashmap.set("thirdKey", "thirdValue")
+    expect(hashmap.remove("firstKey")).toBe(true)
+    expect(hashmap.has("firstKey")).toBe(false)
+
+    expect(hashmap.has("secondKey")).toBe(true)
+    expect(hashmap.remove("secondKey")).toBe(true)
+    expect(hashmap.has("secondKey")).toBe(false)
+
+    expect(hashmap.has("thirdKey")).toBe(true)
+    expect(hashmap.remove("thirdKey")).toBe(true)
+    expect(hashmap.has("thirdKey")).toBe(false)
   })
 })
 

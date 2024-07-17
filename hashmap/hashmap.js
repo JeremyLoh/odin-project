@@ -1,4 +1,4 @@
-import LinkedList from "./linkedlist"
+import LinkedList from "./linkedlist.js"
 
 export default class HashMap {
   constructor(bucketSize = 16, loadFactor = 0.75) {
@@ -39,7 +39,7 @@ export default class HashMap {
   }
 
   isLoadFactorExceeded() {
-    return this.size / this.bucketSize >= this.loadFactor
+    return this.size / this.bucketSize > this.loadFactor
   }
 
   set(key, value) {

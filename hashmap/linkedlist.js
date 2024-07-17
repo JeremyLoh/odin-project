@@ -4,7 +4,7 @@ export default class LinkedList {
   constructor() {
     this.head = null
     this.tail = null
-    this.size = 0
+    this._size = 0
   }
 
   append(key, value) {
@@ -32,8 +32,15 @@ export default class LinkedList {
     this.size++
   }
 
-  size() {
-    return this.size
+  get size() {
+    return this._size
+  }
+
+  set size(x) {
+    if (x < 0) {
+      return
+    }
+    this._size = x
   }
 
   head() {

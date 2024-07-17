@@ -84,7 +84,18 @@ export default class HashMap {
   }
 
   keys() {
-    // TODO return an array containing all the keys inside the hash map
+    // return an array containing all the keys inside hash map
+    const output = []
+    for (const list of this.buckets) {
+      if (list == null) {
+        continue
+      }
+      const size = list.size
+      for (let i = 0; i < size; i++) {
+        output.push(list.at(i).key)
+      }
+    }
+    return output
   }
 
   values() {

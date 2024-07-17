@@ -83,3 +83,63 @@ describe("clear()", () => {
     expect(hashmap.get("second")).toBe(null)
   })
 })
+
+describe("keys()", () => {
+  test("empty hashmap returns zero keys", () => {
+    const hashmap = new HashMap()
+    expect(hashmap.keys()).toEqual([])
+  })
+
+  test("one item", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    expect(hashmap.keys()).to.have.deep.members(["firstKey"])
+  })
+
+  test("two items", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    hashmap.set("secondKey", "secondValue")
+    expect(hashmap.keys()).to.have.deep.members(["firstKey", "secondKey"])
+  })
+
+  test("multiple items", () => {
+    // ensure some bucket has more than one item: pigeonhole principle
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "1")
+    hashmap.set("secondKey", "2")
+    hashmap.set("thirdKey", "3")
+    hashmap.set("fourthKey", "4")
+    hashmap.set("fifthKey", "5")
+    hashmap.set("sixthKey", "6")
+    hashmap.set("sevenKey", "7")
+    hashmap.set("eightKey", "8")
+    hashmap.set("ninthKey", "9")
+    hashmap.set("tenKey", "10")
+    hashmap.set("11Key", "11")
+    hashmap.set("12Key", "12")
+    hashmap.set("13Key", "13")
+    hashmap.set("14Key", "14")
+    hashmap.set("15Key", "15")
+    hashmap.set("16Key", "16")
+    expect(hashmap.keys()).to.have.deep.members([
+      "firstKey",
+      "secondKey",
+      "thirdKey",
+      "fourthKey",
+      "fifthKey",
+      "sixthKey",
+      "sevenKey",
+      "eightKey",
+      "ninthKey",
+      "tenKey",
+      "11Key",
+      "12Key",
+      "13Key",
+      "14Key",
+      "15Key",
+      "16Key",
+    ])
+    expect(hashmap.keys().length).toBe(16)
+  })
+})

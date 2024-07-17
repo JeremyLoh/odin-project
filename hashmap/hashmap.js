@@ -22,23 +22,23 @@ export default class HashMap {
     if (index < 0 || index >= this.buckets.length) {
       throw new Error("Trying to access index out of bound")
     }
-    const existingLinkedList = this.buckets[index]
-    if (!existingLinkedList) {
-      const linkedList = new LinkedList()
-      linkedList.append(key, value)
-      this.buckets[index] = linkedList
+    const existingList = this.buckets[index]
+    if (!existingList) {
+      const list = new LinkedList()
+      list.append(key, value)
+      this.buckets[index] = list
       this.size++
       // TODO grow bucket size based on load factor
       return
     }
-    if (existingLinkedList.contains(key)) {
+    if (existingList.contains(key)) {
       // if key exists, then old value is overriden
-      const existingIndex = existingLinkedList.find(key)
-      existingLinkedList.removeAt(existingIndex)
-      existingLinkedList.prepend(key, value)
+      const existingIndex = existingList.find(key)
+      existingList.removeAt(existingIndex)
+      existingList.prepend(key, value)
     } else {
       // if there is a collision (two different key get same hash code), add to linked list
-      existingLinkedList.prepend(key, value)
+      existingList.prepend(key, value)
       this.size++
     }
     // TODO grow bucket size based on load factor
@@ -50,15 +50,15 @@ export default class HashMap {
     if (index < 0 || index >= this.buckets.length) {
       throw new Error("Trying to access index out of bound")
     }
-    const linkedList = this.buckets[index]
-    if (!linkedList) {
+    const list = this.buckets[index]
+    if (!list) {
       return null
     }
-    const nodeIndex = linkedList.find(key)
+    const nodeIndex = list.find(key)
     if (nodeIndex == null) {
       return null
     }
-    return linkedList.at(nodeIndex)?.value
+    return list.at(nodeIndex)?.value
   }
 
   has(key) {
@@ -80,12 +80,12 @@ export default class HashMap {
     if (index < 0 || index >= this.buckets.length) {
       throw new Error("Trying to access index out of bound")
     }
-    const linkedList = this.buckets[index]
-    if (!linkedList) {
+    const list = this.buckets[index]
+    if (!list) {
       return false
     }
-    const keyIndex = linkedList.find(key)
-    return linkedList.removeAt(keyIndex) != null
+    const keyIndex = list.find(key)
+    return list.removeAt(keyIndex) != null
   }
 
   length() {
@@ -117,7 +117,18 @@ export default class HashMap {
   }
 
   values() {
-    // TODO return an array containing all the values
+    // return an array containing all the values
+    const output = []
+    for (const list of this.buckets) {
+      if (list == null) {
+        continue
+      }
+      const size = list.size
+      for (let i = 0; i < size; i++) {
+        output.push(list.at(i).value)
+      }
+    }
+    return output
   }
 
   entries() {

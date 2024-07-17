@@ -199,3 +199,30 @@ describe("keys()", () => {
     expect(hashmap.keys().length).toBe(16)
   })
 })
+
+describe("values()", () => {
+  test("empty hashmap", () => {
+    const hashmap = new HashMap()
+    expect(hashmap.values()).to.have.deep.members([])
+  })
+
+  test("one item", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    expect(hashmap.values()).to.have.deep.members(["firstValue"])
+  })
+
+  test("multiple items with different value", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    hashmap.set("secondKey", "secondValue")
+    expect(hashmap.values()).to.have.deep.members(["firstValue", "secondValue"])
+  })
+
+  test("multiple items with same value", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    hashmap.set("secondKey", "firstValue")
+    expect(hashmap.values()).to.have.deep.members(["firstValue", "firstValue"])
+  })
+})

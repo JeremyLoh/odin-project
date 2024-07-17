@@ -132,7 +132,22 @@ export default class HashMap {
   }
 
   entries() {
-    // TODO return array that contain each key, value pair.
+    // return array that contain each key, value pair
     // Example: [[firstKey, firstValue], [secondKey, secondValue]]
+    if (this.size === 0) {
+      return []
+    }
+    const output = []
+    for (const list of this.buckets) {
+      if (list == null) {
+        continue
+      }
+      const size = list.size
+      for (let i = 0; i < size; i++) {
+        const item = list.at(i)
+        output.push([item.key, item.value])
+      }
+    }
+    return output
   }
 }

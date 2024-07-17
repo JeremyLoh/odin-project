@@ -226,3 +226,28 @@ describe("values()", () => {
     expect(hashmap.values()).to.have.deep.members(["firstValue", "firstValue"])
   })
 })
+
+describe("entries()", () => {
+  test("empty hashmap", () => {
+    const hashmap = new HashMap()
+    expect(hashmap.entries()).to.have.deep.members([])
+  })
+
+  test("one item", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    expect(hashmap.entries()).to.have.deep.members([["firstKey", "firstValue"]])
+  })
+
+  test("multiple items", () => {
+    const hashmap = new HashMap()
+    hashmap.set("firstKey", "firstValue")
+    hashmap.set("secondKey", "secondValue")
+    hashmap.set("3k", "3v")
+    expect(hashmap.entries()).to.have.deep.members([
+      ["firstKey", "firstValue"],
+      ["secondKey", "secondValue"],
+      ["3k", "3v"],
+    ])
+  })
+})

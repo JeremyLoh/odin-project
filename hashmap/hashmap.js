@@ -17,6 +17,31 @@ export default class HashMap {
     return hashCode
   }
 
+  growBucket() {
+    // need to get new hash for each item as bucket size changed
+    const newBucketSize = this.bucketSize * 2
+    const newBucket = new Array(newBucketSize)
+    for (const list of this.buckets) {
+      if (list == null) {
+        continue
+      }
+      const size = list.size
+      for (let i = 0; i < size; i++) {
+        const item = list.at(i)
+        const newBucketIndex = this.hash(item.key) % newBucketSize
+        newBucket[newBucketIndex] =
+          newBucket[newBucketIndex] || new LinkedList()
+        newBucket[newBucketIndex].append(item.key, item.value)
+      }
+    }
+    this.buckets = newBucket
+    this.bucketSize = newBucketSize
+  }
+
+  isLoadFactorExceeded() {
+    return this.size / this.bucketSize >= this.loadFactor
+  }
+
   set(key, value) {
     const index = this.hash(key) % this.bucketSize
     if (index < 0 || index >= this.buckets.length) {
@@ -28,7 +53,10 @@ export default class HashMap {
       list.append(key, value)
       this.buckets[index] = list
       this.size++
-      // TODO grow bucket size based on load factor
+      // grow bucket size based on load factor
+      if (this.isLoadFactorExceeded()) {
+        this.growBucket()
+      }
       return
     }
     if (existingList.contains(key)) {
@@ -41,7 +69,10 @@ export default class HashMap {
       existingList.prepend(key, value)
       this.size++
     }
-    // TODO grow bucket size based on load factor
+    // grow bucket size based on load factor
+    if (this.isLoadFactorExceeded()) {
+      this.growBucket()
+    }
   }
 
   get(key) {

@@ -251,3 +251,21 @@ describe("entries()", () => {
     ])
   })
 })
+
+describe("load factor", () => {
+  test("increase bucket size when load factor is reached", () => {
+    const bucketSize = 5
+    const loadFactor = 0.6
+    const hashmap = new HashMap(bucketSize, loadFactor)
+    hashmap.set("firstKey", "firstValue")
+    hashmap.set("secondKey", "secondValue")
+    expect(hashmap.bucketSize).toBe(5)
+    expect(hashmap.loadFactor).toBe(0.6)
+
+    hashmap.set("thirdKey", "thirdValue")
+    expect(hashmap.bucketSize).toBe(10)
+    expect(hashmap.has("firstKey")).toBe(true)
+    expect(hashmap.has("secondKey")).toBe(true)
+    expect(hashmap.has("thirdKey")).toBe(true)
+  })
+})

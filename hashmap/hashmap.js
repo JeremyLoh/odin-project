@@ -62,7 +62,12 @@ export default class HashMap {
   }
 
   has(key) {
-    // TODO take a key and return true or false based on whether key is in the hash map
+    // take a key and return true or false based on whether key is in the hash map
+    if (this.size === 0) {
+      return false
+    }
+    const isKeyPresent = this.get(key) != null
+    return isKeyPresent
   }
 
   remove(key) {

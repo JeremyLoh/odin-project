@@ -55,6 +55,30 @@ describe("set(key, value)", () => {
   })
 })
 
+describe("has(key)", () => {
+  test("empty list returns false", () => {
+    const hashmap = new HashMap()
+    expect(hashmap.has("")).toBe(false)
+    expect(hashmap.has("   ")).toBe(false)
+    expect(hashmap.has("key")).toBe(false)
+  })
+
+  test("one item", () => {
+    const hashmap = new HashMap()
+    hashmap.set(" ", "value")
+    expect(hashmap.has("")).toBe(false)
+    expect(hashmap.has(" ")).toBe(true)
+  })
+
+  test("multiple items", () => {
+    const hashmap = new HashMap()
+    hashmap.set("first", "value")
+    hashmap.set("second", "value")
+    expect(hashmap.has("first")).toBe(true)
+    expect(hashmap.has("second")).toBe(true)
+  })
+})
+
 describe("clear()", () => {
   test("should clear empty hashmap", () => {
     const hashmap = new HashMap()

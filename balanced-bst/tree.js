@@ -10,6 +10,27 @@ export default class Tree {
     return this._root
   }
 
+  prettyPrint(node = this._root, prefix = "", isLeft = true) {
+    if (node === null) {
+      return
+    }
+    if (node.rightChild !== null) {
+      this.prettyPrint(
+        node.rightChild,
+        `${prefix}${isLeft ? "│   " : "    "}`,
+        false
+      )
+    }
+    console.log(`${prefix}${isLeft ? "└── " : "┌── "}${node.data}`)
+    if (node.leftChild !== null) {
+      this.prettyPrint(
+        node.leftChild,
+        `${prefix}${isLeft ? "    " : "│   "}`,
+        true
+      )
+    }
+  }
+
   buildTree(array) {
     // takes an array of data and turns it into a balanced binary tree of Node objects
     // return level-0 root node

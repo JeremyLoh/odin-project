@@ -20,6 +20,8 @@ Dropdown menu - https://jeremyloh.github.io/odin-project/dropdown-menu
 
 Linked List - https://github.com/JeremyLoh/odin-project/tree/main/linked-list
 
+Hashmap - https://github.com/JeremyLoh/odin-project/tree/main/hashmap
+
 # Other Learning Resources
 
 1. Nodeschool - https://nodeschool.io/

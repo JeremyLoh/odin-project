@@ -68,5 +68,3 @@ export default class Tree {
     return output
   }
 }
-
-new Tree([1, 2, 3, 4])

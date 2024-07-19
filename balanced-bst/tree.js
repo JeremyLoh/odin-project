@@ -31,6 +31,38 @@ export default class Tree {
     }
   }
 
+  insert(value) {
+    if (this._root == null) {
+      this._root = new Node(value, null, null)
+      return
+    }
+    let current = this._root
+    const node = new Node(value, null, null)
+    // keep recursing until there is no subtree, then insert the node
+    while (current != null) {
+      if (current.data === value) {
+        // prevent insertion for duplicate values
+        break
+      }
+      if (value > current.data) {
+        if (current.rightChild == null) {
+          current.rightChild = node
+          this._array.push(value)
+          break
+        }
+        current = current.rightChild
+      }
+      if (value < current.data) {
+        if (current.leftChild == null) {
+          current.leftChild = node
+          this._array.push(value)
+          break
+        }
+        current = current.leftChild
+      }
+    }
+  }
+
   buildTree(array) {
     // takes an array of data and turns it into a balanced binary tree of Node objects
     // return level-0 root node

@@ -13,7 +13,21 @@ export default class Node {
     return this._leftChild
   }
 
+  set leftChild(node) {
+    if (node == null) {
+      return
+    }
+    this._leftChild = node
+  }
+
   get rightChild() {
     return this._rightChild
+  }
+
+  set rightChild(node) {
+    if (node == null) {
+      return
+    }
+    this._rightChild = node
   }
 }

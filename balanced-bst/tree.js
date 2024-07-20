@@ -31,6 +31,33 @@ export default class Tree {
     }
   }
 
+  levelOrder(callback) {
+    // traverse tree in breadth-first level order, provide each node as argument to given callback
+    // returns an array of values if no callback is given as argument
+    if (this._root == null) {
+      return []
+    }
+    const traversedValues = []
+    const queue = [this._root]
+    while (queue.length > 0) {
+      const current = queue.shift()
+      if (callback != null) {
+        callback(current)
+      } else {
+        traversedValues.push(current.data)
+      }
+      if (current.leftChild) {
+        queue.push(current.leftChild)
+      }
+      if (current.rightChild) {
+        queue.push(current.rightChild)
+      }
+    }
+    if (callback == null) {
+      return traversedValues
+    }
+  }
+
   find(value) {
     if (value == null || this._root == null) {
       return null

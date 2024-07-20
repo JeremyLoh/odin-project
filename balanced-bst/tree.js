@@ -67,10 +67,6 @@ export default class Tree {
     if (value == null || this._root == null) {
       return
     }
-    if (this._root.data === value) {
-      this._replaceNode(this._root)
-      return
-    }
     let current = this._root
     while (current != null) {
       if (current.data === value) {
@@ -90,7 +86,6 @@ export default class Tree {
     if (node == null) {
       return
     }
-    const parent = node.parent
     const isRootNode = node.data === this._root.data // there are no duplicates in tree
     const isLeafNode = node.leftChild == null && node.rightChild == null
     if (isLeafNode && isRootNode) {
@@ -98,28 +93,11 @@ export default class Tree {
       this._array = []
       return
     }
-    if (isLeafNode && !isRootNode) {
-      if (parent.leftChild != null && parent.leftChild.data === node.data) {
-        parent.leftChild = null
-      } else {
-        parent.rightChild = null
-      }
-      this._removeNodeFromArray(node.data)
-      return
-    }
-    // XOR operator, for if one subtree exists, (A AND !B) OR (!A AND B)
-    const isOnlyOneSubtreePresent =
+    // XOR operator, check that only one subtree exists, (A AND !B) OR (!A AND B)
+    const hasOnlyOneSubtree =
       ((node.leftChild == null) ^ (node.rightChild == null)) === 1
-    if (isOnlyOneSubtreePresent) {
-      // replace deleted node with the non empty subtree
-      const subtree = node.leftChild || node.rightChild
-      subtree.parent = parent
-      if (parent.leftChild != null && parent.leftChild.data === node.data) {
-        parent.leftChild = subtree
-      } else {
-        parent.rightChild = subtree
-      }
-      this._removeNodeFromArray(node.data)
+    if (hasOnlyOneSubtree || (isLeafNode && !isRootNode)) {
+      this._replaceParentWithNodeSubtree(node)
       return
     }
     const leftSubtreeHeight = this._getHeight(node.leftChild)
@@ -128,15 +106,7 @@ export default class Tree {
       const predecessor = this._getPredecessor(node)
       if (predecessor.leftChild == null && predecessor.rightChild == null) {
         // predecessor has no child, remove predecessor's parent reference to predecessor
-        if (
-          predecessor.parent &&
-          predecessor.parent.leftChild &&
-          predecessor.parent.leftChild.data === predecessor.data
-        ) {
-          predecessor.parent.leftChild = null
-        } else {
-          predecessor.parent.rightChild = null
-        }
+        this._replaceParentWithNodeSubtree(predecessor)
         node.data = predecessor.data
       } else {
         // only left subtree exist for predecessor node
@@ -149,15 +119,7 @@ export default class Tree {
       const successor = this._getSuccessor(node)
       if (successor.leftChild == null && successor.rightChild == null) {
         // successor has no child, remove successor's parent reference to successor
-        if (
-          successor.parent &&
-          successor.parent.leftChild &&
-          successor.parent.leftChild.data === successor.data
-        ) {
-          successor.parent.leftChild = null
-        } else {
-          successor.parent.rightChild = null
-        }
+        this._replaceParentWithNodeSubtree(successor)
         node.data = successor.data
       } else {
         // only right subtree exist for successor node
@@ -166,7 +128,19 @@ export default class Tree {
         node.data = successor.data
       }
     }
+  }
 
+  _replaceParentWithNodeSubtree(node) {
+    const parent = node.parent
+    const subtree = node.leftChild || node.rightChild
+    if (subtree != null) {
+      subtree.parent = parent
+    }
+    if (parent.leftChild != null && parent.leftChild.data === node.data) {
+      parent.leftChild = subtree
+    } else {
+      parent.rightChild = subtree
+    }
     this._removeNodeFromArray(node.data)
   }
 

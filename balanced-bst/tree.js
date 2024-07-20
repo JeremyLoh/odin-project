@@ -1,7 +1,7 @@
 import Node from "./node.js"
 
 export default class Tree {
-  constructor(array) {
+  constructor(array = []) {
     this._array = array
     this._root = this.buildTree(array)
   }
@@ -63,6 +63,159 @@ export default class Tree {
     }
   }
 
+  deleteItem(value) {
+    if (value == null || this._root == null) {
+      return
+    }
+    if (this._root.data === value) {
+      this._replaceNode(this._root)
+      return
+    }
+    let current = this._root
+    while (current != null) {
+      if (current.data === value) {
+        break
+      }
+      if (value < current.data) {
+        current = current.leftChild
+      }
+      if (value > current.data) {
+        current = current.rightChild
+      }
+    }
+    this._replaceNode(current)
+  }
+
+  _replaceNode(node) {
+    if (node == null) {
+      return
+    }
+    const parent = node.parent
+    const isRootNode = node.data === this._root.data // there are no duplicates in tree
+    const isLeafNode = node.leftChild == null && node.rightChild == null
+    if (isLeafNode && isRootNode) {
+      this._root = null
+      this._array = []
+      return
+    }
+    if (isLeafNode && !isRootNode) {
+      if (parent.leftChild != null && parent.leftChild.data === node.data) {
+        parent.leftChild = null
+      } else {
+        parent.rightChild = null
+      }
+      this._removeNodeFromArray(node.data)
+      return
+    }
+    // XOR operator, for if one subtree exists, (A AND !B) OR (!A AND B)
+    const isOnlyOneSubtreePresent =
+      ((node.leftChild == null) ^ (node.rightChild == null)) === 1
+    if (isOnlyOneSubtreePresent) {
+      // replace deleted node with the non empty subtree
+      const subtree = node.leftChild || node.rightChild
+      subtree.parent = parent
+      if (parent.leftChild != null && parent.leftChild.data === node.data) {
+        parent.leftChild = subtree
+      } else {
+        parent.rightChild = subtree
+      }
+      this._removeNodeFromArray(node.data)
+      return
+    }
+    const leftSubtreeHeight = this._getHeight(node.leftChild)
+    const rightSubtreeHeight = this._getHeight(node.rightChild)
+    if (leftSubtreeHeight > rightSubtreeHeight) {
+      const predecessor = this._getPredecessor(node)
+      if (predecessor.leftChild == null && predecessor.rightChild == null) {
+        // predecessor has no child, remove predecessor's parent reference to predecessor
+        if (
+          predecessor.parent &&
+          predecessor.parent.leftChild &&
+          predecessor.parent.leftChild.data === predecessor.data
+        ) {
+          predecessor.parent.leftChild = null
+        } else {
+          predecessor.parent.rightChild = null
+        }
+        node.data = predecessor.data
+      } else {
+        // only left subtree exist for predecessor node
+        const predecessorLeftSubtree = predecessor.leftChild
+        predecessorLeftSubtree.parent = predecessor.parent
+        node.leftChild = predecessorLeftSubtree
+        node.data = predecessor.data
+      }
+    } else {
+      const successor = this._getSuccessor(node)
+      if (successor.leftChild == null && successor.rightChild == null) {
+        // successor has no child, remove successor's parent reference to successor
+        if (
+          successor.parent &&
+          successor.parent.leftChild &&
+          successor.parent.leftChild.data === successor.data
+        ) {
+          successor.parent.leftChild = null
+        } else {
+          successor.parent.rightChild = null
+        }
+        node.data = successor.data
+      } else {
+        // only right subtree exist for successor node
+        const successorRightSubtree = successor.rightChild
+        successorRightSubtree.parent = successor.parent
+        node.data = successor.data
+      }
+    }
+
+    this._removeNodeFromArray(node.data)
+  }
+
+  _removeNodeFromArray(value) {
+    const index = this._array.indexOf(value)
+    if (index !== -1) {
+      this._array.splice(index, 1)
+    }
+  }
+
+  _getHeight(node, currentHeight = 0) {
+    // get number of edges on longest path from given node to a leaf
+    // https://stackoverflow.com/questions/2603692/what-is-the-difference-between-depth-and-height-in-a-tree
+    if (node == null) {
+      return currentHeight
+    }
+    return Math.max(
+      this._getHeight(node.leftChild, currentHeight + (node.leftChild ? 1 : 0)),
+      this._getHeight(
+        node.rightChild,
+        currentHeight + (node.rightChild ? 1 : 0)
+      )
+    )
+  }
+
+  _getPredecessor(node) {
+    // get right most element in the left subtree (greatest value in left subtree)
+    if (node == null || node.leftChild == null) {
+      return null
+    }
+    let current = node.leftChild
+    while (current.rightChild != null) {
+      current = current.rightChild
+    }
+    return current
+  }
+
+  _getSuccessor(node) {
+    // get left most element in the right subtree (smallest value in right subtree)
+    if (node == null || node.rightChild == null) {
+      return null
+    }
+    let current = node.rightChild
+    while (current.leftChild != null) {
+      current = current.leftChild
+    }
+    return current
+  }
+
   buildTree(array) {
     // takes an array of data and turns it into a balanced binary tree of Node objects
     // return level-0 root node
@@ -79,6 +232,12 @@ export default class Tree {
     // skip middle element (mid + 1)
     const rightTree = this.buildTree(sortedArray.slice(mid + 1))
     const root = new Node(sortedArray[mid], leftTree, rightTree)
+    if (leftTree != null) {
+      leftTree.parent = root
+    }
+    if (rightTree != null) {
+      rightTree.parent = root
+    }
     return root
   }
 

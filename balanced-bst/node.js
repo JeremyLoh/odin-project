@@ -1,12 +1,17 @@
 export default class Node {
-  constructor(data, leftChild, rightChild) {
+  constructor(data, leftChild, rightChild, parent = null) {
     this._data = data
     this._leftChild = leftChild
     this._rightChild = rightChild
+    this._parent = parent
   }
 
   get data() {
     return this._data
+  }
+
+  set data(value) {
+    this._data = value
   }
 
   get leftChild() {
@@ -14,9 +19,6 @@ export default class Node {
   }
 
   set leftChild(node) {
-    if (node == null) {
-      return
-    }
     this._leftChild = node
   }
 
@@ -25,9 +27,14 @@ export default class Node {
   }
 
   set rightChild(node) {
-    if (node == null) {
-      return
-    }
     this._rightChild = node
+  }
+
+  get parent() {
+    return this._parent
+  }
+
+  set parent(node) {
+    this._parent = node
   }
 }

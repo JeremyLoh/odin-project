@@ -2,6 +2,12 @@
 
 https://www.theodinproject.com/lessons/javascript-binary-search-trees
 
+# References
+
+- Truth Table to Boolean Expression - https://www.youtube.com/watch?v=kh1jlQD252Y
+
+- Deletion operation in Binary Search Tree: successor or predecessor - https://stackoverflow.com/questions/72885388/deletion-operation-in-binary-search-tree-successor-or-predecessor
+
 # Assignment
 
 You will build a balanced BST in this assignment. Do not use duplicate values because they make it more complicated and result in trees that are much harder to balance.

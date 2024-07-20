@@ -237,3 +237,33 @@ describe("deleteItem(value)", () => {
     expect(rightTree.rightChild.rightChild).toBe(null)
   })
 })
+
+describe("find(value)", () => {
+  test("empty tree", () => {
+    const tree = new Tree([])
+    expect(tree.find(null)).toBe(null)
+    expect(tree.find(3)).toBe(null)
+  })
+
+  test("one item in tree", () => {
+    const tree = new Tree([2])
+    expect(tree.find(null)).toBe(null)
+    expect(tree.find(2).data).toBe(2)
+    expect(tree.find(2).leftChild).toBe(null)
+    expect(tree.find(2).rightChild).toBe(null)
+  })
+
+  test("multiple items in tree", () => {
+    // tree of [1,2,3,4,5]
+    //    3
+    //  2   5
+    // 1   4
+    const tree = new Tree([1, 2, 3, 4, 5])
+    expect(tree.find(0)).toBe(null)
+    expect(tree.find(1).data).toBe(1)
+    expect(tree.find(2).data).toBe(2)
+    expect(tree.find(3).data).toBe(3)
+    expect(tree.find(4).data).toBe(4)
+    expect(tree.find(5).data).toBe(5)
+  })
+})

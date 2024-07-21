@@ -396,6 +396,12 @@ describe("tree traversals", () => {
 })
 
 describe("height(node)", () => {
+  test("height of null subtree is zero", () => {
+    const tree = new Tree([2])
+    const root = tree.find(2)
+    expect(tree.height(root.leftChild)).toBe(0)
+  })
+
   test("tree with one item", () => {
     const tree = new Tree([2])
     const root = tree.find(2)
@@ -448,5 +454,44 @@ describe("depth(node)", () => {
     expect(tree.depth(tree.find(2))).toBe(1)
     expect(tree.depth(tree.find(6))).toBe(1)
     expect(tree.depth(tree.find(4))).toBe(0)
+  })
+})
+
+describe("isBalanced()", () => {
+  test("empty tree is balanced", () => {
+    const tree = new Tree([])
+    expect(tree.isBalanced()).toBe(true)
+  })
+
+  test("one item tree is balanced", () => {
+    const tree = new Tree([2])
+    expect(tree.isBalanced()).toBe(true)
+  })
+
+  test("multiple item tree with height difference of one is balanced", () => {
+    //   1
+    // -1 2
+    //     3
+    const tree = new Tree([1])
+    tree.insert(2)
+    expect(tree.isBalanced()).toBe(true)
+    tree.insert(-1)
+    expect(tree.isBalanced()).toBe(true)
+    tree.insert(3)
+    expect(tree.isBalanced()).toBe(true)
+  })
+
+  test("multiple item tree with height difference of more than one is not balanced", () => {
+    // create the following tree
+    //     6
+    //    5  7
+    //   2
+    //    4
+    const tree = new Tree([5, 6, 7])
+    expect(tree.isBalanced()).toBe(true)
+    tree.insert(2)
+    expect(tree.isBalanced()).toBe(true)
+    tree.insert(4)
+    expect(tree.isBalanced()).toBe(false)
   })
 })

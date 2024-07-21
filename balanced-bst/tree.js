@@ -293,6 +293,29 @@ export default class Tree {
     return edges
   }
 
+  isBalanced() {
+    // balanced tree is where every node, the difference between heights of left and right subtree of every node is not more than one
+    if (this._root == null) {
+      return true
+    }
+    const stack = [this._root]
+    while (stack.length > 0) {
+      const current = stack.pop()
+      const leftHeight = this.height(current.leftChild)
+      const rightHeight = this.height(current.rightChild)
+      if (Math.abs(leftHeight - rightHeight) > 1) {
+        return false
+      }
+      if (current.leftChild != null) {
+        stack.push(current.leftChild)
+      }
+      if (current.rightChild != null) {
+        stack.push(current.rightChild)
+      }
+    }
+    return true
+  }
+
   _getPredecessor(node) {
     // get right most element in the left subtree (greatest value in left subtree)
     if (node == null || node.leftChild == null) {

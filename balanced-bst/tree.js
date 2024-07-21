@@ -279,6 +279,20 @@ export default class Tree {
     )
   }
 
+  depth(node) {
+    // depth is defined as the number of edges in the path from a given node to the tree’s root node
+    if (node == null || this._root == null) {
+      return 0
+    }
+    let current = node
+    let edges = 0
+    while (current != null && current.data != this._root.data) {
+      current = current.parent
+      edges++
+    }
+    return edges
+  }
+
   _getPredecessor(node) {
     // get right most element in the left subtree (greatest value in left subtree)
     if (node == null || node.leftChild == null) {

@@ -419,3 +419,34 @@ describe("height(node)", () => {
     expect(tree.height(tree.find(2))).toBe(1)
   })
 })
+
+describe("depth(node)", () => {
+  test("empty tree returns zero", () => {
+    const tree = new Tree([])
+    expect(tree.depth(null)).toBe(0)
+  })
+
+  test("one item tree returns zero", () => {
+    const tree = new Tree([2])
+    expect(tree.depth(tree.find(2))).toBe(0)
+  })
+
+  test("two item tree returns one for leaf node", () => {
+    const tree = new Tree([1, 2])
+    expect(tree.depth(tree.find(1))).toBe(1)
+  })
+
+  test("multiple item tree", () => {
+    // tree of [1,2,3,4,5,6]
+    //      4
+    //   2      6
+    // 1   3  5
+    const tree = new Tree([1, 2, 3, 4, 5, 6])
+    expect(tree.depth(tree.find(1))).toBe(2)
+    expect(tree.depth(tree.find(3))).toBe(2)
+    expect(tree.depth(tree.find(5))).toBe(2)
+    expect(tree.depth(tree.find(2))).toBe(1)
+    expect(tree.depth(tree.find(6))).toBe(1)
+    expect(tree.depth(tree.find(4))).toBe(0)
+  })
+})

@@ -8,6 +8,8 @@ https://www.theodinproject.com/lessons/javascript-binary-search-trees
 
 - Deletion operation in Binary Search Tree: successor or predecessor - https://stackoverflow.com/questions/72885388/deletion-operation-in-binary-search-tree-successor-or-predecessor
 
+- Iterative & Recursive - Binary Tree Inorder Traversal - Leetcode 94 - Python - https://www.youtube.com/watch?v=g_S5WuasWUE
+
 # Assignment
 
 You will build a balanced BST in this assignment. Do not use duplicate values because they make it more complicated and result in trees that are much harder to balance.

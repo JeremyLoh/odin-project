@@ -58,6 +58,31 @@ export default class Tree {
     }
   }
 
+  inOrder(callback) {
+    // traverse in order (left, current, right), yield each node to provided callback
+    // if no callback is given, return an array of values traversed
+    const traversedNodes = []
+    const stack = []
+    let current = this._root
+    while (stack.length > 0 || current != null) {
+      // keep adding left child until null is reached
+      while (current != null) {
+        stack.push(current)
+        current = current.leftChild
+      }
+      current = stack.pop()
+      if (callback != null) {
+        callback(current)
+      } else {
+        traversedNodes.push(current.data)
+      }
+      current = current.rightChild
+    }
+    if (callback == null) {
+      return traversedNodes
+    }
+  }
+
   find(value) {
     if (value == null || this._root == null) {
       return null

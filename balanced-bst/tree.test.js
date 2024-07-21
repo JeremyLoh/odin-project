@@ -1,4 +1,4 @@
-import { describe, expect, test, vi } from "vitest"
+import { afterEach, describe, expect, test, vi } from "vitest"
 import Tree from "./tree"
 
 describe("buildTree()", () => {
@@ -269,6 +269,10 @@ describe("find(value)", () => {
 })
 
 describe("levelOrder(callback)", () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
   test("no callback given returns array of values", () => {
     // tree of [1,2,3]
     //  2
@@ -292,5 +296,37 @@ describe("levelOrder(callback)", () => {
     // check the node data present for argument passed to callback
     const dataPassedToCallback = callback.mock.calls.map((node) => node[0].data)
     expect(dataPassedToCallback).to.deep.equal([3, 2, 5, 1, 4])
+  })
+})
+
+describe("inOrder(callback)", () => {
+  afterEach(() => {
+    vi.restoreAllMocks()
+  })
+
+  test("empty tree", () => {
+    const tree = new Tree()
+    expect(tree.inOrder()).to.deep.equal([])
+  })
+
+  test("no callback given returns array of values in order (left, current, right)", () => {
+    // tree of [1,2,3,4,5,6]
+    //      4
+    //   2      6
+    // 1   3  5
+    const tree = new Tree([1, 2, 3, 4, 5, 6])
+    expect(tree.inOrder()).to.deep.equal([1, 2, 3, 4, 5, 6])
+  })
+
+  test("given callback is passed arguments in order (left, current, right)", () => {
+    // tree of [1,2,3,4,5,6]
+    //      4
+    //   2      6
+    // 1   3  5
+    const tree = new Tree([1, 2, 3, 4, 5, 6])
+    const callback = vi.fn()
+    tree.inOrder(callback)
+    const dataPassedToCallback = callback.mock.calls.map((node) => node[0].data)
+    expect(dataPassedToCallback).to.deep.equal([1, 2, 3, 4, 5, 6])
   })
 })

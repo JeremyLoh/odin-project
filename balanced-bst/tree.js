@@ -301,8 +301,10 @@ export default class Tree {
     const stack = [this._root]
     while (stack.length > 0) {
       const current = stack.pop()
-      const leftHeight = this.height(current.leftChild)
-      const rightHeight = this.height(current.rightChild)
+      const leftHeight =
+        current.leftChild == null ? -1 : this.height(current.leftChild)
+      const rightHeight =
+        current.rightChild == null ? -1 : this.height(current.rightChild)
       if (Math.abs(leftHeight - rightHeight) > 1) {
         return false
       }

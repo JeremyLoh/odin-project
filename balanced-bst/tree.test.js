@@ -494,4 +494,14 @@ describe("isBalanced()", () => {
     tree.insert(4)
     expect(tree.isBalanced()).toBe(false)
   })
+
+  test("left subtree is empty, but right subtree has height of two should be not balanced", () => {
+    // 2
+    //  3
+    //   4
+    const tree = new Tree([2])
+    tree.insert(3)
+    tree.insert(4)
+    expect(tree.isBalanced()).toBe(false)
+  })
 })

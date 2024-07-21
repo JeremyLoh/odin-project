@@ -83,6 +83,32 @@ export default class Tree {
     }
   }
 
+  preOrder(callback) {
+    const traversedNodes = []
+    const stack = []
+    let current = this._root
+    while (stack.length > 0 || current != null) {
+      // visit current node
+      if (current == null) {
+        current = stack.pop()
+      }
+      if (callback != null) {
+        callback(current)
+      } else {
+        traversedNodes.push(current.data)
+      }
+      // push right node if it exists to stack
+      if (current.rightChild != null) {
+        stack.push(current.rightChild)
+      }
+      // set current node to left node, so we visit left in next iteration
+      current = current.leftChild
+    }
+    if (callback == null) {
+      return traversedNodes
+    }
+  }
+
   find(value) {
     if (value == null || this._root == null) {
       return null

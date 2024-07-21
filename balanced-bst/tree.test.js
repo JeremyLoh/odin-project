@@ -505,3 +505,25 @@ describe("isBalanced()", () => {
     expect(tree.isBalanced()).toBe(false)
   })
 })
+
+describe("rebalance()", () => {
+  test("tree with height of two", () => {
+    const tree = new Tree([2])
+    tree.insert(3)
+    tree.insert(4)
+    expect(tree.isBalanced()).toBe(false)
+    tree.rebalance()
+
+    expect(tree.isBalanced()).toBe(true)
+    expect(tree.find(3).leftChild.data).toBe(2)
+    expect(tree.find(3).rightChild.data).toBe(4)
+
+    expect(tree.find(2).parent.data).toBe(3)
+    expect(tree.find(2).leftChild).toBe(null)
+    expect(tree.find(2).rightChild).toBe(null)
+
+    expect(tree.find(4).parent.data).toBe(3)
+    expect(tree.find(4).leftChild).toBe(null)
+    expect(tree.find(4).rightChild).toBe(null)
+  })
+})

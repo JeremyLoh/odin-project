@@ -318,6 +318,15 @@ export default class Tree {
     return true
   }
 
+  rebalance() {
+    if (this.isBalanced()) {
+      return
+    }
+    // traverse array in order, pass the values to build tree function
+    const inOrderValues = this.inOrder()
+    this._root = this.buildTree(inOrderValues)
+  }
+
   _getPredecessor(node) {
     // get right most element in the left subtree (greatest value in left subtree)
     if (node == null || node.leftChild == null) {

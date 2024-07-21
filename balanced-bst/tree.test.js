@@ -394,3 +394,28 @@ describe("tree traversals", () => {
     })
   })
 })
+
+describe("height(node)", () => {
+  test("tree with one item", () => {
+    const tree = new Tree([2])
+    const root = tree.find(2)
+    expect(tree.height(root)).toBe(0)
+  })
+
+  test("tree with two items", () => {
+    const tree = new Tree([1, 2])
+    const root = tree.find(2)
+    expect(tree.height(root)).toBe(1)
+    expect(tree.height(tree.find(1))).toBe(0)
+  })
+
+  test("tree with multiple items", () => {
+    // tree of [1,2,3,4,5,6]
+    //      4
+    //   2      6
+    // 1   3  5
+    const tree = new Tree([1, 2, 3, 4, 5, 6])
+    expect(tree.height(tree.find(4))).toBe(2)
+    expect(tree.height(tree.find(2))).toBe(1)
+  })
+})

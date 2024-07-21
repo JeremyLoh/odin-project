@@ -216,8 +216,8 @@ export default class Tree {
       this._replaceParentWithNodeSubtree(node)
       return
     }
-    const leftSubtreeHeight = this._getHeight(node.leftChild)
-    const rightSubtreeHeight = this._getHeight(node.rightChild)
+    const leftSubtreeHeight = this.height(node.leftChild)
+    const rightSubtreeHeight = this.height(node.rightChild)
     if (leftSubtreeHeight > rightSubtreeHeight) {
       const predecessor = this._getPredecessor(node)
       if (predecessor.leftChild == null && predecessor.rightChild == null) {
@@ -267,18 +267,15 @@ export default class Tree {
     }
   }
 
-  _getHeight(node, currentHeight = 0) {
+  height(node, currentHeight = 0) {
     // get number of edges on longest path from given node to a leaf
     // https://stackoverflow.com/questions/2603692/what-is-the-difference-between-depth-and-height-in-a-tree
     if (node == null) {
       return currentHeight
     }
     return Math.max(
-      this._getHeight(node.leftChild, currentHeight + (node.leftChild ? 1 : 0)),
-      this._getHeight(
-        node.rightChild,
-        currentHeight + (node.rightChild ? 1 : 0)
-      )
+      this.height(node.leftChild, currentHeight + (node.leftChild ? 1 : 0)),
+      this.height(node.rightChild, currentHeight + (node.rightChild ? 1 : 0))
     )
   }
 

@@ -363,4 +363,34 @@ describe("tree traversals", () => {
       expect(dataPassedToCallback).to.deep.equal([4, 2, 1, 3, 6, 5])
     })
   })
+
+  describe("postOrder(callback)", () => {
+    test("empty tree", () => {
+      const tree = new Tree([])
+      expect(tree.postOrder()).to.deep.equal([])
+    })
+
+    test("no callback returns array of values in post order (left, right, current)", () => {
+      // tree of [1,2,3,4,5,6]
+      //      4
+      //   2      6
+      // 1   3  5
+      const tree = new Tree([1, 2, 3, 4, 5, 6])
+      expect(tree.postOrder()).to.deep.equal([1, 3, 2, 5, 6, 4])
+    })
+
+    test("given callback is passed arguments in order (left, right, current)", () => {
+      // tree of [1,2,3,4,5,6]
+      //      4
+      //   2      6
+      // 1   3  5
+      const tree = new Tree([1, 2, 3, 4, 5, 6])
+      const callback = vi.fn()
+      tree.postOrder(callback)
+      const dataPassedToCallback = callback.mock.calls.map(
+        (node) => node[0].data
+      )
+      expect(dataPassedToCallback).to.deep.equal([1, 3, 2, 5, 6, 4])
+    })
+  })
 })

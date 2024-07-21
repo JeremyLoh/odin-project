@@ -109,6 +109,25 @@ export default class Tree {
     }
   }
 
+  postOrder(callback, currentNode = this._root, traversedNodes = []) {
+    if (currentNode == null) {
+      if (callback == null) {
+        return traversedNodes
+      }
+      return
+    }
+    this.postOrder(callback, currentNode.leftChild, traversedNodes)
+    this.postOrder(callback, currentNode.rightChild, traversedNodes)
+    if (currentNode != null && callback != null) {
+      callback(currentNode)
+    } else {
+      traversedNodes.push(currentNode.data)
+    }
+    if (callback == null) {
+      return traversedNodes
+    }
+  }
+
   find(value) {
     if (value == null || this._root == null) {
       return null

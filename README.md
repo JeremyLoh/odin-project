@@ -24,6 +24,8 @@ Hashmap - https://github.com/JeremyLoh/odin-project/tree/main/hashmap
 
 Balanced Binary Search Tree (BST) - https://github.com/JeremyLoh/odin-project/tree/main/balanced-bst
 
+Knights Travails - https://github.com/JeremyLoh/odin-project/tree/main/knights-travails
+
 # Other Learning Resources
 
 1. Nodeschool - https://nodeschool.io/

@@ -4,7 +4,8 @@
   "description": "https://www.theodinproject.com/lessons/node-path-javascript-testing-practice",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest",
+    "watch": "jest --watch"
   },
   "keywords": [],
   "author": "Jeremy Loh",

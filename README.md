@@ -26,6 +26,8 @@ Balanced Binary Search Tree (BST) - https://github.com/JeremyLoh/odin-project/tr
 
 Knights Travails - https://github.com/JeremyLoh/odin-project/tree/main/knights-travails
 
+Testing Practice - https://github.com/JeremyLoh/odin-project/tree/main/testing-practice
+
 # Other Learning Resources
 
 1. Nodeschool - https://nodeschool.io/

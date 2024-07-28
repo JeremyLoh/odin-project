@@ -15,61 +15,65 @@ describe("gameboard", () => {
   })
 
   describe("place ship at specific coordinates", () => {
-    test("place horizontal ship at coordinate within board should not throw error", () => {
-      const gameboard = new Gameboard(10, 10)
-      const shipSize = 3
-      expect(() =>
-        gameboard.placeHorizontalShip([0, 0], shipSize)
-      ).not.toThrow()
+    describe("horizontal ship placement", () => {
+      test("place horizontal ship at coordinate outside board throws error", () => {
+        const gameboard = new Gameboard(10, 10)
+        const shipSize = 3
+        const expectedErrorMessage =
+          "Invalid coordinate to place ship as coordinate is outside board"
+        expect(() => gameboard.placeHorizontalShip([10, 9], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+        expect(() => gameboard.placeHorizontalShip([9, 10], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+        expect(() => gameboard.placeHorizontalShip([10, 10], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+        expect(() => gameboard.placeHorizontalShip([-1, 3], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+        expect(() => gameboard.placeHorizontalShip([0, -1], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+        expect(() => gameboard.placeHorizontalShip([-1, -1], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+      })
+
+      test("place horizontal ship at coordinate where ship length causes ship to be outside board returns error", () => {
+        const gameboard = new Gameboard(10, 10)
+        const shipSize = 3
+        const expectedErrorMessage =
+          "Invalid coordinate to place ship due to ship size"
+        expect(() => gameboard.placeHorizontalShip([8, 0], shipSize)).toThrow(
+          expectedErrorMessage
+        )
+      })
+
+      test("place horizontal ship at coordinate where ship is within board should not return error", () => {
+        const gameboard = new Gameboard(10, 10)
+        const shipSize = 3
+        expect(() =>
+          gameboard.placeHorizontalShip([7, 0], shipSize)
+        ).not.toThrow()
+        expect(() =>
+          gameboard.placeHorizontalShip([7, 9], shipSize)
+        ).not.toThrow()
+        expect(() =>
+          gameboard.placeHorizontalShip([0, 0], shipSize)
+        ).not.toThrow()
+      })
     })
 
-    test("place horizontal ship at coordinate outside board throws error", () => {
-      const gameboard = new Gameboard(10, 10)
-      const shipSize = 3
-      const expectedErrorMessage =
-        "Invalid coordinate to place ship as coordinate is outside board"
-      expect(() => gameboard.placeHorizontalShip([10, 9], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-      expect(() => gameboard.placeHorizontalShip([9, 10], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-      expect(() => gameboard.placeHorizontalShip([10, 10], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-      expect(() => gameboard.placeHorizontalShip([-1, 3], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-      expect(() => gameboard.placeHorizontalShip([0, -1], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-      expect(() => gameboard.placeHorizontalShip([-1, -1], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-    })
-
-    test("place horizontal ship at coordinate where ship length causes ship to be outside board returns error", () => {
-      const gameboard = new Gameboard(10, 10)
-      const shipSize = 3
-      const expectedErrorMessage =
-        "Invalid coordinate to place ship due to ship size"
-      expect(() => gameboard.placeHorizontalShip([8, 0], shipSize)).toThrow(
-        expectedErrorMessage
-      )
-    })
-
-    test("place horizontal ship at coordinate where ship is within board should not return error", () => {
-      const gameboard = new Gameboard(10, 10)
-      const shipSize = 3
-      expect(() =>
-        gameboard.placeHorizontalShip([7, 0], shipSize)
-      ).not.toThrow()
-      expect(() =>
-        gameboard.placeHorizontalShip([7, 9], shipSize)
-      ).not.toThrow()
-      expect(() =>
-        gameboard.placeHorizontalShip([0, 0], shipSize)
-      ).not.toThrow()
+    describe("vertical ship placement", () => {
+      test("place vertical ship at coordinate within board should not throw error", () => {
+        const gameboard = new Gameboard(10, 10)
+        const shipSize = 3
+        expect(() =>
+          gameboard.placeVerticalShip([0, 0], shipSize)
+        ).not.toThrow()
+      })
     })
   })
 })

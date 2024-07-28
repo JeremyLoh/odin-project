@@ -23,5 +23,10 @@ export default class Gameboard {
       positions.add(`${row + i},${column}`)
     }
     this._ships.push({ positions, hits: [], ship: new Ship(shipSize) })
-  } // 0123456789
+  }
+
+  placeVerticalShip(coordinate, shipSize) {
+    const [row, column] = coordinate
+    // TODO
+  }
 }

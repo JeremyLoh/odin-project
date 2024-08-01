@@ -4,6 +4,10 @@ Creating a small application where users can input their information and generat
 
 https://www.theodinproject.com/lessons/node-path-react-new-cv-application
 
+# References
+
+1. Booting server before running cypress tests - https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
+
 # Assignment
 
 Double rendering - while working on the project, you might notice that some parts of your code execute twice (e.g. console logs appear doubled)

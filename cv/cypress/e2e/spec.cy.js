@@ -10,6 +10,11 @@ describe("cv", () => {
     cy.get('[data-cy="header"]').contains("My CV")
   })
 
+  it("display action toolbar", () => {
+    cy.get('[data-cy="print-action-icon"]').should("exist")
+    cy.get('[data-cy="edit-action-icon"]').should("exist")
+  })
+
   it("display cv default values", () => {
     cy.get('[data-cy="cv-container"]').should("exist")
     cy.get('[data-cy="cv-name"]').contains("YOUR NAME")

@@ -39,4 +39,60 @@ describe("cv", () => {
     cy.get('[data-cy="cv-achievements"]').contains("Jan 2016")
     cy.get('[data-cy="cv-achievements"]').contains("Achievement Description")
   })
+
+  describe("edit cv", () => {
+    it("click on edit action icon displays edit cv form", () => {
+      cy.get('[data-cy="edit-cv-form"]').should("not.exist")
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="edit-cv-form"]').should("exist")
+      cy.get('[data-cy="edit-cv-name"]').should("exist")
+    })
+
+    it("should not allow form submission if name is blank", () => {
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="edit-cv-name"]').should("exist")
+      cy.get('[data-cy="edit-cv-name"]').clear()
+      cy.get('[data-cy="edit-cv-name-error"]').should("not.exist")
+      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      cy.get('[data-cy="edit-cv-name-error"]').should("be.visible")
+    })
+
+    it("should not allow form submission if contact summary is too long", () => {
+      const summary = "a".repeat(151)
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="edit-cv-name"]').clear().type("test name")
+      cy.get('[data-cy="edit-cv-contact-summary"]')
+        .clear()
+        .type(summary, { delay: 0 })
+      cy.get('[data-cy="edit-cv-contact-summary-error"]').should("not.exist")
+      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      cy.get('[data-cy="edit-cv-contact-summary-error"]').should("be.visible")
+    })
+
+    it("should populate default values for cv form on first visit", () => {
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="edit-cv-name"]').should("have.value", "YOUR NAME")
+      cy.get('[data-cy="edit-cv-contact-summary"]').should(
+        "have.value",
+        "Role | Location | Phone Number | Email | URL"
+      )
+    })
+
+    it("modify cv name and contact summary on submit and redirect to cv preview page", () => {
+      const expectedCvName = "Test name"
+      const expectedCvContactSummary = "test contact summary"
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="edit-cv-name"]').clear().type(expectedCvName)
+      cy.get('[data-cy="edit-cv-contact-summary"]')
+        .clear()
+        .type(expectedCvContactSummary)
+      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      cy.get('[data-cy="edit-cv-form"]').should("not.exist")
+
+      cy.get('[data-cy="cv-name"]').contains(expectedCvName)
+      cy.get('[data-cy="cv-contact-summary"]').contains(
+        expectedCvContactSummary
+      )
+    })
+  })
 })

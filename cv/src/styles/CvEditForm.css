@@ -1,0 +1,31 @@
+.edit-cv-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fafaf9;
+  padding: 0.5rem 1rem;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.edit-cv-title {
+  margin: 0.5rem 0;
+}
+
+.edit-cv-form-container form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.edit-cv-form-submit-btn {
+  background-color: #3b82f6;
+  color: whitesmoke;
+}
+
+.edit-cv-form-submit-btn:disabled {
+  background-color: #93c5fd;
+  color: #555;
+}

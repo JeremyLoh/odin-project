@@ -8,9 +8,11 @@ import {
   defaultEducationHistory,
   defaultAchievements,
 } from "./model/Experience"
+import CvEditForm from "./components/CvEditForm"
 
 function App() {
   // TODO handle state switch between editing, printing, preview of CV
+  const [isEditCvMode, setIsEditCvMode] = useState(false)
   const [cvDetails, setCvDetails] = useState({
     name: "YOUR NAME",
     contactSummary: "Role | Location | Phone Number | Email | URL",
@@ -18,12 +20,27 @@ function App() {
     educationHistory: defaultEducationHistory,
     achievements: defaultAchievements,
   })
+  function handleEditClick() {
+    setIsEditCvMode(!isEditCvMode)
+  }
+  function handleCvSubmit(data) {
+    setCvDetails({
+      ...cvDetails,
+      name: data.name,
+      contactSummary: data.contactSummary,
+    })
+    setIsEditCvMode(false)
+  }
   return (
     <>
       <Header title="My CV" />
       <main className="cv">
-        <CvAction />
-        <CvView details={cvDetails} />
+        <CvAction handleEditClick={handleEditClick} />
+        {isEditCvMode ? (
+          <CvEditForm cvDetails={cvDetails} handleCvSubmit={handleCvSubmit} />
+        ) : (
+          <CvView details={cvDetails} />
+        )}
       </main>
     </>
   )

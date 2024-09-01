@@ -46,3 +46,10 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+
+@media print {
+  #app-title,
+  .cv-action-container {
+    display: none !important;
+  }
+}

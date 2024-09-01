@@ -32,11 +32,17 @@ function App() {
     })
     setIsEditCvMode(false)
   }
+  function handleCvPrint() {
+    window.print()
+  }
   return (
     <>
       <Header title="My CV" />
       <main className="cv">
-        <CvAction handleEditClick={handleEditClick} />
+        <CvAction
+          handleEditClick={handleEditClick}
+          handleCvPrint={handleCvPrint}
+        />
         {isEditCvMode ? (
           <CvEditForm cvDetails={cvDetails} handleCvSubmit={handleCvSubmit} />
         ) : (

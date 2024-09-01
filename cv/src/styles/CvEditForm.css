@@ -12,6 +12,7 @@
 
 .edit-cv-title {
   margin: 0.5rem 0;
+  text-align: center;
 }
 
 .edit-cv-form-container form {
@@ -23,9 +24,20 @@
 .edit-cv-form-submit-btn {
   background-color: #3b82f6;
   color: whitesmoke;
+  margin-top: 0.5rem;
 }
 
 .edit-cv-form-submit-btn:disabled {
   background-color: #93c5fd;
   color: #555;
+}
+
+.edit-cv-work-experience-container p {
+  margin: 0;
+  text-align: center;
+}
+
+.work-experience-card {
+  display: flex;
+  flex-direction: column;
 }

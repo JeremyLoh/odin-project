@@ -94,5 +94,69 @@ describe("cv", () => {
         expectedCvContactSummary
       )
     })
+
+    it("modify cv experience on submit and redirect to cv preview page", () => {
+      const expectedTitle = "Test Job Title - Test Company"
+      const expectedDescription =
+        "Test description - impact delivered at company"
+      const expectedDateRange = "March 2024 - Current"
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="edit-cv-work-experience-container"]').should(
+        "be.visible"
+      )
+      cy.get('[data-cy="0-title"]').should("have.value", "Job Title - Company")
+      cy.get('[data-cy="0-description"]').should(
+        "have.value",
+        "Key Responsibilities and Achievements. Value delivered to Company"
+      )
+
+      cy.get('[data-cy="0-title"]').clear().type(expectedTitle, { delay: 0 })
+      cy.get('[data-cy="0-description"]')
+        .clear()
+        .type(expectedDescription, { delay: 0 })
+      cy.get('[data-cy="0-dateRange"]')
+        .clear()
+        .type(expectedDateRange, { delay: 0 })
+      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      cy.get('[data-cy="edit-cv-form"]').should("not.exist")
+
+      cy.get('[data-cy="cv-work-experience"]').contains(expectedTitle)
+      cy.get('[data-cy="cv-work-experience"]').contains(expectedDescription)
+      cy.get('[data-cy="cv-work-experience"]').contains(expectedDateRange)
+    })
+
+    it("work experience title should not be more than 100 characters long", () => {
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="0-title"]').clear().type("a".repeat(101), { delay: 0 })
+      cy.get('[data-cy="edit-cv-form-submit"]').click()
+
+      cy.get('[data-cy="edit-cv-work-experience-container"]').should(
+        "be.visible"
+      )
+      cy.get('[data-cy="edit-work-experience-title-0-error"]')
+        .should("be.visible")
+        .should(
+          "have.text",
+          "Work experience title cannot be more than 100 characters"
+        )
+    })
+
+    it("work experience description should not be more than 300 characters long", () => {
+      cy.get('[data-cy="edit-action-icon"]').click()
+      cy.get('[data-cy="0-description"]')
+        .clear()
+        .type("a".repeat(301), { delay: 0 })
+      cy.get('[data-cy="edit-cv-form-submit"]').click()
+
+      cy.get('[data-cy="edit-cv-work-experience-container"]').should(
+        "be.visible"
+      )
+      cy.get('[data-cy="edit-work-experience-description-0-error"]')
+        .should("be.visible")
+        .should(
+          "have.text",
+          "Work experience description cannot be more than 300 characters"
+        )
+    })
   })
 })

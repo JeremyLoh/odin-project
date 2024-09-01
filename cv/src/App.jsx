@@ -28,6 +28,7 @@ function App() {
       ...cvDetails,
       name: data.name,
       contactSummary: data.contactSummary,
+      workExperiences: data.workExperiences,
     })
     setIsEditCvMode(false)
   }

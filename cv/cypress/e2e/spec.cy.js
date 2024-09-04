@@ -158,5 +158,86 @@ describe("cv", () => {
           "Work experience description cannot be more than 300 characters"
         )
     })
+
+    describe("education section", () => {
+      it("display default education section on first cv edit", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-education-0-title"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-education-0-title"]').should(
+          "have.value",
+          "School - Certification"
+        )
+        cy.get('[data-cy="edit-cv-education-0-description"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-education-0-description"]').should(
+          "have.value",
+          "GPA - 5.0/5.0"
+        )
+        cy.get('[data-cy="edit-cv-education-0-dateRange"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-education-0-dateRange"]').should(
+          "have.value",
+          "Jan 2018 - Jan 2022"
+        )
+      })
+
+      it("display title error message for too long input", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-education-0-title"]')
+          .clear()
+          .type("a".repeat(151), { delay: 0 })
+        cy.get('[data-cy="edit-education-history-title-0-error"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="edit-education-history-title-0-error"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-education-history-title-0-error"]').should(
+          "have.text",
+          "Education Title cannot exceed 150 characters"
+        )
+      })
+
+      it("display description error message for too long input", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-education-0-description"]')
+          .clear()
+          .type("a".repeat(301), { delay: 0 })
+        cy.get('[data-cy="edit-education-history-description-0-error"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="edit-education-history-description-0-error"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-education-history-description-0-error"]').should(
+          "have.text",
+          "Education Description cannot exceed 300 characters"
+        )
+      })
+
+      it("display date range error message for too long input", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-education-0-dateRange"]')
+          .clear()
+          .type("a".repeat(51), { delay: 0 })
+        cy.get('[data-cy="edit-education-history-dateRange-0-error"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="edit-education-history-dateRange-0-error"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-education-history-dateRange-0-error"]').should(
+          "have.text",
+          "Education Date Range cannot exceed 50 characters"
+        )
+      })
+    })
   })
 })

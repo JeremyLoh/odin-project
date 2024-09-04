@@ -37,7 +37,8 @@
   text-align: center;
 }
 
-.work-experience-card {
+.work-experience-card,
+.education-history-card {
   display: flex;
   flex-direction: column;
 }

@@ -13,16 +13,21 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       name: cvDetails.name,
       contactSummary: cvDetails.contactSummary,
       workExperiences: cvDetails.workExperiences.map(
-        (experience) =>
-          new Experience(
-            experience.title,
-            experience.description,
-            experience.dateRange
-          )
+        (exp) => new Experience(exp.title, exp.description, exp.dateRange)
+      ),
+      educationHistory: cvDetails.educationHistory.map(
+        (exp) => new Experience(exp.title, exp.description, exp.dateRange)
       ),
     },
   })
-  const { fields } = useFieldArray({ control, name: "workExperiences" })
+  const { fields: workExperiencesFields } = useFieldArray({
+    control,
+    name: "workExperiences",
+  })
+  const { fields: educationFields } = useFieldArray({
+    control,
+    name: "educationHistory",
+  })
 
   function onSubmit(data) {
     handleCvSubmit(data)
@@ -80,7 +85,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           data-cy="edit-cv-work-experience-container"
         >
           <p>Work Experience</p>
-          {fields.map((field, index) => {
+          {workExperiencesFields.map((field, index) => {
             return (
               <section key={field.id} className="work-experience-card">
                 <label htmlFor={`workExperiences.${index}.title`}>Title</label>
@@ -142,6 +147,87 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
                   data-cy={`${index}-dateRange`}
                   {...register(`workExperiences.${index}.dateRange`)}
                 />
+              </section>
+            )
+          })}
+        </div>
+        <div data-cy="edit-cv-education-container">
+          {educationFields.map((field, index) => {
+            return (
+              <section key={field.id} className="education-history-card">
+                <label htmlFor={`educationHistory.${index}.title`}>
+                  Education Title
+                </label>
+                <input
+                  key={`${field.id}-${index}-education-title`}
+                  type="text"
+                  data-cy={`edit-cv-education-${index}-title`}
+                  {...register(`educationHistory.${index}.title`, {
+                    required: "Education Title is required",
+                    maxLength: {
+                      value: 150,
+                      message: "Education Title cannot exceed 150 characters",
+                    },
+                  })}
+                />
+                {errors.educationHistory &&
+                  errors.educationHistory[index].title && (
+                    <span
+                      className="error"
+                      data-cy={`edit-education-history-title-${index}-error`}
+                    >
+                      {errors.educationHistory[index].title.message}
+                    </span>
+                  )}
+                <label htmlFor={`educationHistory.${index}.description`}>
+                  Education Description
+                </label>
+                <textarea
+                  key={`${field.id}-${index}-education-description`}
+                  rows={5}
+                  data-cy={`edit-cv-education-${index}-description`}
+                  {...register(`educationHistory.${index}.description`, {
+                    maxLength: {
+                      value: 300,
+                      message:
+                        "Education Description cannot exceed 300 characters",
+                    },
+                  })}
+                />
+                {errors.educationHistory &&
+                  errors.educationHistory[index].description && (
+                    <span
+                      className="error"
+                      data-cy={`edit-education-history-description-${index}-error`}
+                    >
+                      {errors.educationHistory[index].description.message}
+                    </span>
+                  )}
+                <label htmlFor={`educationHistory.${index}.dateRange`}>
+                  Education Date Range
+                </label>
+                <input
+                  key={`${field.id}-${index}-education-dateRange`}
+                  type="text"
+                  data-cy={`edit-cv-education-${index}-dateRange`}
+                  {...register(`educationHistory.${index}.dateRange`, {
+                    required: "Education Date Range is required",
+                    maxLength: {
+                      value: 50,
+                      message:
+                        "Education Date Range cannot exceed 50 characters",
+                    },
+                  })}
+                />
+                {errors.educationHistory &&
+                  errors.educationHistory[index].dateRange && (
+                    <span
+                      className="error"
+                      data-cy={`edit-education-history-dateRange-${index}-error`}
+                    >
+                      {errors.educationHistory[index].dateRange.message}
+                    </span>
+                  )}
               </section>
             )
           })}

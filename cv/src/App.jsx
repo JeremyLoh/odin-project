@@ -29,6 +29,7 @@ function App() {
       name: data.name,
       contactSummary: data.contactSummary,
       workExperiences: data.workExperiences,
+      educationHistory: data.educationHistory,
     })
     setIsEditCvMode(false)
   }

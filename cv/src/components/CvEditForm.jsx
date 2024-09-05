@@ -88,85 +88,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           {getWorkExperienceSection(workExperiencesFields, errors, register)}
         </div>
         <div data-cy="edit-cv-education-container">
-          {educationFields.map((field, index) => {
-            return (
-              <section key={field.id} className="education-history-card">
-                <label htmlFor={`educationHistory.${index}.title`}>
-                  Education Title
-                </label>
-                <input
-                  key={`${field.id}-${index}-education-title`}
-                  type="text"
-                  data-cy={`edit-cv-education-${index}-title`}
-                  {...register(`educationHistory.${index}.title`, {
-                    required: "Education Title is required",
-                    maxLength: {
-                      value: 150,
-                      message: "Education Title cannot exceed 150 characters",
-                    },
-                  })}
-                />
-                {errors.educationHistory &&
-                  errors.educationHistory[index].title && (
-                    <span
-                      className="error"
-                      data-cy={`edit-education-history-title-${index}-error`}
-                    >
-                      {errors.educationHistory[index].title.message}
-                    </span>
-                  )}
-                <label htmlFor={`educationHistory.${index}.description`}>
-                  Education Description
-                </label>
-                <textarea
-                  key={`${field.id}-${index}-education-description`}
-                  rows={5}
-                  data-cy={`edit-cv-education-${index}-description`}
-                  {...register(`educationHistory.${index}.description`, {
-                    maxLength: {
-                      value: 300,
-                      message:
-                        "Education Description cannot exceed 300 characters",
-                    },
-                  })}
-                />
-                {errors.educationHistory &&
-                  errors.educationHistory[index].description && (
-                    <span
-                      className="error"
-                      data-cy={`edit-education-history-description-${index}-error`}
-                    >
-                      {errors.educationHistory[index].description.message}
-                    </span>
-                  )}
-                <label htmlFor={`educationHistory.${index}.dateRange`}>
-                  Education Date Range
-                </label>
-                <input
-                  key={`${field.id}-${index}-education-dateRange`}
-                  type="text"
-                  data-cy={`edit-cv-education-${index}-dateRange`}
-                  {...register(`educationHistory.${index}.dateRange`, {
-                    required: "Education Date Range is required",
-                    maxLength: {
-                      value: 50,
-                      message:
-                        "Education Date Range cannot exceed 50 characters",
-                    },
-                  })}
-                />
-                {errors.educationHistory &&
-                  errors.educationHistory[index].dateRange && (
-                    <span
-                      className="error"
-                      data-cy={`edit-education-history-dateRange-${index}-error`}
-                    >
-                      {errors.educationHistory[index].dateRange.message}
-                    </span>
-                  )}
-              </section>
-            )
-          })}
+          {getEducationSection(educationFields, errors, register)}
         </div>
         <button
           type="submit"
@@ -241,6 +163,85 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
           data-cy={`${index}-dateRange`}
           {...register(`workExperiences.${index}.dateRange`)}
         />
+      </section>
+    )
+  })
+}
+
+function getEducationSection(educationFields, errors, register) {
+  return educationFields.map((field, index) => {
+    return (
+      <section key={field.id} className="education-history-card">
+        <label htmlFor={`educationHistory.${index}.title`}>
+          Education Title
+        </label>
+        <input
+          key={`${field.id}-${index}-education-title`}
+          type="text"
+          data-cy={`edit-cv-education-${index}-title`}
+          {...register(`educationHistory.${index}.title`, {
+            required: "Education Title is required",
+            maxLength: {
+              value: 150,
+              message: "Education Title cannot exceed 150 characters",
+            },
+          })}
+        />
+        {errors.educationHistory && errors.educationHistory[index].title && (
+          <span
+            className="error"
+            data-cy={`edit-education-history-title-${index}-error`}
+          >
+            {errors.educationHistory[index].title.message}
+          </span>
+        )}
+        <label htmlFor={`educationHistory.${index}.description`}>
+          Education Description
+        </label>
+        <textarea
+          key={`${field.id}-${index}-education-description`}
+          rows={5}
+          data-cy={`edit-cv-education-${index}-description`}
+          {...register(`educationHistory.${index}.description`, {
+            maxLength: {
+              value: 300,
+              message: "Education Description cannot exceed 300 characters",
+            },
+          })}
+        />
+        {errors.educationHistory &&
+          errors.educationHistory[index].description && (
+            <span
+              className="error"
+              data-cy={`edit-education-history-description-${index}-error`}
+            >
+              {errors.educationHistory[index].description.message}
+            </span>
+          )}
+        <label htmlFor={`educationHistory.${index}.dateRange`}>
+          Education Date Range
+        </label>
+        <input
+          key={`${field.id}-${index}-education-dateRange`}
+          type="text"
+          data-cy={`edit-cv-education-${index}-dateRange`}
+          {...register(`educationHistory.${index}.dateRange`, {
+            required: "Education Date Range is required",
+            maxLength: {
+              value: 50,
+              message: "Education Date Range cannot exceed 50 characters",
+            },
+          })}
+        />
+        {errors.educationHistory &&
+          errors.educationHistory[index].dateRange && (
+            <span
+              className="error"
+              data-cy={`edit-education-history-dateRange-${index}-error`}
+            >
+              {errors.educationHistory[index].dateRange.message}
+            </span>
+          )}
       </section>
     )
   })

@@ -85,71 +85,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           data-cy="edit-cv-work-experience-container"
         >
           <p>Work Experience</p>
-          {workExperiencesFields.map((field, index) => {
-            return (
-              <section key={field.id} className="work-experience-card">
-                <label htmlFor={`workExperiences.${index}.title`}>Title</label>
-                <input
-                  key={`${field.id}-${index}-title`}
-                  type="text"
-                  data-cy={`${index}-title`}
-                  {...register(`workExperiences.${index}.title`, {
-                    required: "Title is required",
-                    maxLength: {
-                      value: 100,
-                      message:
-                        "Work experience title cannot be more than 100 characters",
-                    },
-                  })}
-                />
-                {errors.workExperiences &&
-                  errors.workExperiences[index].title && (
-                    <span
-                      className="error"
-                      data-cy={`edit-work-experience-title-${index}-error`}
-                    >
-                      {errors.workExperiences[index].title.message}
-                    </span>
-                  )}
-
-                <label htmlFor={`workExperiences.${index}.description`}>
-                  Description
-                </label>
-                <textarea
-                  key={`${field.id}-${index}-description`}
-                  data-cy={`${index}-description`}
-                  rows={5}
-                  {...register(`workExperiences.${index}.description`, {
-                    required: "Description is required",
-                    maxLength: {
-                      value: 300,
-                      message:
-                        "Work experience description cannot be more than 300 characters",
-                    },
-                  })}
-                />
-                {errors.workExperiences &&
-                  errors.workExperiences[index].description && (
-                    <span
-                      className="error"
-                      data-cy={`edit-work-experience-description-${index}-error`}
-                    >
-                      {errors.workExperiences[index].description.message}
-                    </span>
-                  )}
-
-                <label htmlFor={`workExperiences.${index}.dateRange`}>
-                  Date Range
-                </label>
-                <input
-                  key={`${field.id}-${index}-dateRange`}
-                  type="text"
-                  data-cy={`${index}-dateRange`}
-                  {...register(`workExperiences.${index}.dateRange`)}
-                />
-              </section>
-            )
-          })}
+          {getWorkExperienceSection(workExperiencesFields, errors, register)}
         </div>
         <div data-cy="edit-cv-education-container">
           {educationFields.map((field, index) => {
@@ -243,4 +179,69 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       </form>
     </div>
   )
+}
+
+function getWorkExperienceSection(workExperiencesFields, errors, register) {
+  return workExperiencesFields.map((field, index) => {
+    return (
+      <section key={field.id} className="work-experience-card">
+        <label htmlFor={`workExperiences.${index}.title`}>Title</label>
+        <input
+          key={`${field.id}-${index}-title`}
+          type="text"
+          data-cy={`${index}-title`}
+          {...register(`workExperiences.${index}.title`, {
+            required: "Title is required",
+            maxLength: {
+              value: 100,
+              message:
+                "Work experience title cannot be more than 100 characters",
+            },
+          })}
+        />
+        {errors.workExperiences && errors.workExperiences[index].title && (
+          <span
+            className="error"
+            data-cy={`edit-work-experience-title-${index}-error`}
+          >
+            {errors.workExperiences[index].title.message}
+          </span>
+        )}
+
+        <label htmlFor={`workExperiences.${index}.description`}>
+          Description
+        </label>
+        <textarea
+          key={`${field.id}-${index}-description`}
+          data-cy={`${index}-description`}
+          rows={5}
+          {...register(`workExperiences.${index}.description`, {
+            required: "Description is required",
+            maxLength: {
+              value: 300,
+              message:
+                "Work experience description cannot be more than 300 characters",
+            },
+          })}
+        />
+        {errors.workExperiences &&
+          errors.workExperiences[index].description && (
+            <span
+              className="error"
+              data-cy={`edit-work-experience-description-${index}-error`}
+            >
+              {errors.workExperiences[index].description.message}
+            </span>
+          )}
+
+        <label htmlFor={`workExperiences.${index}.dateRange`}>Date Range</label>
+        <input
+          key={`${field.id}-${index}-dateRange`}
+          type="text"
+          data-cy={`${index}-dateRange`}
+          {...register(`workExperiences.${index}.dateRange`)}
+        />
+      </section>
+    )
+  })
 }

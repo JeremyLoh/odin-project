@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form"
 import "../styles/CvEditForm.css"
-import Experience from "../model/Experience"
+import Experience, { defaultWorkExperience } from "../model/Experience"
 
 export default function CvEditForm({ cvDetails, handleCvSubmit }) {
   const {
@@ -20,10 +20,11 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       ),
     },
   })
-  const { fields: workExperiencesFields } = useFieldArray({
-    control,
-    name: "workExperiences",
-  })
+  const { fields: workExperiencesFields, append: appendWorkExperience } =
+    useFieldArray({
+      control,
+      name: "workExperiences",
+    })
   const { fields: educationFields } = useFieldArray({
     control,
     name: "educationHistory",
@@ -86,8 +87,20 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
         >
           <p>Work Experience</p>
           {getWorkExperienceSection(workExperiencesFields, errors, register)}
+          <button
+            type="button"
+            onClick={() => appendWorkExperience(defaultWorkExperience)}
+            className="add-work-experience-btn"
+            data-cy="edit-cv-add-work-experience-btn"
+          >
+            + Add Work Experience
+          </button>
         </div>
-        <div data-cy="edit-cv-education-container">
+        <div
+          className="edit-cv-education-container"
+          data-cy="edit-cv-education-container"
+        >
+          <p>Education</p>
           {getEducationSection(educationFields, errors, register)}
         </div>
         <button
@@ -104,6 +117,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
 }
 
 function getWorkExperienceSection(workExperiencesFields, errors, register) {
+  const lastElementIndex = workExperiencesFields.length - 1
   return workExperiencesFields.map((field, index) => {
     return (
       <section key={field.id} className="work-experience-card">
@@ -163,6 +177,7 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
           data-cy={`${index}-dateRange`}
           {...register(`workExperiences.${index}.dateRange`)}
         />
+        {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )
   })

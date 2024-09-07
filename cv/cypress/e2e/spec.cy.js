@@ -125,38 +125,55 @@ describe("cv", () => {
       cy.get('[data-cy="cv-work-experience"]').contains(expectedDateRange)
     })
 
-    it("work experience title should not be more than 100 characters long", () => {
-      cy.get('[data-cy="edit-action-icon"]').click()
-      cy.get('[data-cy="0-title"]').clear().type("a".repeat(101), { delay: 0 })
-      cy.get('[data-cy="edit-cv-form-submit"]').click()
+    describe("work experience section", () => {
+      it("work experience title should not be more than 100 characters long", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="0-title"]')
+          .clear()
+          .type("a".repeat(101), { delay: 0 })
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
 
-      cy.get('[data-cy="edit-cv-work-experience-container"]').should(
-        "be.visible"
-      )
-      cy.get('[data-cy="edit-work-experience-title-0-error"]')
-        .should("be.visible")
-        .should(
-          "have.text",
-          "Work experience title cannot be more than 100 characters"
+        cy.get('[data-cy="edit-cv-work-experience-container"]').should(
+          "be.visible"
         )
-    })
+        cy.get('[data-cy="edit-work-experience-title-0-error"]')
+          .should("be.visible")
+          .should(
+            "have.text",
+            "Work experience title cannot be more than 100 characters"
+          )
+      })
 
-    it("work experience description should not be more than 300 characters long", () => {
-      cy.get('[data-cy="edit-action-icon"]').click()
-      cy.get('[data-cy="0-description"]')
-        .clear()
-        .type("a".repeat(301), { delay: 0 })
-      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      it("work experience description should not be more than 300 characters long", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="0-description"]')
+          .clear()
+          .type("a".repeat(301), { delay: 0 })
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
 
-      cy.get('[data-cy="edit-cv-work-experience-container"]').should(
-        "be.visible"
-      )
-      cy.get('[data-cy="edit-work-experience-description-0-error"]')
-        .should("be.visible")
-        .should(
-          "have.text",
-          "Work experience description cannot be more than 300 characters"
+        cy.get('[data-cy="edit-cv-work-experience-container"]').should(
+          "be.visible"
         )
+        cy.get('[data-cy="edit-work-experience-description-0-error"]')
+          .should("be.visible")
+          .should(
+            "have.text",
+            "Work experience description cannot be more than 300 characters"
+          )
+      })
+
+      it("display new work experience entry when add work experience button is clicked", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".work-experience-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
+        cy.get('[data-cy="edit-cv-work-experience-container"]').should(
+          "be.visible"
+        )
+        cy.get(".work-experience-card").should("have.length", 2)
+      })
     })
 
     describe("education section", () => {

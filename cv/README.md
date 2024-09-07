@@ -7,7 +7,8 @@ https://www.theodinproject.com/lessons/node-path-react-new-cv-application
 # References
 
 1. Booting server before running cypress tests - https://docs.cypress.io/guides/continuous-integration/introduction#Boot-your-server
-2. React-hook-form https://www.youtube.com/watch?v=cc_xmawJ8Kg
+2. React-hook-form - https://www.youtube.com/watch?v=cc_xmawJ8Kg
+3. Prevent buttons from submitting forms - https://stackoverflow.com/questions/932653/how-to-prevent-buttons-from-submitting-forms
 
 # Assignment
 

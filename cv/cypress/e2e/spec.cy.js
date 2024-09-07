@@ -174,6 +174,16 @@ describe("cv", () => {
         )
         cy.get(".work-experience-card").should("have.length", 2)
       })
+
+      it("does not create new work experience when add experience button is clicked without edit cv form submission", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".work-experience-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
+        cy.get(".work-experience-card").should("have.length", 2)
+        // navigate out of edit cv form without submission
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="cv-work-experience"] .card').should("have.length", 1)
+      })
     })
 
     describe("education section", () => {

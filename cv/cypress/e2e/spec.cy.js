@@ -119,7 +119,7 @@ describe("cv", () => {
       cy.get('[data-cy="edit-work-experience-0-description"]')
         .clear()
         .type(expectedDescription, { delay: 0 })
-      cy.get('[data-cy="0-dateRange"]')
+      cy.get('[data-cy="edit-work-experience-0-dateRange"]')
         .clear()
         .type(expectedDateRange, { delay: 0 })
       cy.get('[data-cy="edit-cv-form-submit"]').click()

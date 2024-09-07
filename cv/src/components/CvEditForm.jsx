@@ -2,6 +2,25 @@ import { useFieldArray, useForm } from "react-hook-form"
 import "../styles/CvEditForm.css"
 import Experience from "../model/Experience"
 
+const nameValidation = {
+  required: "Name is required",
+  minLength: {
+    value: 2,
+    message: "Name must have at least 2 characters",
+  },
+  maxLength: {
+    value: 70,
+    message: "Name must not be more than 70 characters",
+  },
+}
+
+const contactSummaryValidation = {
+  maxLength: {
+    value: 150,
+    message: "Contact Summary must not be more than 150 characters",
+  },
+}
+
 export default function CvEditForm({ cvDetails, handleCvSubmit }) {
   const {
     register,
@@ -41,17 +60,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       <form data-cy="edit-cv-form">
         <label htmlFor="name">Name</label>
         <input
-          {...register("name", {
-            required: "Name is required",
-            minLength: {
-              value: 2,
-              message: "Name must have at least 2 characters",
-            },
-            maxLength: {
-              value: 70,
-              message: "Name must not be more than 70 characters",
-            },
-          })}
+          {...register("name", nameValidation)}
           name="name"
           id="name"
           type="text"
@@ -65,12 +74,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
         )}
         <label htmlFor="contactSummary">Contact Summary</label>
         <input
-          {...register("contactSummary", {
-            maxLength: {
-              value: 150,
-              message: "Contact Summary must not be more than 150 characters",
-            },
-          })}
+          {...register("contactSummary", contactSummaryValidation)}
           name="contactSummary"
           id="contactSummary"
           type="text"
@@ -127,6 +131,21 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
   )
 }
 
+const workExperienceTitleValidation = {
+  required: "Title is required",
+  maxLength: {
+    value: 100,
+    message: "Work experience title cannot be more than 100 characters",
+  },
+}
+const workExperienceDescriptionValidation = {
+  required: "Description is required",
+  maxLength: {
+    value: 300,
+    message: "Work experience description cannot be more than 300 characters",
+  },
+}
+
 function getWorkExperienceSection(workExperiencesFields, errors, register) {
   const lastElementIndex = workExperiencesFields.length - 1
   return workExperiencesFields.map((field, index) => {
@@ -137,14 +156,10 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
           key={`${field.id}-${index}-title`}
           type="text"
           data-cy={`edit-cv-work-experience-${index}-title`}
-          {...register(`workExperiences.${index}.title`, {
-            required: "Title is required",
-            maxLength: {
-              value: 100,
-              message:
-                "Work experience title cannot be more than 100 characters",
-            },
-          })}
+          {...register(
+            `workExperiences.${index}.title`,
+            workExperienceTitleValidation
+          )}
         />
         {errors.workExperiences &&
           errors.workExperiences[index] &&
@@ -164,14 +179,10 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
           key={`${field.id}-${index}-description`}
           data-cy={`edit-work-experience-${index}-description`}
           rows={5}
-          {...register(`workExperiences.${index}.description`, {
-            required: "Description is required",
-            maxLength: {
-              value: 300,
-              message:
-                "Work experience description cannot be more than 300 characters",
-            },
-          })}
+          {...register(
+            `workExperiences.${index}.description`,
+            workExperienceDescriptionValidation
+          )}
         />
         {errors.workExperiences &&
           errors.workExperiences[index] &&
@@ -197,6 +208,27 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
   })
 }
 
+const educationTitleValidation = {
+  required: "Education Title is required",
+  maxLength: {
+    value: 150,
+    message: "Education Title cannot exceed 150 characters",
+  },
+}
+const educationDescriptionValidation = {
+  maxLength: {
+    value: 300,
+    message: "Education Description cannot exceed 300 characters",
+  },
+}
+const educationDateRangeValidation = {
+  required: "Education Date Range is required",
+  maxLength: {
+    value: 50,
+    message: "Education Date Range cannot exceed 50 characters",
+  },
+}
+
 function getEducationSection(educationFields, errors, register) {
   const lastElementIndex = educationFields.length - 1
   return educationFields.map((field, index) => {
@@ -209,13 +241,10 @@ function getEducationSection(educationFields, errors, register) {
           key={`${field.id}-${index}-education-title`}
           type="text"
           data-cy={`edit-cv-education-${index}-title`}
-          {...register(`educationHistory.${index}.title`, {
-            required: "Education Title is required",
-            maxLength: {
-              value: 150,
-              message: "Education Title cannot exceed 150 characters",
-            },
-          })}
+          {...register(
+            `educationHistory.${index}.title`,
+            educationTitleValidation
+          )}
         />
         {errors.educationHistory &&
           errors.educationHistory[index] &&
@@ -234,12 +263,10 @@ function getEducationSection(educationFields, errors, register) {
           key={`${field.id}-${index}-education-description`}
           rows={5}
           data-cy={`edit-cv-education-${index}-description`}
-          {...register(`educationHistory.${index}.description`, {
-            maxLength: {
-              value: 300,
-              message: "Education Description cannot exceed 300 characters",
-            },
-          })}
+          {...register(
+            `educationHistory.${index}.description`,
+            educationDescriptionValidation
+          )}
         />
         {errors.educationHistory &&
           errors.educationHistory[index] &&
@@ -258,13 +285,10 @@ function getEducationSection(educationFields, errors, register) {
           key={`${field.id}-${index}-education-dateRange`}
           type="text"
           data-cy={`edit-cv-education-${index}-dateRange`}
-          {...register(`educationHistory.${index}.dateRange`, {
-            required: "Education Date Range is required",
-            maxLength: {
-              value: 50,
-              message: "Education Date Range cannot exceed 50 characters",
-            },
-          })}
+          {...register(
+            `educationHistory.${index}.dateRange`,
+            educationDateRangeValidation
+          )}
         />
         {errors.educationHistory &&
           errors.educationHistory[index] &&

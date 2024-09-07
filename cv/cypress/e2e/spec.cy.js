@@ -104,14 +104,19 @@ describe("cv", () => {
       cy.get('[data-cy="edit-cv-work-experience-container"]').should(
         "be.visible"
       )
-      cy.get('[data-cy="0-title"]').should("have.value", "Job Title - Company")
-      cy.get('[data-cy="0-description"]').should(
+      cy.get('[data-cy="edit-cv-work-experience-0-title"]').should(
+        "have.value",
+        "Job Title - Company"
+      )
+      cy.get('[data-cy="edit-work-experience-0-description"]').should(
         "have.value",
         "Key Responsibilities and Achievements. Value delivered to Company"
       )
 
-      cy.get('[data-cy="0-title"]').clear().type(expectedTitle, { delay: 0 })
-      cy.get('[data-cy="0-description"]')
+      cy.get('[data-cy="edit-cv-work-experience-0-title"]')
+        .clear()
+        .type(expectedTitle, { delay: 0 })
+      cy.get('[data-cy="edit-work-experience-0-description"]')
         .clear()
         .type(expectedDescription, { delay: 0 })
       cy.get('[data-cy="0-dateRange"]')
@@ -128,7 +133,7 @@ describe("cv", () => {
     describe("work experience section", () => {
       it("work experience title should not be more than 100 characters long", () => {
         cy.get('[data-cy="edit-action-icon"]').click()
-        cy.get('[data-cy="0-title"]')
+        cy.get('[data-cy="edit-cv-work-experience-0-title"]')
           .clear()
           .type("a".repeat(101), { delay: 0 })
         cy.get('[data-cy="edit-cv-form-submit"]').click()
@@ -146,7 +151,7 @@ describe("cv", () => {
 
       it("work experience description should not be more than 300 characters long", () => {
         cy.get('[data-cy="edit-action-icon"]').click()
-        cy.get('[data-cy="0-description"]')
+        cy.get('[data-cy="edit-work-experience-0-description"]')
           .clear()
           .type("a".repeat(301), { delay: 0 })
         cy.get('[data-cy="edit-cv-form-submit"]').click()
@@ -183,6 +188,46 @@ describe("cv", () => {
         // navigate out of edit cv form without submission
         cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="cv-work-experience"] .card').should("have.length", 1)
+      })
+
+      it("create multiple work experience entry has blank initial values", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".work-experience-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
+        cy.get('[data-cy="edit-cv-work-experience-1-title"]').should(
+          "have.value",
+          ""
+        )
+        cy.get('[data-cy="edit-cv-work-experience-1-title"]')
+          .clear()
+          .type("test123")
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
+        cy.get(".work-experience-card").should("have.length", 3)
+        cy.get('[data-cy="edit-cv-work-experience-1-title"]').should(
+          "have.value",
+          "test123"
+        )
+        cy.get('[data-cy="edit-cv-work-experience-2-title"]').should(
+          "have.value",
+          ""
+        )
+      })
+
+      it("should prevent edit cv form submission when adding new work experience with blank values", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".work-experience-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
+        cy.get('[data-cy="edit-cv-work-experience-1-title"]').should(
+          "have.value",
+          ""
+        )
+        cy.get('[data-cy="edit-work-experience-title-1-error"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="edit-work-experience-title-1-error"]').should(
+          "be.visible"
+        )
       })
     })
 
@@ -263,6 +308,32 @@ describe("cv", () => {
         cy.get('[data-cy="edit-education-history-dateRange-0-error"]').should(
           "have.text",
           "Education Date Range cannot exceed 50 characters"
+        )
+      })
+
+      it("display new education experience entry when add education experience button is clicked", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".education-history-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-education-experience-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-add-education-experience-btn"]').click()
+        cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
+        cy.get(".education-history-card").should("have.length", 2)
+      })
+
+      it("should prevent edit cv form submission when adding new work experience with blank values", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".education-history-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-education-experience-btn"]').click()
+        cy.get(".education-history-card").should("have.length", 2)
+        cy.get('[data-cy="edit-cv-education-1-title"]').should("have.value", "")
+        cy.get('[data-cy="edit-education-history-title-1-error"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="edit-education-history-title-1-error"]').should(
+          "be.visible"
         )
       })
     })

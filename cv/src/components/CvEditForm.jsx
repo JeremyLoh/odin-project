@@ -1,6 +1,6 @@
 import { useFieldArray, useForm } from "react-hook-form"
 import "../styles/CvEditForm.css"
-import Experience, { defaultWorkExperience } from "../model/Experience"
+import Experience from "../model/Experience"
 
 export default function CvEditForm({ cvDetails, handleCvSubmit }) {
   const {
@@ -25,10 +25,11 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       control,
       name: "workExperiences",
     })
-  const { fields: educationFields } = useFieldArray({
-    control,
-    name: "educationHistory",
-  })
+  const { fields: educationFields, append: appendEducationExperience } =
+    useFieldArray({
+      control,
+      name: "educationHistory",
+    })
 
   function onSubmit(data) {
     handleCvSubmit(data)
@@ -89,7 +90,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           {getWorkExperienceSection(workExperiencesFields, errors, register)}
           <button
             type="button"
-            onClick={() => appendWorkExperience(defaultWorkExperience)}
+            onClick={() => appendWorkExperience(new Experience("", "", ""))}
             className="add-work-experience-btn"
             data-cy="edit-cv-add-work-experience-btn"
           >
@@ -102,6 +103,16 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
         >
           <p>Education</p>
           {getEducationSection(educationFields, errors, register)}
+          <button
+            type="button"
+            onClick={() =>
+              appendEducationExperience(new Experience("", "", ""))
+            }
+            className="edit-cv-add-education-experience-btn"
+            data-cy="edit-cv-add-education-experience-btn"
+          >
+            + Add Education Experience
+          </button>
         </div>
         <button
           type="submit"
@@ -125,7 +136,7 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
         <input
           key={`${field.id}-${index}-title`}
           type="text"
-          data-cy={`${index}-title`}
+          data-cy={`edit-cv-work-experience-${index}-title`}
           {...register(`workExperiences.${index}.title`, {
             required: "Title is required",
             maxLength: {
@@ -135,21 +146,23 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
             },
           })}
         />
-        {errors.workExperiences && errors.workExperiences[index].title && (
-          <span
-            className="error"
-            data-cy={`edit-work-experience-title-${index}-error`}
-          >
-            {errors.workExperiences[index].title.message}
-          </span>
-        )}
+        {errors.workExperiences &&
+          errors.workExperiences[index] &&
+          errors.workExperiences[index].title && (
+            <span
+              className="error"
+              data-cy={`edit-work-experience-title-${index}-error`}
+            >
+              {errors.workExperiences[index].title.message}
+            </span>
+          )}
 
         <label htmlFor={`workExperiences.${index}.description`}>
           Description
         </label>
         <textarea
           key={`${field.id}-${index}-description`}
-          data-cy={`${index}-description`}
+          data-cy={`edit-work-experience-${index}-description`}
           rows={5}
           {...register(`workExperiences.${index}.description`, {
             required: "Description is required",
@@ -161,6 +174,7 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
           })}
         />
         {errors.workExperiences &&
+          errors.workExperiences[index] &&
           errors.workExperiences[index].description && (
             <span
               className="error"
@@ -174,7 +188,7 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
         <input
           key={`${field.id}-${index}-dateRange`}
           type="text"
-          data-cy={`${index}-dateRange`}
+          data-cy={`edit-work-experience-${index}-dateRange`}
           {...register(`workExperiences.${index}.dateRange`)}
         />
         {index === lastElementIndex ? null : <hr className="divider" />}
@@ -184,6 +198,7 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
 }
 
 function getEducationSection(educationFields, errors, register) {
+  const lastElementIndex = educationFields.length - 1
   return educationFields.map((field, index) => {
     return (
       <section key={field.id} className="education-history-card">
@@ -202,14 +217,16 @@ function getEducationSection(educationFields, errors, register) {
             },
           })}
         />
-        {errors.educationHistory && errors.educationHistory[index].title && (
-          <span
-            className="error"
-            data-cy={`edit-education-history-title-${index}-error`}
-          >
-            {errors.educationHistory[index].title.message}
-          </span>
-        )}
+        {errors.educationHistory &&
+          errors.educationHistory[index] &&
+          errors.educationHistory[index].title && (
+            <span
+              className="error"
+              data-cy={`edit-education-history-title-${index}-error`}
+            >
+              {errors.educationHistory[index].title.message}
+            </span>
+          )}
         <label htmlFor={`educationHistory.${index}.description`}>
           Education Description
         </label>
@@ -225,6 +242,7 @@ function getEducationSection(educationFields, errors, register) {
           })}
         />
         {errors.educationHistory &&
+          errors.educationHistory[index] &&
           errors.educationHistory[index].description && (
             <span
               className="error"
@@ -249,6 +267,7 @@ function getEducationSection(educationFields, errors, register) {
           })}
         />
         {errors.educationHistory &&
+          errors.educationHistory[index] &&
           errors.educationHistory[index].dateRange && (
             <span
               className="error"
@@ -257,6 +276,7 @@ function getEducationSection(educationFields, errors, register) {
               {errors.educationHistory[index].dateRange.message}
             </span>
           )}
+        {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )
   })

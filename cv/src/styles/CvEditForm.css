@@ -49,13 +49,15 @@
   flex-direction: column;
 }
 
-.add-work-experience-btn {
+.add-work-experience-btn,
+.edit-cv-add-education-experience-btn {
   margin: 1rem 0;
   background-color: #3b82f6;
   color: whitesmoke;
 }
 
-.add-work-experience-btn:hover {
+.add-work-experience-btn:hover,
+.edit-cv-add-education-experience-btn:hover {
   background-color: #2563eb;
 }
 

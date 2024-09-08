@@ -49,11 +49,14 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
     control,
     name: "workExperiences",
   })
-  const { fields: educationFields, append: appendEducationExperience } =
-    useFieldArray({
-      control,
-      name: "educationHistory",
-    })
+  const {
+    fields: educationFields,
+    append: appendEducationHistory,
+    remove: removeEducationHistory,
+  } = useFieldArray({
+    control,
+    name: "educationHistory",
+  })
 
   function onSubmit(data) {
     if (data.workExperiences.length === 0) {
@@ -63,11 +66,17 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       })
       return
     }
+    if (data.educationHistory.length === 0) {
+      setError("educationHistory.empty", {
+        type: "custom",
+        message: "Education History section cannot be empty",
+      })
+      return
+    }
     clearErrors("workExperiences.empty")
+    clearErrors("educationHistory.empty")
     handleCvSubmit(data)
   }
-
-  console.log({ errors })
 
   return (
     <div className="edit-cv-form-container" onSubmit={handleSubmit(onSubmit)}>
@@ -133,16 +142,26 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           data-cy="edit-cv-education-container"
         >
           <p>Education</p>
-          {getEducationSection(educationFields, errors, register)}
+          {errors.educationHistory && errors.educationHistory.empty ? (
+            <p className="error" data-cy="error-education-history-empty">
+              {errors.educationHistory.empty.message}
+            </p>
+          ) : null}
+          {getEducationSection(educationFields, {
+            errors,
+            register,
+            removeEducationHistory,
+          })}
           <button
             type="button"
-            onClick={() =>
-              appendEducationExperience(new Experience("", "", ""))
-            }
-            className="edit-cv-add-education-experience-btn"
-            data-cy="edit-cv-add-education-experience-btn"
+            onClick={() => {
+              appendEducationHistory(new Experience("", "", ""))
+              clearErrors("educationHistory.empty")
+            }}
+            className="edit-cv-add-education-history-btn"
+            data-cy="edit-cv-add-education-history-btn"
           >
-            + Add Education Experience
+            + Add Education History
           </button>
         </div>
         <button
@@ -267,7 +286,10 @@ const educationDateRangeValidation = {
   },
 }
 
-function getEducationSection(educationFields, errors, register) {
+function getEducationSection(
+  educationFields,
+  { errors, register, removeEducationHistory }
+) {
   const lastElementIndex = educationFields.length - 1
   return educationFields.map((field, index) => {
     return (
@@ -338,6 +360,14 @@ function getEducationSection(educationFields, errors, register) {
               {errors.educationHistory[index].dateRange.message}
             </span>
           )}
+        <button
+          type="button"
+          onClick={() => removeEducationHistory(index)}
+          className="edit-cv-education-history-delete-btn"
+          data-cy={`edit-cv-education-history-${index}-delete-btn`}
+        >
+          Delete Education History
+        </button>
         {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )

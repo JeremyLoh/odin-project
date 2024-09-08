@@ -48,26 +48,28 @@
   flex-direction: column;
 }
 
-.edit-cv-work-experience-delete-btn {
+.edit-cv-work-experience-delete-btn,
+.edit-cv-education-history-delete-btn {
   margin: 1rem 0;
   background-color: #dc2626;
   color: whitesmoke;
   width: fit-content;
 }
 
-.edit-cv-work-experience-delete-btn:hover {
+.edit-cv-work-experience-delete-btn:hover,
+.edit-cv-education-history-delete-btn:hover {
   background-color: #b91c1c;
 }
 
 .add-work-experience-btn,
-.edit-cv-add-education-experience-btn {
+.edit-cv-add-education-history-btn {
   margin: 0.5rem 0;
   background-color: #3b82f6;
   color: whitesmoke;
 }
 
 .add-work-experience-btn:hover,
-.edit-cv-add-education-experience-btn:hover {
+.edit-cv-add-education-history-btn:hover {
   background-color: #2563eb;
 }
 

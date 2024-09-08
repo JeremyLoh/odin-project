@@ -338,21 +338,21 @@ describe("cv", () => {
         )
       })
 
-      it("display new education experience entry when add education experience button is clicked", () => {
+      it("display new education history entry when add education history button is clicked", () => {
         cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".education-history-card").should("have.length", 1)
-        cy.get('[data-cy="edit-cv-add-education-experience-btn"]').should(
+        cy.get('[data-cy="edit-cv-add-education-history-btn"]').should(
           "be.visible"
         )
-        cy.get('[data-cy="edit-cv-add-education-experience-btn"]').click()
+        cy.get('[data-cy="edit-cv-add-education-history-btn"]').click()
         cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
         cy.get(".education-history-card").should("have.length", 2)
       })
 
-      it("should prevent edit cv form submission when adding new work experience with blank values", () => {
+      it("should prevent edit cv form submission when adding new education history with blank values", () => {
         cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".education-history-card").should("have.length", 1)
-        cy.get('[data-cy="edit-cv-add-education-experience-btn"]').click()
+        cy.get('[data-cy="edit-cv-add-education-history-btn"]').click()
         cy.get(".education-history-card").should("have.length", 2)
         cy.get('[data-cy="edit-cv-education-1-title"]').should("have.value", "")
         cy.get('[data-cy="edit-education-history-title-1-error"]').should(
@@ -362,6 +362,34 @@ describe("cv", () => {
         cy.get('[data-cy="edit-education-history-title-1-error"]').should(
           "be.visible"
         )
+      })
+
+      it("should allow deletion of education experience entry using Delete Education Experience button", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".education-history-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-education-history-0-delete-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-education-history-0-delete-btn"]').click()
+        cy.get(".education-history-card").should("have.length", 0)
+        cy.get('[data-cy="edit-cv-add-education-history-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-education-history-0-delete-btn"]').should(
+          "not.exist"
+        )
+      })
+
+      it("should not allow form submission with zero education history entries", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="edit-cv-education-history-0-delete-btn"]').click()
+        cy.get(".education-history-card").should("have.length", 0)
+        cy.get('[data-cy="error-education-history-empty"]').should("not.exist")
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="error-education-history-empty"]').should("be.visible")
+        // adding new education history should remove error message
+        cy.get('[data-cy="edit-cv-add-education-history-btn"]').click()
+        cy.get('[data-cy="error-education-history-empty"]').should("not.exist")
       })
     })
   })

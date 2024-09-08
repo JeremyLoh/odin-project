@@ -176,7 +176,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           data-cy="edit-cv-achievement-container"
         >
           <p className="section-title">Achievements</p>
-          {getAchievementSection(achievementFields, { register })}
+          {getAchievementSection(achievementFields, { register, errors })}
         </div>
         <button
           type="submit"
@@ -388,16 +388,35 @@ function getEducationSection(
   })
 }
 
-function getAchievementSection(achievementFields, { register }) {
+const achievementTitleValidation = {
+  required: "Achievement Title is required",
+  maxLength: {
+    value: 100,
+    message: "Achievement Title must not be more than 100 characters",
+  },
+}
+
+function getAchievementSection(achievementFields, { register, errors }) {
+  const lastElementIndex = achievementFields.length - 1
   return achievementFields.map((field, index) => {
     return (
       <section key={field.id} className="achievement-card">
         <label htmlFor={`achievements.${index}.title`}>Achievement Title</label>
         <input
-          {...register(`achievements.${index}.title`)}
+          {...register(
+            `achievements.${index}.title`,
+            achievementTitleValidation
+          )}
           type="text"
           data-cy={`edit-cv-achievement-${index}-title`}
         />
+        {errors.achievements &&
+          errors.achievements[index] &&
+          errors.achievements[index].title && (
+            <span className="error" data-cy="edit-cv-achievement-title-error">
+              {errors.achievements[index].title.message}
+            </span>
+          )}
         <label htmlFor={`achievements.${index}.description`}>
           Achievement Description
         </label>
@@ -414,6 +433,7 @@ function getAchievementSection(achievementFields, { register }) {
           type="text"
           data-cy={`edit-cv-achievement-${index}-dateRange`}
         />
+        {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )
   })

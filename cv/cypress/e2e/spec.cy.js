@@ -431,6 +431,34 @@ describe("cv", () => {
         cy.get('[data-cy="cv-achievements"]').contains(expectedTitle)
       })
 
+      it("prevent achievement update when title is blank", () => {
+        cy.get('[data-cy="edit-cv-achievement-0-title"]').clear()
+        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+          "not.exist"
+        )
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-0-title"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+          "have.text",
+          "Achievement Title is required"
+        )
+      })
+
+      it("prevent achievement update when title exceeds 100 characters", () => {
+        const title = "a".repeat(101)
+        cy.get('[data-cy="edit-cv-achievement-0-title"]')
+          .clear()
+          .type(title, { delay: 0 })
+        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+          "not.exist"
+        )
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+          "have.text",
+          "Achievement Title must not be more than 100 characters"
+        )
+      })
+
       it("updates achievement description when edit cv form is submitted", () => {
         const expectedDescription = "test change achievement description 123"
         cy.get('[data-cy="edit-cv-achievement-0-description"]')

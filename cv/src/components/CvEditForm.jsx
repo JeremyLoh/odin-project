@@ -39,6 +39,9 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       educationHistory: cvDetails.educationHistory.map(
         (exp) => new Experience(exp.title, exp.description, exp.dateRange)
       ),
+      achievements: cvDetails.achievements.map(
+        (exp) => new Experience(exp.title, exp.description, exp.dateRange)
+      ),
     },
   })
   const {
@@ -56,6 +59,10 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
   } = useFieldArray({
     control,
     name: "educationHistory",
+  })
+  const { fields: achievementFields } = useFieldArray({
+    control,
+    name: "achievements",
   })
 
   function onSubmit(data) {
@@ -114,7 +121,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           className="edit-cv-work-experience-container"
           data-cy="edit-cv-work-experience-container"
         >
-          <p>Work Experience</p>
+          <p className="section-title">Work Experience</p>
           {errors.workExperiences && errors.workExperiences.empty ? (
             <p className="error" data-cy="error-work-experience-empty">
               {errors.workExperiences.empty.message}
@@ -141,7 +148,7 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           className="edit-cv-education-container"
           data-cy="edit-cv-education-container"
         >
-          <p>Education</p>
+          <p className="section-title">Education</p>
           {errors.educationHistory && errors.educationHistory.empty ? (
             <p className="error" data-cy="error-education-history-empty">
               {errors.educationHistory.empty.message}
@@ -163,6 +170,13 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           >
             + Add Education History
           </button>
+        </div>
+        <div
+          className="edit-cv-achievement-container"
+          data-cy="edit-cv-achievement-container"
+        >
+          <p className="section-title">Achievements</p>
+          {getAchievementSection(achievementFields, { register })}
         </div>
         <button
           type="submit"
@@ -369,6 +383,37 @@ function getEducationSection(
           Delete Education History
         </button>
         {index === lastElementIndex ? null : <hr className="divider" />}
+      </section>
+    )
+  })
+}
+
+function getAchievementSection(achievementFields, { register }) {
+  return achievementFields.map((field, index) => {
+    return (
+      <section key={field.id} className="achievement-card">
+        <label htmlFor={`achievements.${index}.title`}>Achievement Title</label>
+        <input
+          {...register(`achievements.${index}.title`)}
+          type="text"
+          data-cy={`edit-cv-achievement-${index}-title`}
+        />
+        <label htmlFor={`achievements.${index}.description`}>
+          Achievement Description
+        </label>
+        <textarea
+          {...register(`achievements.${index}.description`)}
+          rows={5}
+          data-cy={`edit-cv-achievement-${index}-description`}
+        />
+        <label htmlFor={`achievements.${index}.dateRange`}>
+          Achievement Date Range
+        </label>
+        <input
+          {...register(`achievements.${index}.dateRange`)}
+          type="text"
+          data-cy={`edit-cv-achievement-${index}-dateRange`}
+        />
       </section>
     )
   })

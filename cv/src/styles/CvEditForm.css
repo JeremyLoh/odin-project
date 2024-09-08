@@ -36,14 +36,15 @@
   color: #555;
 }
 
-.edit-cv-work-experience-container p,
-.edit-cv-education-container p {
+.section-title {
   margin: 0;
   font-weight: bold;
+  text-align: center;
 }
 
 .work-experience-card,
-.education-history-card {
+.education-history-card,
+.achievement-card {
   display: flex;
   flex-direction: column;
 }

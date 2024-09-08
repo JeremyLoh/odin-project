@@ -30,6 +30,7 @@ function App() {
       contactSummary: data.contactSummary,
       workExperiences: data.workExperiences,
       educationHistory: data.educationHistory,
+      achievements: data.achievements,
     })
     setIsEditCvMode(false)
   }

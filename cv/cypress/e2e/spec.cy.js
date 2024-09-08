@@ -5,6 +5,10 @@ describe("cv", () => {
     cy.visit(APP_URL)
   })
 
+  function submitForm() {
+    cy.get('[data-cy="edit-cv-form-submit"]').click()
+  }
+
   it("loads website", () => {
     cy.get('[data-cy="header"]').should("exist")
     cy.get('[data-cy="header"]').contains("My CV")
@@ -53,7 +57,7 @@ describe("cv", () => {
       cy.get('[data-cy="edit-cv-name"]').should("exist")
       cy.get('[data-cy="edit-cv-name"]').clear()
       cy.get('[data-cy="edit-cv-name-error"]').should("not.exist")
-      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      submitForm()
       cy.get('[data-cy="edit-cv-name-error"]').should("be.visible")
     })
 
@@ -65,7 +69,7 @@ describe("cv", () => {
         .clear()
         .type(summary, { delay: 0 })
       cy.get('[data-cy="edit-cv-contact-summary-error"]').should("not.exist")
-      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      submitForm()
       cy.get('[data-cy="edit-cv-contact-summary-error"]').should("be.visible")
     })
 
@@ -86,7 +90,7 @@ describe("cv", () => {
       cy.get('[data-cy="edit-cv-contact-summary"]')
         .clear()
         .type(expectedCvContactSummary)
-      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      submitForm()
       cy.get('[data-cy="edit-cv-form"]').should("not.exist")
 
       cy.get('[data-cy="cv-name"]').contains(expectedCvName)
@@ -122,7 +126,7 @@ describe("cv", () => {
       cy.get('[data-cy="edit-work-experience-0-dateRange"]')
         .clear()
         .type(expectedDateRange, { delay: 0 })
-      cy.get('[data-cy="edit-cv-form-submit"]').click()
+      submitForm()
       cy.get('[data-cy="edit-cv-form"]').should("not.exist")
 
       cy.get('[data-cy="cv-work-experience"]').contains(expectedTitle)
@@ -136,7 +140,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-cv-work-experience-0-title"]')
           .clear()
           .type("a".repeat(101), { delay: 0 })
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
 
         cy.get('[data-cy="edit-cv-work-experience-container"]').should(
           "be.visible"
@@ -154,7 +158,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-work-experience-0-description"]')
           .clear()
           .type("a".repeat(301), { delay: 0 })
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
 
         cy.get('[data-cy="edit-cv-work-experience-container"]').should(
           "be.visible"
@@ -224,7 +228,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-work-experience-title-1-error"]').should(
           "not.exist"
         )
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="edit-work-experience-title-1-error"]').should(
           "be.visible"
         )
@@ -250,7 +254,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').click()
         cy.get('[data-cy="error-work-experience-empty"]').should("not.exist")
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="error-work-experience-empty"]').should("be.visible")
         // add new work experience should remove empty work experience error message
         cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
@@ -259,8 +263,11 @@ describe("cv", () => {
     })
 
     describe("education section", () => {
-      it("display default education section on first cv edit", () => {
+      beforeEach(() => {
         cy.get('[data-cy="edit-action-icon"]').click()
+      })
+
+      it("display default education section on first cv edit", () => {
         cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
         cy.get('[data-cy="edit-cv-education-0-title"]').should("be.visible")
         cy.get('[data-cy="edit-cv-education-0-title"]').should(
@@ -282,7 +289,6 @@ describe("cv", () => {
       })
 
       it("display title error message for too long input", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
         cy.get('[data-cy="edit-cv-education-0-title"]')
           .clear()
@@ -290,7 +296,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-education-history-title-0-error"]').should(
           "not.exist"
         )
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="edit-education-history-title-0-error"]').should(
           "be.visible"
         )
@@ -301,7 +307,6 @@ describe("cv", () => {
       })
 
       it("display description error message for too long input", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
         cy.get('[data-cy="edit-cv-education-0-description"]')
           .clear()
@@ -309,7 +314,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-education-history-description-0-error"]').should(
           "not.exist"
         )
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="edit-education-history-description-0-error"]').should(
           "be.visible"
         )
@@ -320,7 +325,6 @@ describe("cv", () => {
       })
 
       it("display date range error message for too long input", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-education-container"]').should("be.visible")
         cy.get('[data-cy="edit-cv-education-0-dateRange"]')
           .clear()
@@ -328,7 +332,7 @@ describe("cv", () => {
         cy.get('[data-cy="edit-education-history-dateRange-0-error"]').should(
           "not.exist"
         )
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="edit-education-history-dateRange-0-error"]').should(
           "be.visible"
         )
@@ -339,7 +343,6 @@ describe("cv", () => {
       })
 
       it("display new education history entry when add education history button is clicked", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".education-history-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-add-education-history-btn"]').should(
           "be.visible"
@@ -350,7 +353,6 @@ describe("cv", () => {
       })
 
       it("should prevent edit cv form submission when adding new education history with blank values", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".education-history-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-add-education-history-btn"]').click()
         cy.get(".education-history-card").should("have.length", 2)
@@ -358,14 +360,13 @@ describe("cv", () => {
         cy.get('[data-cy="edit-education-history-title-1-error"]').should(
           "not.exist"
         )
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="edit-education-history-title-1-error"]').should(
           "be.visible"
         )
       })
 
       it("should allow deletion of education experience entry using Delete Education Experience button", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".education-history-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-education-history-0-delete-btn"]').should(
           "be.visible"
@@ -381,15 +382,77 @@ describe("cv", () => {
       })
 
       it("should not allow form submission with zero education history entries", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-education-history-0-delete-btn"]').click()
         cy.get(".education-history-card").should("have.length", 0)
         cy.get('[data-cy="error-education-history-empty"]').should("not.exist")
-        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        submitForm()
         cy.get('[data-cy="error-education-history-empty"]').should("be.visible")
         // adding new education history should remove error message
         cy.get('[data-cy="edit-cv-add-education-history-btn"]').click()
         cy.get('[data-cy="error-education-history-empty"]').should("not.exist")
+      })
+    })
+
+    describe("achievement section", () => {
+      beforeEach(() => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+      })
+
+      it("display default achievement section on first cv edit", () => {
+        cy.get('[data-cy="edit-cv-achievement-container"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-achievement-0-title"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-achievement-0-title"]').should(
+          "have.value",
+          "First Achievement"
+        )
+        cy.get('[data-cy="edit-cv-achievement-0-description"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-achievement-0-description"]').should(
+          "have.value",
+          "Achievement Description"
+        )
+        cy.get('[data-cy="edit-cv-achievement-0-dateRange"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-achievement-0-dateRange"]').should(
+          "have.value",
+          "Jan 2016"
+        )
+      })
+
+      it("updates achievement title when edit cv form is submitted", () => {
+        const expectedTitle = "test change achievement title 123"
+        cy.get('[data-cy="edit-cv-achievement-0-title"]')
+          .clear()
+          .type(expectedTitle)
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-0-title"]').should("not.exist")
+        cy.get('[data-cy="cv-achievements"]').contains(expectedTitle)
+      })
+
+      it("updates achievement description when edit cv form is submitted", () => {
+        const expectedDescription = "test change achievement description 123"
+        cy.get('[data-cy="edit-cv-achievement-0-description"]')
+          .clear()
+          .type(expectedDescription)
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-0-description"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="cv-achievements"]').contains(expectedDescription)
+      })
+
+      it("updates achievement date range when edit cv form is submitted", () => {
+        const expectedDateRange = "9 Jan 2020"
+        cy.get('[data-cy="edit-cv-achievement-0-dateRange"]')
+          .clear()
+          .type(expectedDateRange)
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-0-dateRange"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="cv-achievements"]').contains(expectedDateRange)
       })
     })
   })

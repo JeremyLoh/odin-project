@@ -39,7 +39,6 @@
 .edit-cv-work-experience-container p,
 .edit-cv-education-container p {
   margin: 0;
-  text-align: center;
   font-weight: bold;
 }
 
@@ -49,9 +48,20 @@
   flex-direction: column;
 }
 
+.edit-cv-work-experience-delete-btn {
+  margin: 1rem 0;
+  background-color: #dc2626;
+  color: whitesmoke;
+  width: fit-content;
+}
+
+.edit-cv-work-experience-delete-btn:hover {
+  background-color: #b91c1c;
+}
+
 .add-work-experience-btn,
 .edit-cv-add-education-experience-btn {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   background-color: #3b82f6;
   color: whitesmoke;
 }

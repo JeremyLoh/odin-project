@@ -229,6 +229,33 @@ describe("cv", () => {
           "be.visible"
         )
       })
+
+      it("should allow deletion of work experience entry using Delete Work Experience button", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get(".work-experience-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').click()
+        cy.get(".work-experience-card").should("have.length", 0)
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').should(
+          "not.exist"
+        )
+      })
+
+      it("should not allow form submission with zero work experience entries", () => {
+        cy.get('[data-cy="edit-action-icon"]').click()
+        cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').click()
+        cy.get('[data-cy="error-work-experience-empty"]').should("not.exist")
+        cy.get('[data-cy="edit-cv-form-submit"]').click()
+        cy.get('[data-cy="error-work-experience-empty"]').should("be.visible")
+        // add new work experience should remove empty work experience error message
+        cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
+        cy.get('[data-cy="error-work-experience-empty"]').should("not.exist")
+      })
     })
 
     describe("education section", () => {

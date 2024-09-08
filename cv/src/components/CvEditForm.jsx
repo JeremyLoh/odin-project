@@ -26,6 +26,8 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
     register,
     handleSubmit,
     control,
+    setError,
+    clearErrors,
     formState: { errors, isSubmitting },
   } = useForm({
     defaultValues: {
@@ -39,11 +41,14 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
       ),
     },
   })
-  const { fields: workExperiencesFields, append: appendWorkExperience } =
-    useFieldArray({
-      control,
-      name: "workExperiences",
-    })
+  const {
+    fields: workExperiencesFields,
+    append: appendWorkExperience,
+    remove: removeWorkExperience,
+  } = useFieldArray({
+    control,
+    name: "workExperiences",
+  })
   const { fields: educationFields, append: appendEducationExperience } =
     useFieldArray({
       control,
@@ -51,8 +56,18 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
     })
 
   function onSubmit(data) {
+    if (data.workExperiences.length === 0) {
+      setError("workExperiences.empty", {
+        type: "custom",
+        message: "Work Experience section cannot be empty",
+      })
+      return
+    }
+    clearErrors("workExperiences.empty")
     handleCvSubmit(data)
   }
+
+  console.log({ errors })
 
   return (
     <div className="edit-cv-form-container" onSubmit={handleSubmit(onSubmit)}>
@@ -91,10 +106,22 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
           data-cy="edit-cv-work-experience-container"
         >
           <p>Work Experience</p>
-          {getWorkExperienceSection(workExperiencesFields, errors, register)}
+          {errors.workExperiences && errors.workExperiences.empty ? (
+            <p className="error" data-cy="error-work-experience-empty">
+              {errors.workExperiences.empty.message}
+            </p>
+          ) : null}
+          {getWorkExperienceSection(workExperiencesFields, {
+            errors,
+            register,
+            removeWorkExperience,
+          })}
           <button
             type="button"
-            onClick={() => appendWorkExperience(new Experience("", "", ""))}
+            onClick={() => {
+              appendWorkExperience(new Experience("", "", ""))
+              clearErrors("workExperiences.empty")
+            }}
             className="add-work-experience-btn"
             data-cy="edit-cv-add-work-experience-btn"
           >
@@ -146,7 +173,10 @@ const workExperienceDescriptionValidation = {
   },
 }
 
-function getWorkExperienceSection(workExperiencesFields, errors, register) {
+function getWorkExperienceSection(
+  workExperiencesFields,
+  { errors, register, removeWorkExperience }
+) {
   const lastElementIndex = workExperiencesFields.length - 1
   return workExperiencesFields.map((field, index) => {
     return (
@@ -202,6 +232,14 @@ function getWorkExperienceSection(workExperiencesFields, errors, register) {
           data-cy={`edit-work-experience-${index}-dateRange`}
           {...register(`workExperiences.${index}.dateRange`)}
         />
+        <button
+          type="button"
+          onClick={() => removeWorkExperience(index)}
+          className="edit-cv-work-experience-delete-btn"
+          data-cy={`edit-cv-work-experience-${index}-delete-btn`}
+        >
+          Delete Work Experience
+        </button>
         {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )

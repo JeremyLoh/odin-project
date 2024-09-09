@@ -404,6 +404,14 @@ const achievementDescriptionValidation = {
   },
 }
 
+const achievementDateRangeValidation = {
+  required: "Achievement Date Range is required",
+  maxLength: {
+    value: 50,
+    message: "Achievement Date Range must not be more than 50 characters",
+  },
+}
+
 function getAchievementSection(achievementFields, { register, errors }) {
   const lastElementIndex = achievementFields.length - 1
   return achievementFields.map((field, index) => {
@@ -450,10 +458,23 @@ function getAchievementSection(achievementFields, { register, errors }) {
           Achievement Date Range
         </label>
         <input
-          {...register(`achievements.${index}.dateRange`)}
+          {...register(
+            `achievements.${index}.dateRange`,
+            achievementDateRangeValidation
+          )}
           type="text"
           data-cy={`edit-cv-achievement-${index}-dateRange`}
         />
+        {errors.achievements &&
+          errors.achievements[index] &&
+          errors.achievements[index].dateRange && (
+            <span
+              className="error"
+              data-cy={`edit-cv-achievement-dateRange-error`}
+            >
+              {errors.achievements[index].dateRange.message}
+            </span>
+          )}
         {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )

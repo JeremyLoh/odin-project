@@ -497,6 +497,21 @@ describe("cv", () => {
         )
         cy.get('[data-cy="cv-achievements"]').contains(expectedDateRange)
       })
+
+      it("prevent achievement update when date range exceeds 50 characters", () => {
+        const dateRange = "d".repeat(51)
+        cy.get('[data-cy="edit-cv-achievement-0-dateRange"]')
+          .clear()
+          .type(dateRange, { delay: 0 })
+        cy.get('[data-cy="edit-cv-achievement-dateRange-error"]').should(
+          "not.exist"
+        )
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-dateRange-error"]').should(
+          "have.text",
+          "Achievement Date Range must not be more than 50 characters"
+        )
+      })
     })
   })
 })

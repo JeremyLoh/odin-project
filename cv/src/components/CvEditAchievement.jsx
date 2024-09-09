@@ -1,7 +1,4 @@
-export default function CvEditAchievement({
-  achievementFields,
-  formFunctions,
-}) {
+export default function CvEditAchievement({ fields, formFunctions }) {
   const { register, errors, handleAddAchievement } = formFunctions
   return (
     <div
@@ -9,7 +6,7 @@ export default function CvEditAchievement({
       data-cy="edit-cv-achievement-container"
     >
       <p className="section-title">Achievements</p>
-      {getAchievementSection(achievementFields, { register, errors })}
+      {getAchievementSection(fields, { register, errors })}
       <button
         type="button"
         onClick={handleAddAchievement}
@@ -46,9 +43,9 @@ const achievementDateRangeValidation = {
   },
 }
 
-function getAchievementSection(achievementFields, { register, errors }) {
-  const lastElementIndex = achievementFields.length - 1
-  return achievementFields.map((field, index) => {
+function getAchievementSection(fields, { register, errors }) {
+  const lastElementIndex = fields.length - 1
+  return fields.map((field, index) => {
     return (
       <section key={field.id} className="achievement-card">
         <label htmlFor={`achievements.${index}.title`}>Achievement Title</label>

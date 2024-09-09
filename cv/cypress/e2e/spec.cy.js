@@ -9,6 +9,10 @@ describe("cv", () => {
     cy.get('[data-cy="edit-cv-form-submit"]').click()
   }
 
+  function navigateToEditCvPage() {
+    cy.get('[data-cy="edit-action-icon"]').click()
+  }
+
   it("loads website", () => {
     cy.get('[data-cy="header"]').should("exist")
     cy.get('[data-cy="header"]').contains("My CV")
@@ -47,13 +51,13 @@ describe("cv", () => {
   describe("edit cv", () => {
     it("click on edit action icon displays edit cv form", () => {
       cy.get('[data-cy="edit-cv-form"]').should("not.exist")
-      cy.get('[data-cy="edit-action-icon"]').click()
+      navigateToEditCvPage()
       cy.get('[data-cy="edit-cv-form"]').should("exist")
       cy.get('[data-cy="edit-cv-name"]').should("exist")
     })
 
     it("should not allow form submission if name is blank", () => {
-      cy.get('[data-cy="edit-action-icon"]').click()
+      navigateToEditCvPage()
       cy.get('[data-cy="edit-cv-name"]').should("exist")
       cy.get('[data-cy="edit-cv-name"]').clear()
       cy.get('[data-cy="edit-cv-name-error"]').should("not.exist")
@@ -63,7 +67,7 @@ describe("cv", () => {
 
     it("should not allow form submission if contact summary is too long", () => {
       const summary = "a".repeat(151)
-      cy.get('[data-cy="edit-action-icon"]').click()
+      navigateToEditCvPage()
       cy.get('[data-cy="edit-cv-name"]').clear().type("test name")
       cy.get('[data-cy="edit-cv-contact-summary"]')
         .clear()
@@ -74,7 +78,7 @@ describe("cv", () => {
     })
 
     it("should populate default values for cv form on first visit", () => {
-      cy.get('[data-cy="edit-action-icon"]').click()
+      navigateToEditCvPage()
       cy.get('[data-cy="edit-cv-name"]').should("have.value", "YOUR NAME")
       cy.get('[data-cy="edit-cv-contact-summary"]').should(
         "have.value",
@@ -85,7 +89,7 @@ describe("cv", () => {
     it("modify cv name and contact summary on submit and redirect to cv preview page", () => {
       const expectedCvName = "Test name"
       const expectedCvContactSummary = "test contact summary"
-      cy.get('[data-cy="edit-action-icon"]').click()
+      navigateToEditCvPage()
       cy.get('[data-cy="edit-cv-name"]').clear().type(expectedCvName)
       cy.get('[data-cy="edit-cv-contact-summary"]')
         .clear()
@@ -104,7 +108,7 @@ describe("cv", () => {
       const expectedDescription =
         "Test description - impact delivered at company"
       const expectedDateRange = "March 2024 - Current"
-      cy.get('[data-cy="edit-action-icon"]').click()
+      navigateToEditCvPage()
       cy.get('[data-cy="edit-cv-work-experience-container"]').should(
         "be.visible"
       )
@@ -135,8 +139,11 @@ describe("cv", () => {
     })
 
     describe("work experience section", () => {
+      beforeEach(() => {
+        navigateToEditCvPage()
+      })
+
       it("work experience title should not be more than 100 characters long", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-work-experience-0-title"]')
           .clear()
           .type("a".repeat(101), { delay: 0 })
@@ -154,7 +161,6 @@ describe("cv", () => {
       })
 
       it("work experience description should not be more than 300 characters long", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-work-experience-0-description"]')
           .clear()
           .type("a".repeat(301), { delay: 0 })
@@ -172,7 +178,6 @@ describe("cv", () => {
       })
 
       it("display new work experience entry when add work experience button is clicked", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".work-experience-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-add-work-experience-btn"]').should(
           "be.visible"
@@ -185,17 +190,15 @@ describe("cv", () => {
       })
 
       it("does not create new work experience when add experience button is clicked without edit cv form submission", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".work-experience-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
         cy.get(".work-experience-card").should("have.length", 2)
         // navigate out of edit cv form without submission
-        cy.get('[data-cy="edit-action-icon"]').click()
+        navigateToEditCvPage()
         cy.get('[data-cy="cv-work-experience"] .card').should("have.length", 1)
       })
 
       it("create multiple work experience entry has blank initial values", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".work-experience-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
         cy.get('[data-cy="edit-cv-work-experience-1-title"]').should(
@@ -218,7 +221,6 @@ describe("cv", () => {
       })
 
       it("should prevent edit cv form submission when adding new work experience with blank values", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".work-experience-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-add-work-experience-btn"]').click()
         cy.get('[data-cy="edit-cv-work-experience-1-title"]').should(
@@ -235,7 +237,6 @@ describe("cv", () => {
       })
 
       it("should allow deletion of work experience entry using Delete Work Experience button", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get(".work-experience-card").should("have.length", 1)
         cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').should(
           "be.visible"
@@ -251,7 +252,6 @@ describe("cv", () => {
       })
 
       it("should not allow form submission with zero work experience entries", () => {
-        cy.get('[data-cy="edit-action-icon"]').click()
         cy.get('[data-cy="edit-cv-work-experience-0-delete-btn"]').click()
         cy.get('[data-cy="error-work-experience-empty"]').should("not.exist")
         submitForm()
@@ -264,7 +264,7 @@ describe("cv", () => {
 
     describe("education section", () => {
       beforeEach(() => {
-        cy.get('[data-cy="edit-action-icon"]').click()
+        navigateToEditCvPage()
       })
 
       it("display default education section on first cv edit", () => {
@@ -395,7 +395,7 @@ describe("cv", () => {
 
     describe("achievement section", () => {
       beforeEach(() => {
-        cy.get('[data-cy="edit-action-icon"]').click()
+        navigateToEditCvPage()
       })
 
       it("display default achievement section on first cv edit", () => {
@@ -539,6 +539,29 @@ describe("cv", () => {
         cy.get('[data-cy="edit-cv-achievement-title-1-error"]').should(
           "be.visible"
         )
+      })
+
+      it("should allow deletion of achievement entry using Delete Achievement button", () => {
+        cy.get(".achievement-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-achievement-0-delete-btn"]').should(
+          "be.visible"
+        )
+        cy.get('[data-cy="edit-cv-achievement-0-delete-btn"]').click()
+        cy.get(".achievement-card").should("have.length", 0)
+        cy.get('[data-cy="edit-cv-add-achievement-btn"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-achievement-0-delete-btn"]').should(
+          "not.exist"
+        )
+      })
+
+      it("should not allow form submission with zero achievement entries", () => {
+        cy.get('[data-cy="edit-cv-achievement-0-delete-btn"]').click()
+        cy.get('[data-cy="error-achievement-empty"]').should("not.exist")
+        submitForm()
+        cy.get('[data-cy="error-achievement-empty"]').should("be.visible")
+        // add new achievement should remove empty achievement error message
+        cy.get('[data-cy="edit-cv-add-achievement-btn"]').click()
+        cy.get('[data-cy="error-achievement-empty"]').should("not.exist")
       })
     })
   })

@@ -1,12 +1,22 @@
 export default function CvEditAchievement({ fields, formFunctions }) {
-  const { register, errors, handleAddAchievement } = formFunctions
+  const { register, errors, handleAddAchievement, handleDeleteAchievement } =
+    formFunctions
   return (
     <div
       className="edit-cv-achievement-container"
       data-cy="edit-cv-achievement-container"
     >
       <p className="section-title">Achievements</p>
-      {getAchievementSection(fields, { register, errors })}
+      {errors.achievements && errors.achievements.empty ? (
+        <p className="error" data-cy="error-achievement-empty">
+          {errors.achievements.empty.message}
+        </p>
+      ) : null}
+      {getAchievementSection(fields, {
+        register,
+        errors,
+        handleDeleteAchievement,
+      })}
       <button
         type="button"
         onClick={handleAddAchievement}
@@ -43,7 +53,10 @@ const achievementDateRangeValidation = {
   },
 }
 
-function getAchievementSection(fields, { register, errors }) {
+function getAchievementSection(
+  fields,
+  { register, errors, handleDeleteAchievement }
+) {
   const lastElementIndex = fields.length - 1
   return fields.map((field, index) => {
     return (
@@ -109,6 +122,14 @@ function getAchievementSection(fields, { register, errors }) {
               {errors.achievements[index].dateRange.message}
             </span>
           )}
+        <button
+          type="button"
+          onClick={() => handleDeleteAchievement(index)}
+          className="edit-cv-achievement-delete-btn"
+          data-cy={`edit-cv-achievement-${index}-delete-btn`}
+        >
+          Delete Achievement
+        </button>
         {index === lastElementIndex ? null : <hr className="divider" />}
       </section>
     )

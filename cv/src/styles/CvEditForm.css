@@ -50,7 +50,8 @@
 }
 
 .edit-cv-work-experience-delete-btn,
-.edit-cv-education-history-delete-btn {
+.edit-cv-education-history-delete-btn,
+.edit-cv-achievement-delete-btn {
   margin: 1rem 0;
   background-color: #dc2626;
   color: whitesmoke;
@@ -58,7 +59,8 @@
 }
 
 .edit-cv-work-experience-delete-btn:hover,
-.edit-cv-education-history-delete-btn:hover {
+.edit-cv-education-history-delete-btn:hover,
+.edit-cv-achievement-delete-btn:hover {
   background-color: #b91c1c;
 }
 

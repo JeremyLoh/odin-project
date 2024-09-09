@@ -63,29 +63,41 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
     control,
     name: "educationHistory",
   })
-  const { fields: achievementFields, append: appendAchievement } =
-    useFieldArray({
-      control,
-      name: "achievements",
-    })
+  const {
+    fields: achievementFields,
+    append: appendAchievement,
+    remove: removeAchievement,
+  } = useFieldArray({
+    control,
+    name: "achievements",
+  })
+
+  function setFormError(key, message) {
+    setError(key, { type: "custom", message })
+  }
 
   function onSubmit(data) {
     if (data.workExperiences.length === 0) {
-      setError("workExperiences.empty", {
-        type: "custom",
-        message: "Work Experience section cannot be empty",
-      })
+      setFormError(
+        "workExperiences.empty",
+        "Work Experience section cannot be empty"
+      )
       return
     }
     if (data.educationHistory.length === 0) {
-      setError("educationHistory.empty", {
-        type: "custom",
-        message: "Education History section cannot be empty",
-      })
+      setFormError(
+        "educationHistory.empty",
+        "Education History section cannot be empty"
+      )
+      return
+    }
+    if (data.achievements.length === 0) {
+      setFormError("achievements.empty", "Achievement section cannot be empty")
       return
     }
     clearErrors("workExperiences.empty")
     clearErrors("educationHistory.empty")
+    clearErrors("achievements.empty")
     handleCvSubmit(data)
   }
 
@@ -152,7 +164,9 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
             errors,
             handleAddAchievement: () => {
               appendAchievement(new Experience("", "", ""))
+              clearErrors("achievements.empty")
             },
+            handleDeleteAchievement: (index) => removeAchievement(index),
           }}
         />
         <button

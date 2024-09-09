@@ -433,12 +433,12 @@ describe("cv", () => {
 
       it("prevent achievement update when title is blank", () => {
         cy.get('[data-cy="edit-cv-achievement-0-title"]').clear()
-        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-title-0-error"]').should(
           "not.exist"
         )
         submitForm()
         cy.get('[data-cy="edit-cv-achievement-0-title"]').should("be.visible")
-        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-title-0-error"]').should(
           "have.text",
           "Achievement Title is required"
         )
@@ -449,11 +449,11 @@ describe("cv", () => {
         cy.get('[data-cy="edit-cv-achievement-0-title"]')
           .clear()
           .type(title, { delay: 0 })
-        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-title-0-error"]').should(
           "not.exist"
         )
         submitForm()
-        cy.get('[data-cy="edit-cv-achievement-title-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-title-0-error"]').should(
           "have.text",
           "Achievement Title must not be more than 100 characters"
         )
@@ -476,11 +476,11 @@ describe("cv", () => {
         cy.get('[data-cy="edit-cv-achievement-0-description"]')
           .clear()
           .type(description, { delay: 0 })
-        cy.get('[data-cy="edit-cv-achievement-description-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-description-0-error"]').should(
           "not.exist"
         )
         submitForm()
-        cy.get('[data-cy="edit-cv-achievement-description-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-description-0-error"]').should(
           "have.text",
           "Achievement Description must not be more than 300 characters"
         )
@@ -503,13 +503,41 @@ describe("cv", () => {
         cy.get('[data-cy="edit-cv-achievement-0-dateRange"]')
           .clear()
           .type(dateRange, { delay: 0 })
-        cy.get('[data-cy="edit-cv-achievement-dateRange-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-dateRange-0-error"]').should(
           "not.exist"
         )
         submitForm()
-        cy.get('[data-cy="edit-cv-achievement-dateRange-error"]').should(
+        cy.get('[data-cy="edit-cv-achievement-dateRange-0-error"]').should(
           "have.text",
           "Achievement Date Range must not be more than 50 characters"
+        )
+      })
+
+      it("display new achievement entry when add achievement button is clicked", () => {
+        cy.get(".achievement-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-achievement-btn"]').should("be.visible")
+        cy.get('[data-cy="edit-cv-add-achievement-btn"]').click()
+        cy.get('[data-cy="edit-cv-achievement-container"]').should("be.visible")
+        cy.get(".achievement-card").should("have.length", 2)
+      })
+
+      it("should prevent edit cv form submission when adding new achievement with blank values", () => {
+        cy.get(".achievement-card").should("have.length", 1)
+        cy.get('[data-cy="edit-cv-add-achievement-btn"]').click()
+        cy.get(".achievement-card").should("have.length", 2)
+        cy.get('[data-cy="edit-cv-achievement-1-title"]').should(
+          "have.value",
+          ""
+        )
+        cy.get('[data-cy="edit-cv-achievement-title-1-error"]').should(
+          "not.exist"
+        )
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-title-0-error"]').should(
+          "not.exist"
+        )
+        cy.get('[data-cy="edit-cv-achievement-title-1-error"]').should(
+          "be.visible"
         )
       })
     })

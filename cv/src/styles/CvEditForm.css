@@ -63,14 +63,16 @@
 }
 
 .add-work-experience-btn,
-.edit-cv-add-education-history-btn {
+.edit-cv-add-education-history-btn,
+.edit-cv-add-achievement-btn {
   margin: 0.5rem 0;
   background-color: #3b82f6;
   color: whitesmoke;
 }
 
 .add-work-experience-btn:hover,
-.edit-cv-add-education-history-btn:hover {
+.edit-cv-add-education-history-btn:hover,
+.edit-cv-add-achievement-btn:hover {
   background-color: #2563eb;
 }
 

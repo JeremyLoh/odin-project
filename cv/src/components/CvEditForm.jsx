@@ -60,10 +60,11 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
     control,
     name: "educationHistory",
   })
-  const { fields: achievementFields } = useFieldArray({
-    control,
-    name: "achievements",
-  })
+  const { fields: achievementFields, append: appendAchievement } =
+    useFieldArray({
+      control,
+      name: "achievements",
+    })
 
   function onSubmit(data) {
     if (data.workExperiences.length === 0) {
@@ -177,6 +178,16 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
         >
           <p className="section-title">Achievements</p>
           {getAchievementSection(achievementFields, { register, errors })}
+          <button
+            type="button"
+            onClick={() => {
+              appendAchievement(new Experience("", "", ""))
+            }}
+            className="edit-cv-add-achievement-btn"
+            data-cy="edit-cv-add-achievement-btn"
+          >
+            + Add Achievement
+          </button>
         </div>
         <button
           type="submit"
@@ -429,7 +440,10 @@ function getAchievementSection(achievementFields, { register, errors }) {
         {errors.achievements &&
           errors.achievements[index] &&
           errors.achievements[index].title && (
-            <span className="error" data-cy="edit-cv-achievement-title-error">
+            <span
+              className="error"
+              data-cy={`edit-cv-achievement-title-${index}-error`}
+            >
               {errors.achievements[index].title.message}
             </span>
           )}
@@ -449,7 +463,7 @@ function getAchievementSection(achievementFields, { register, errors }) {
           errors.achievements[index].description && (
             <span
               className="error"
-              data-cy={`edit-cv-achievement-description-error`}
+              data-cy={`edit-cv-achievement-description-${index}-error`}
             >
               {errors.achievements[index].description.message}
             </span>
@@ -470,7 +484,7 @@ function getAchievementSection(achievementFields, { register, errors }) {
           errors.achievements[index].dateRange && (
             <span
               className="error"
-              data-cy={`edit-cv-achievement-dateRange-error`}
+              data-cy={`edit-cv-achievement-dateRange-${index}-error`}
             >
               {errors.achievements[index].dateRange.message}
             </span>

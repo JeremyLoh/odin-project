@@ -471,6 +471,21 @@ describe("cv", () => {
         cy.get('[data-cy="cv-achievements"]').contains(expectedDescription)
       })
 
+      it("prevent achievement update when description exceeds 300 characters", () => {
+        const description = "d".repeat(301)
+        cy.get('[data-cy="edit-cv-achievement-0-description"]')
+          .clear()
+          .type(description, { delay: 0 })
+        cy.get('[data-cy="edit-cv-achievement-description-error"]').should(
+          "not.exist"
+        )
+        submitForm()
+        cy.get('[data-cy="edit-cv-achievement-description-error"]').should(
+          "have.text",
+          "Achievement Description must not be more than 300 characters"
+        )
+      })
+
       it("updates achievement date range when edit cv form is submitted", () => {
         const expectedDateRange = "9 Jan 2020"
         cy.get('[data-cy="edit-cv-achievement-0-dateRange"]')

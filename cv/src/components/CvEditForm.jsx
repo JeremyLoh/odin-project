@@ -396,6 +396,14 @@ const achievementTitleValidation = {
   },
 }
 
+const achievementDescriptionValidation = {
+  required: "Achievement Description is required",
+  maxLength: {
+    value: 300,
+    message: "Achievement Description must not be more than 300 characters",
+  },
+}
+
 function getAchievementSection(achievementFields, { register, errors }) {
   const lastElementIndex = achievementFields.length - 1
   return achievementFields.map((field, index) => {
@@ -421,10 +429,23 @@ function getAchievementSection(achievementFields, { register, errors }) {
           Achievement Description
         </label>
         <textarea
-          {...register(`achievements.${index}.description`)}
+          {...register(
+            `achievements.${index}.description`,
+            achievementDescriptionValidation
+          )}
           rows={5}
           data-cy={`edit-cv-achievement-${index}-description`}
         />
+        {errors.achievements &&
+          errors.achievements[index] &&
+          errors.achievements[index].description && (
+            <span
+              className="error"
+              data-cy={`edit-cv-achievement-description-error`}
+            >
+              {errors.achievements[index].description.message}
+            </span>
+          )}
         <label htmlFor={`achievements.${index}.dateRange`}>
           Achievement Date Range
         </label>

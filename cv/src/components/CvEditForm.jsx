@@ -2,6 +2,7 @@ import { useFieldArray, useForm } from "react-hook-form"
 import "../styles/CvEditForm.css"
 import Experience from "../model/Experience"
 import CvEditAchievement from "./CvEditAchievement"
+import CvEditEducation from "./CvEditEducation"
 
 const nameValidation = {
   required: "Name is required",
@@ -146,33 +147,18 @@ export default function CvEditForm({ cvDetails, handleCvSubmit }) {
             + Add Work Experience
           </button>
         </div>
-        <div
-          className="edit-cv-education-container"
-          data-cy="edit-cv-education-container"
-        >
-          <p className="section-title">Education</p>
-          {errors.educationHistory && errors.educationHistory.empty ? (
-            <p className="error" data-cy="error-education-history-empty">
-              {errors.educationHistory.empty.message}
-            </p>
-          ) : null}
-          {getEducationSection(educationFields, {
-            errors,
+        <CvEditEducation
+          fields={educationFields}
+          formFunctions={{
             register,
+            errors,
             removeEducationHistory,
-          })}
-          <button
-            type="button"
-            onClick={() => {
+            handleAddEducationHistory: () => {
               appendEducationHistory(new Experience("", "", ""))
               clearErrors("educationHistory.empty")
-            }}
-            className="edit-cv-add-education-history-btn"
-            data-cy="edit-cv-add-education-history-btn"
-          >
-            + Add Education History
-          </button>
-        </div>
+            },
+          }}
+        />
         <CvEditAchievement
           achievementFields={achievementFields}
           formFunctions={{
@@ -277,115 +263,6 @@ function getWorkExperienceSection(
           data-cy={`edit-cv-work-experience-${index}-delete-btn`}
         >
           Delete Work Experience
-        </button>
-        {index === lastElementIndex ? null : <hr className="divider" />}
-      </section>
-    )
-  })
-}
-
-const educationTitleValidation = {
-  required: "Education Title is required",
-  maxLength: {
-    value: 150,
-    message: "Education Title cannot exceed 150 characters",
-  },
-}
-const educationDescriptionValidation = {
-  maxLength: {
-    value: 300,
-    message: "Education Description cannot exceed 300 characters",
-  },
-}
-const educationDateRangeValidation = {
-  required: "Education Date Range is required",
-  maxLength: {
-    value: 50,
-    message: "Education Date Range cannot exceed 50 characters",
-  },
-}
-
-function getEducationSection(
-  educationFields,
-  { errors, register, removeEducationHistory }
-) {
-  const lastElementIndex = educationFields.length - 1
-  return educationFields.map((field, index) => {
-    return (
-      <section key={field.id} className="education-history-card">
-        <label htmlFor={`educationHistory.${index}.title`}>
-          Education Title
-        </label>
-        <input
-          key={`${field.id}-${index}-education-title`}
-          type="text"
-          data-cy={`edit-cv-education-${index}-title`}
-          {...register(
-            `educationHistory.${index}.title`,
-            educationTitleValidation
-          )}
-        />
-        {errors.educationHistory &&
-          errors.educationHistory[index] &&
-          errors.educationHistory[index].title && (
-            <span
-              className="error"
-              data-cy={`edit-education-history-title-${index}-error`}
-            >
-              {errors.educationHistory[index].title.message}
-            </span>
-          )}
-        <label htmlFor={`educationHistory.${index}.description`}>
-          Education Description
-        </label>
-        <textarea
-          key={`${field.id}-${index}-education-description`}
-          rows={5}
-          data-cy={`edit-cv-education-${index}-description`}
-          {...register(
-            `educationHistory.${index}.description`,
-            educationDescriptionValidation
-          )}
-        />
-        {errors.educationHistory &&
-          errors.educationHistory[index] &&
-          errors.educationHistory[index].description && (
-            <span
-              className="error"
-              data-cy={`edit-education-history-description-${index}-error`}
-            >
-              {errors.educationHistory[index].description.message}
-            </span>
-          )}
-        <label htmlFor={`educationHistory.${index}.dateRange`}>
-          Education Date Range
-        </label>
-        <input
-          key={`${field.id}-${index}-education-dateRange`}
-          type="text"
-          data-cy={`edit-cv-education-${index}-dateRange`}
-          {...register(
-            `educationHistory.${index}.dateRange`,
-            educationDateRangeValidation
-          )}
-        />
-        {errors.educationHistory &&
-          errors.educationHistory[index] &&
-          errors.educationHistory[index].dateRange && (
-            <span
-              className="error"
-              data-cy={`edit-education-history-dateRange-${index}-error`}
-            >
-              {errors.educationHistory[index].dateRange.message}
-            </span>
-          )}
-        <button
-          type="button"
-          onClick={() => removeEducationHistory(index)}
-          className="edit-cv-education-history-delete-btn"
-          data-cy={`edit-cv-education-history-${index}-delete-btn`}
-        >
-          Delete Education History
         </button>
         {index === lastElementIndex ? null : <hr className="divider" />}
       </section>

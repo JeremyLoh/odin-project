@@ -1,0 +1,15 @@
+.cv-action-container {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-left: auto;
+  width: fit-content;
+  background-color: #fafaf9;
+  border-radius: 16px 16px 0 0;
+  padding: 0.4rem 1rem;
+  margin-top: 1rem;
+}
+
+.icon:hover {
+  border-bottom: 1mm solid black;
+}

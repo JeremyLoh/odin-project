@@ -1,0 +1,22 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  background-color: #e7e5e4;
+  padding: 0.5rem;
+  margin: 0.2rem 0;
+}
+
+.card p {
+  margin: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  word-break: break-all;
+}
+
+.card-body {
+  word-break: break-all;
+}

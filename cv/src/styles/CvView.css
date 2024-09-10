@@ -1,0 +1,28 @@
+.cv-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: #fafaf9;
+  width: 100%;
+  font-size: calc(1rem + 0.1vw);
+  color: #1c1917;
+}
+
+.cv-name {
+  text-align: center;
+  font-weight: bold;
+}
+
+.cv-contact-summary {
+  text-align: center;
+  font-size: 1rem;
+}
+
+.cv-contact-summary p,
+.section-title {
+  margin: 0;
+}
+
+.bold {
+  font-weight: bold;
+}

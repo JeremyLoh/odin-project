@@ -1,0 +1,95 @@
+.edit-cv-form-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  background-color: #fafaf9;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  color: #1c1917;
+}
+
+input[type="text"],
+textarea {
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-bottom: 2px solid #444;
+  font-size: 1rem;
+  border-radius: 8px;
+  background-color: #e5e5e5;
+  color: inherit;
+}
+
+.error {
+  color: #dc2626;
+}
+
+.edit-cv-title {
+  margin: 0.5rem 0;
+  text-align: center;
+}
+
+.edit-cv-form-container form {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.5rem;
+}
+
+.edit-cv-form-submit-btn {
+  background-color: #3b82f6;
+  color: whitesmoke;
+  margin-top: 0.5rem;
+}
+
+.edit-cv-form-submit-btn:hover {
+  background-color: #2563eb;
+}
+
+.edit-cv-form-submit-btn:disabled {
+  background-color: #93c5fd;
+  color: #555;
+}
+
+.section-title {
+  margin: 0;
+  font-weight: bold;
+  text-align: center;
+}
+
+.work-experience-card,
+.education-history-card,
+.achievement-card {
+  display: flex;
+  flex-direction: column;
+  row-gap: 0.2rem;
+}
+
+.edit-cv-work-experience-delete-btn,
+.edit-cv-education-history-delete-btn,
+.edit-cv-achievement-delete-btn {
+  align-self: flex-end;
+  margin-top: 0.5rem;
+  background-color: #dc2626;
+  color: whitesmoke;
+  width: fit-content;
+}
+
+.edit-cv-work-experience-delete-btn:hover,
+.edit-cv-education-history-delete-btn:hover,
+.edit-cv-achievement-delete-btn:hover {
+  background-color: #b91c1c;
+}
+
+.edit-cv-add-work-experience-btn,
+.edit-cv-add-education-history-btn,
+.edit-cv-add-achievement-btn {
+  margin-top: 0.5rem;
+  background-color: #3b82f6;
+  color: whitesmoke;
+  float: right;
+}
+
+.edit-cv-add-work-experience-btn:hover,
+.edit-cv-add-education-history-btn:hover,
+.edit-cv-add-achievement-btn:hover {
+  background-color: #2563eb;
+}

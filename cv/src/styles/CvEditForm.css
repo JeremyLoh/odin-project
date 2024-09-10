@@ -3,7 +3,8 @@
   flex-direction: column;
   width: 100%;
   background-color: #fafaf9;
-  padding: 0.5rem 1rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
 }
 
 .error {
@@ -52,7 +53,8 @@
 .edit-cv-work-experience-delete-btn,
 .edit-cv-education-history-delete-btn,
 .edit-cv-achievement-delete-btn {
-  margin: 1rem 0;
+  align-self: flex-end;
+  margin-top: 0.5rem;
   background-color: #dc2626;
   color: whitesmoke;
   width: fit-content;
@@ -67,20 +69,14 @@
 .add-work-experience-btn,
 .edit-cv-add-education-history-btn,
 .edit-cv-add-achievement-btn {
-  margin: 0.5rem 0;
+  margin-top: 0.5rem;
   background-color: #3b82f6;
   color: whitesmoke;
+  float: right;
 }
 
 .add-work-experience-btn:hover,
 .edit-cv-add-education-history-btn:hover,
 .edit-cv-add-achievement-btn:hover {
   background-color: #2563eb;
-}
-
-.divider {
-  width: 100%;
-  border: 0.4mm solid #777;
-  border-radius: 8px;
-  margin: 1rem 0;
 }

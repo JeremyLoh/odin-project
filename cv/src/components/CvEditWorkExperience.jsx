@@ -1,3 +1,5 @@
+import HorizontalLine from "./HorizontalLine"
+
 export default function CvEditWorkExperience({ fields, formFunctions }) {
   const { register, errors, removeWorkExperience, handleAddWorkExperience } =
     formFunctions
@@ -23,7 +25,7 @@ export default function CvEditWorkExperience({ fields, formFunctions }) {
         className="add-work-experience-btn"
         data-cy="edit-cv-add-work-experience-btn"
       >
-        + Add Work Experience
+        Add Work Experience
       </button>
     </div>
   )
@@ -111,7 +113,7 @@ function getWorkExperienceSection(
         >
           Delete Work Experience
         </button>
-        {index === lastElementIndex ? null : <hr className="divider" />}
+        {index === lastElementIndex ? null : <HorizontalLine />}
       </section>
     )
   })

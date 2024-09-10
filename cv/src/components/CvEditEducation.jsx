@@ -1,3 +1,5 @@
+import HorizontalLine from "./HorizontalLine"
+
 export default function CvEditEducation({ fields, formFunctions }) {
   const {
     errors,
@@ -27,7 +29,7 @@ export default function CvEditEducation({ fields, formFunctions }) {
         className="edit-cv-add-education-history-btn"
         data-cy="edit-cv-add-education-history-btn"
       >
-        + Add Education History
+        Add Education History
       </button>
     </div>
   )
@@ -136,7 +138,7 @@ function getEducationSection(
         >
           Delete Education History
         </button>
-        {index === lastElementIndex ? null : <hr className="divider" />}
+        {index === lastElementIndex ? null : <HorizontalLine />}
       </section>
     )
   })

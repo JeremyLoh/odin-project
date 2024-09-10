@@ -1,3 +1,5 @@
+import HorizontalLine from "./HorizontalLine"
+
 export default function CvEditAchievement({ fields, formFunctions }) {
   const { register, errors, handleAddAchievement, handleDeleteAchievement } =
     formFunctions
@@ -23,7 +25,7 @@ export default function CvEditAchievement({ fields, formFunctions }) {
         className="edit-cv-add-achievement-btn"
         data-cy="edit-cv-add-achievement-btn"
       >
-        + Add Achievement
+        Add Achievement
       </button>
     </div>
   )
@@ -130,7 +132,7 @@ function getAchievementSection(
         >
           Delete Achievement
         </button>
-        {index === lastElementIndex ? null : <hr className="divider" />}
+        {index === lastElementIndex ? null : <HorizontalLine />}
       </section>
     )
   })

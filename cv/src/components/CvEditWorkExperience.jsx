@@ -22,7 +22,7 @@ export default function CvEditWorkExperience({ fields, formFunctions }) {
       <button
         type="button"
         onClick={handleAddWorkExperience}
-        className="add-work-experience-btn"
+        className="edit-cv-add-work-experience-btn"
         data-cy="edit-cv-add-work-experience-btn"
       >
         Add Work Experience

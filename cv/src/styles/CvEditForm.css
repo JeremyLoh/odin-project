@@ -5,6 +5,7 @@
   background-color: #fafaf9;
   padding: 1rem;
   margin-bottom: 1rem;
+  color: #1c1917;
 }
 
 input[type="text"],
@@ -15,6 +16,7 @@ textarea {
   font-size: 1rem;
   border-radius: 8px;
   background-color: #e5e5e5;
+  color: inherit;
 }
 
 .error {

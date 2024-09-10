@@ -1,5 +1,7 @@
 # Project URLs
 
+Cv - https://cv-odin-project.vercel.app/
+
 Image Carousel - https://jeremyloh.github.io/odin-project/image-carousel
 
 Weather - https://jeremyloh.github.io/odin-project/weather

@@ -7,6 +7,16 @@
   margin-bottom: 1rem;
 }
 
+input[type="text"],
+textarea {
+  padding: 0.3rem 0.5rem;
+  border: none;
+  border-bottom: 2px solid #444;
+  font-size: 1rem;
+  border-radius: 8px;
+  background-color: #e5e5e5;
+}
+
 .error {
   color: #dc2626;
 }
@@ -48,6 +58,7 @@
 .achievement-card {
   display: flex;
   flex-direction: column;
+  row-gap: 0.2rem;
 }
 
 .edit-cv-work-experience-delete-btn,
